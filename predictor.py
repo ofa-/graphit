@@ -20,6 +20,9 @@ def main():
 
     data = sums.rolling(7).mean()
 
+    reg_data = data['incid_rea'].tail(21)
+    reg_line = exp_lin_reg(reg_data)
+
     #with plt.xkcd():
     if True:
         plot = data \
@@ -38,6 +41,20 @@ def plot_opt(plot):
     plot.axes.yaxis.set_major_formatter(lambda x, pos: f'{x:.0f}')
     plot.grid(axis='y', which='both')
     plot.grid(axis='x', which='major')
+
+
+def exp_lin_reg(reg_data):
+    X = reg_data.index.values.reshape(-1,1)
+    Y = reg_data.apply(np.log)
+
+    reg = LinearRegression()
+    reg.fit(X, Y)
+
+    reg_line = reg.predict(X.astype('float64'))
+
+    return pd.Series(index=Y.index, data=reg_line) \
+                .rename('reg') \
+                .apply(np.exp)
 
 
 main()
