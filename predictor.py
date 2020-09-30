@@ -27,6 +27,7 @@ def main():
     if True:
         plot = data \
                 .drop(['incid_hosp', 'incid_rad'], axis=1) \
+                .join(reg_line) \
                 .plot(logy=True)
 
         plot_opt(plot)
