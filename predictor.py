@@ -30,6 +30,7 @@ def main():
         plot = data \
                 .drop(['incid_hosp', 'incid_rad'], axis=1) \
                 .join(reg_line) \
+                .join(pred, how='outer') \
                 .plot(logy=True)
 
         plot_opt(plot)
@@ -47,6 +48,16 @@ def predictor(data):
                 .mask(data.index < "2020-09-07")
 
     return shifted, shifts
+
+
+def annotate(plot, shifted, shifts):
+    nb_days = shifts[0]
+    plot.annotate(
+        '+%d j ' % nb_days,
+        xy=(shifted.index[-10], shifted[-10]),
+        bbox=dict(boxstyle="round4", fc="w"),
+        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=-0.2", fc="w"),
+        xytext=(shifted.index[-18], shifted[-10]+12))
 
 
 def plot_opt(plot):
