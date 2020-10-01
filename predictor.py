@@ -23,6 +23,8 @@ def main():
     reg_data = data['incid_rea'].tail(21)
     reg_line = exp_lin_reg(reg_data)
 
+    pred, cuts = predictor(data)
+
     #with plt.xkcd():
     if True:
         plot = data \
@@ -34,6 +36,17 @@ def main():
 
     plt.subplots_adjust(bottom=0.16)
     plt.show()
+
+
+def predictor(data):
+    scaled = 10**0.2 * data['incid_rea'].pow(0.885).rename('pred')
+
+    shifts = [ 19 ]
+    nb_days = 19
+    shifted = scaled.shift(periods=nb_days, freq='D') \
+                .mask(data.index < "2020-09-07")
+
+    return shifted, shifts
 
 
 def plot_opt(plot):
