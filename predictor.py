@@ -69,11 +69,16 @@ def annotate(plot, shifted, shifts):
 
 
 def plot_opt(plot):
-    plot.axes.yaxis.set_minor_formatter(ScalarFormatter())
-    plot.axes.yaxis.set_minor_formatter(lambda x, pos: f'{x:.0f}')
-    plot.axes.yaxis.set_major_formatter(lambda x, pos: f'{x:.0f}')
+    log_scalator = [0,5,10,20,40,80,100,160,200,400,800]
+    int_formatter = lambda x, pos: f'{x:.0f}'
+    plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
+    plot.axes.yaxis.set_minor_formatter(int_formatter)
+    plot.axes.yaxis.set_major_formatter(int_formatter)
+    plot.axes.set_xlabel(None)
     plot.grid(axis='y', which='both')
     plot.grid(axis='x', which='major')
+    plot.axes.tick_params(which='both', right=True, labelright=True)
+    plot.axes.tick_params(which='both', axis="y", length=6, width=1)
 
 
 def exp_lin_reg(reg_data):
