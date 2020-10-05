@@ -20,8 +20,7 @@ def main():
 
     data = sums.rolling(7).mean()
 
-    reg_data = data['incid_rea'].tail(21)
-    reg_line = exp_lin_reg(reg_data)
+    reg_line = regressor(data)
 
     pred, cuts = predictor(data)
 
@@ -37,6 +36,15 @@ def main():
 
     plt.subplots_adjust(bottom=0.16)
     plt.show()
+
+
+def regressor(data):
+    reg_data = data['incid_rea']
+
+    return exp_lin_reg(reg_data[200-7:]) \
+            .append(exp_lin_reg(reg_data[200-28:200-8])) \
+            .append(exp_lin_reg(reg_data[200-50:200-40])) \
+            .append(exp_lin_reg(reg_data[200-80:200-60])) \
 
 
 def predictor(data):
