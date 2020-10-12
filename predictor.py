@@ -82,6 +82,15 @@ def plot_opt(plot):
 
 
 def exp_lin_reg(reg_data):
+    line, slope = _exp_lin_reg(reg_data)
+    return line
+
+def slope(reg_data):
+    line, slope = _exp_lin_reg(reg_data)
+    return slope
+
+
+def _exp_lin_reg(reg_data):
     X = reg_data.index.values.reshape(-1,1)
     Y = reg_data.apply(np.log)
 
@@ -89,10 +98,12 @@ def exp_lin_reg(reg_data):
     reg.fit(X, Y)
 
     reg_line = reg.predict(X.astype('float64'))
+    slope = reg_line[1]-reg_line[0]
 
     return pd.Series(index=Y.index, data=reg_line) \
                 .rename('reg') \
-                .apply(np.exp)
+                .apply(np.exp) \
+            , slope
 
 
 main()
