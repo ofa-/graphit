@@ -7,6 +7,7 @@ import locale; locale.setlocale(locale.LC_ALL, "fr_FR.UTF8")
 import numpy as np
 
 from matplotlib.ticker import ScalarFormatter
+from matplotlib.dates import DateFormatter
 from sklearn.linear_model import LinearRegression
 
 from sys import argv
@@ -116,6 +117,7 @@ def plot_opt(plot):
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
     plot.axes.yaxis.set_major_formatter(int_formatter)
+    plot.axes.xaxis.set_major_formatter(DateFormatter('\xAF\n%b'))
     plot.axes.set_xlabel(None)
     plot.grid(axis='y', which='both')
     plot.grid(axis='x', which='major')
