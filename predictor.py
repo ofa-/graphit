@@ -61,6 +61,9 @@ def regressor(data):
             .append(exp_lin_reg(reg_data[200-28:200-8])) \
             .append(exp_lin_reg(reg_data[200-50:200-40])) \
             .append(exp_lin_reg(reg_data[200-80:200-60])) \
+            .append(exp_lin_reg(reg_data[9:14])) \
+            .append(exp_lin_reg(reg_data[19:28])) \
+            .append(exp_lin_reg(reg_data[30:100])) \
 
 
 def predictor(data):
