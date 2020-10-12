@@ -41,15 +41,15 @@ def main():
 
     pred, cuts = predictor(data)
 
-    #with plt.xkcd():
-    if True:
+    with plt.xkcd():
+    #if True:
         plot = data \
                 .drop(['incid_hosp', 'incid_rad'], axis=1) \
                 .join(reg_line) \
                 .join(pred, how='outer') \
                 .plot(logy=True)
 
-        plot_opt(plot)
+    plot_opt(plot)
 
         set_title(arg, data)
         set_window()
