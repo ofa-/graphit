@@ -50,7 +50,9 @@ def main():
 
         plot_opt(plot)
 
-    plt.subplots_adjust(bottom=0.16)
+        set_title(arg, data)
+        set_window()
+
     plt.show()
 
 
@@ -144,6 +146,22 @@ def _exp_lin_reg(reg_data):
                 .rename('reg') \
                 .apply(np.exp) \
             , slope
+
+
+def set_window():
+    plt.get_current_fig_manager().resize(600,600)
+    plt.subplots_adjust(bottom=0.16)
+
+
+def set_title(arg, data):
+    if arg in regions:
+        region = regions[arg][0]
+        region = " ".join(region.split("|"))
+
+    title = f"{region}"
+
+    plt.title(title, pad=20)
+
 
 
 main()
