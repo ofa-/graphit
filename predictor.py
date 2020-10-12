@@ -9,6 +9,15 @@ import numpy as np
 from matplotlib.ticker import ScalarFormatter
 from sklearn.linear_model import LinearRegression
 
+from sys import argv
+
+regions = {
+        "pc":  [ "Petite Couronne", "92|93|94" ],
+        "gc":  [ "Grande Couronne", "77|78|91|95" ],
+        "idf": [ "Île de France", "75|91|92|93|94|95|77|78" ],
+        "sud": [ "13|30|34|83" ],
+        "met": [ "Métropole" ],
+}
 
 def main():
 
@@ -16,7 +25,14 @@ def main():
 
     metropole = data[~data.dep.str.match("^97")]
 
-    sums = metropole.groupby('jour').sum()
+    arg = argv[1] if len(argv) > 1 else "met"
+
+    region = regions[arg][-1] if arg in regions else arg
+
+    selection = metropole if arg == "met" else \
+                data[data.dep.str.match(region)]
+
+    sums = selection.groupby('jour').sum()
 
     data = sums.rolling(7).mean()
 
