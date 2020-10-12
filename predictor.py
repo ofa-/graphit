@@ -67,12 +67,25 @@ def regressor(data):
 
 
 def predictor(data):
-    scaled = 10**0.2 * data['incid_rea'].pow(0.885).rename('pred')
+    scaled = 10**0.2 * data['incid_rea'].pow(0.885)
 
-    shifts = [ 19 ]
-    nb_days = 19
-    shifted = scaled.shift(periods=nb_days, freq='D') \
-                .mask(data.index < "2020-09-07")
+    shifts = [
+                [ [0,20], 5 ],
+                [ [19,26], 13 ],
+                [ [25,40], 15 ],
+                [ [40,66], 17 ],
+                [ [70,91], 14 ],
+                [ [84,140], 27 ],
+                [ [153,159], 23 ],
+                [ [163,178], 19 ],
+                [ [176,len(scaled)], 24 ],
+            ]
+
+    shifted = pd.concat([
+        scaled[range(*chunk[0])] .shift(periods=chunk[1], freq='D')
+            for chunk in shifts
+        ]) \
+        .rename('pred')
 
     return shifted, shifts
 
