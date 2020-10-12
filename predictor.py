@@ -58,6 +58,14 @@ def predictor(data):
     return shifted, shifts
 
 
+def double_time(data):
+    # y = ax + b  =>  dy = a dx  =>  dx = 1/a dy
+    # y = log(u)  =>  dy = log(u2) - log(u1) = log(u2/u1)
+    # u2/u1 = 2   =>  dx = 1/a log(2)
+
+    return np.log(2) / slope(data)
+
+
 def annotate(plot, shifted, shifts):
     nb_days = shifts[0]
     plot.annotate(
