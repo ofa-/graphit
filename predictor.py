@@ -28,7 +28,7 @@ def main():
 
     metropole = data[~data.dep.str.match("^97")]
 
-    arg = argv[1] if len(argv) > 1 else "met"
+    arg = "met" if len(argv) <= 1 else "|".join(argv[1:])
 
     region = regions[arg][-1] if arg in regions else arg
 
@@ -189,7 +189,10 @@ def set_title(arg, data):
 
     if arg in regions:
         region = regions[arg][0]
-        region = " ".join(region.split("|"))
+    elif "|" in arg:
+        region = arg
+
+    region = region.replace("|", " ")
 
     title = f"{region}"
     title += f"\nréa x2 en {double_time_curr:.0f} j"
