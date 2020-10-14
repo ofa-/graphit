@@ -17,6 +17,8 @@ regions = {
         "gc":  [ "Grande Couronne", "77|78|91|95" ],
         "idf": [ "Île de France", "75|91|92|93|94|95|77|78" ],
         "sud": [ "13|30|34|83" ],
+        "brg": [ "Bourgogne Franche-Comté", "21|25|39|58|70|71|89|90" ],
+        "fc":  [ "Franche-Comté", "25|39|70|90" ],
         "met": [ "Métropole" ],
 }
 
