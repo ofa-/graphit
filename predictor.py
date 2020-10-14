@@ -55,6 +55,7 @@ def main():
         plot = plot.plot(logy=True)
 
     plot_opt(plot)
+    set_view(plot, arg)
 
         set_title(arg, data)
         set_window()
@@ -128,6 +129,27 @@ def plot_opt(plot):
     plot.grid(axis='x', which='major')
     plot.axes.tick_params(which='both', right=True, labelright=True)
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
+
+
+def set_view(plot, arg):
+    from datetime import date, timedelta as td; now = date.today()
+
+    #plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))   # full story
+    #plot.set(xlim=("2020-09-07", "2020-10-20"), ylim=(16, 190))  # 1 month + predictor / 2w
+    #plot.set(xlim=("2020-09-14", "2020-10-12"), ylim=(16, 190))  # 1 month = 4 weeks
+    #plot.set(xlim=("2020-09-08", "2020-10-08"), ylim=(0.6, 12))  # 3 weeks, low volumes (dept.)
+    #plot.set(xlim=("2020-07-14", "2020-10-12"), ylim=(8, 180))   # 3 months
+    #plot.set(xlim=("2020-07-27", "2020-10-30"), ylim=(6.5, 190))   # 3 months
+    #plot.set(xlim=(now-td(days=25), now+td(days=4)), ylim=(9, 190))   # 3 weeks, to date
+
+    plot.set(xlim=(now-td(days=28), now+td(days=1)), ylim=(0.8, 24))
+
+    if arg == "idf":
+        plot.set(ylim=(8, 240)) # keep scale (x10 vs other dept.)
+
+    if arg == "met":
+        plot.set( xlim=(now-td(days=25), now+td(days=10)), # 10 days predictor
+                    ylim=(21, 220))
 
 
 def exp_lin_reg(reg_data):
