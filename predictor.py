@@ -164,10 +164,10 @@ def slope(reg_data):
 
 def _exp_lin_reg(reg_data):
     X = reg_data.index.values.reshape(-1,1)
-    Y = reg_data.apply(np.log)
+    Y = reg_data.mask(reg_data == 0).apply(np.log)
 
     reg = LinearRegression()
-    reg.fit(X, Y)
+    reg.fit(X, Y.fillna(0))
 
     reg_line = reg.predict(X.astype('float64'))
     slope = reg_line[1]-reg_line[0]
