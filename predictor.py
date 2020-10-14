@@ -183,11 +183,15 @@ def set_window():
 
 
 def set_title(arg, data):
+    double_time_prev = double_time(data['incid_rea'][200-28:200-8])
+    double_time_curr = double_time(data['incid_rea'][200-7:])
+
     if arg in regions:
         region = regions[arg][0]
         region = " ".join(region.split("|"))
 
     title = f"{region}"
+    title += f"\nréa x2 en {double_time_curr:.0f} j"
 
     plt.title(title, pad=20)
 
