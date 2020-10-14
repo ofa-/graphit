@@ -178,6 +178,16 @@ def _exp_lin_reg(reg_data):
             , slope
 
 
+def pop_info_string(arg):
+    region = regions[arg][-1] if arg in regions else arg
+
+    metropole = dep[~dep.NUMÉRO.str.match("97")].POPULATION.sum()
+    pop_region = dep[dep.NUMÉRO.str.match(region)].POPULATION.sum()
+
+    return "" if arg == "met" else \
+            "({:.0f}% de la population)".format(pop_region/metropole*100.)
+
+
 def set_window():
     plt.get_current_fig_manager().resize(600,600)
     plt.subplots_adjust(bottom=0.16)
@@ -187,18 +197,31 @@ def set_title(arg, data):
     double_time_prev = double_time(data['incid_rea'][200-28:200-8])
     double_time_curr = double_time(data['incid_rea'][200-7:])
 
+    pop_info = pop_info_string(arg)
+
     if arg in regions:
         region = regions[arg][0]
     elif "|" in arg:
         region = arg
+    else:
+        region = dep[dep.NUMÉRO == arg].NOM.values[0]
 
     region = region.replace("|", " ")
 
-    title = f"{region}"
+    title = f"{region} {pop_info}"
     title += f"\nréa x2 en {double_time_curr:.0f} j"
 
     plt.title(title, pad=20)
 
 
+def init():
+    from os import path, system
+    if not path.exists("data.csv"):
+        system("fetch.sh")
+
+
+init()
+
+dep = pd.read_csv("dep.csv", sep="\t")
 
 main()
