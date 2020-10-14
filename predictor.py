@@ -129,6 +129,7 @@ def plot_opt(plot):
     plot.grid(axis='x', which='major')
     plot.axes.tick_params(which='both', right=True, labelright=True)
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
+    plot.axes.set_xticks(plot.axes.get_xticks()[1:-1])
 
 
 def set_view(plot, arg):
