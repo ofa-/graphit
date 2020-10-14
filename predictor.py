@@ -43,13 +43,16 @@ def main():
 
     pred, cuts = predictor(data)
 
+    plot = data \
+            .drop(['incid_hosp', 'incid_rad'], axis=1) \
+            .join(reg_line)
+
+    if arg == "met":
+        plot = plot.join(pred, how='outer')
+
     with plt.xkcd():
     #if True:
-        plot = data \
-                .drop(['incid_hosp', 'incid_rad'], axis=1) \
-                .join(reg_line) \
-                .join(pred, how='outer') \
-                .plot(logy=True)
+        plot = plot.plot(logy=True)
 
     plot_opt(plot)
 
