@@ -51,6 +51,7 @@ def main():
     with plt.xkcd():
     #if True:
         plot = plot.plot(logy=True)
+        annotate(plot, pred, cuts)
 
         set_opts(plot)
         set_view(plot, arg)
@@ -104,13 +105,32 @@ def double_time(data):
 
 
 def annotate(plot, shifted, shifts):
-    nb_days = shifts[0]
+    curr = 0
+    for shift in shifts:
+        chunk, nb_days = shift
+        size = len(range(*chunk))
+        middle = int(size/2)
+        print(chunk, size, nb_days)
+        side = shifted[middle+curr] - shifted[curr] < 0
+        point = (
+            shifted.index[middle+curr],
+            shifted[middle+curr]
+        )
+        _annotate(plot, point, nb_days, side)
+        curr += size
+
+
+def _annotate(plot, point, nb_days, side):
     plot.annotate(
-        '+%d j ' % nb_days,
-        xy=(shifted.index[-10], shifted[-10]),
+        f'+{nb_days} j ',
+        xy=point,
         bbox=dict(boxstyle="round4", fc="w"),
         arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=-0.2", fc="w"),
-        xytext=(shifted.index[-18], shifted[-10]+12))
+        xytext=(
+            point[0] + pd.Timedelta(days=3),
+            point[1] * (1.2 if side else 1/1.2) # logscale => offset via * or /
+        )
+    )
 
 
 def set_opts(plot):
