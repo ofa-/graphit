@@ -52,11 +52,9 @@ def main():
     #if True:
         plot = plot.plot(logy=True)
 
-    plot_opt(plot)
-    set_view(plot, arg)
-
-        set_title(arg, data)
-        set_window()
+        set_opts(plot)
+        set_view(plot, arg)
+        set_title(plot, arg, data)
 
     plt.show()
 
@@ -115,7 +113,7 @@ def annotate(plot, shifted, shifts):
         xytext=(shifted.index[-18], shifted[-10]+12))
 
 
-def plot_opt(plot):
+def set_opts(plot):
     log_scalator = [0,5,10,20,40,80,100,160,200,400,800]
     int_formatter = lambda x, pos: f'{x:.0f}'
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
@@ -129,9 +127,16 @@ def plot_opt(plot):
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
     plot.axes.set_xticks(plot.axes.get_xticks()[1:-1])
 
+    plot.legend(["RÉA / j","DC / j"])
+    plot.figure.set(figwidth=6, figheight=6)
+    plot.figure.subplots_adjust(bottom=0.16)
+
+
+
 
 def set_view(plot, arg):
-    from datetime import date, timedelta as td; now = date.today()
+    td = pd.Timedelta
+    now = pd.to_datetime("now")
 
     #plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))   # full story
     #plot.set(xlim=("2020-09-07", "2020-10-20"), ylim=(16, 190))  # 1 month + predictor / 2w
@@ -186,12 +191,7 @@ def pop_info_string(arg):
             "({:.0f}% de la population)".format(pop_region/metropole*100.)
 
 
-def set_window():
-    plt.get_current_fig_manager().resize(600,600)
-    plt.subplots_adjust(bottom=0.16)
-
-
-def set_title(arg, data):
+def set_title(plot, arg, data):
     double_time_prev = double_time(data['incid_rea'][200-28:200-8])
     double_time_curr = double_time(data['incid_rea'][200-7:])
 
@@ -209,7 +209,7 @@ def set_title(arg, data):
     title = f"{region} {pop_info}"
     title += f"\nréa x2 en {double_time_curr:.0f} j"
 
-    plt.title(title, pad=20)
+    plot.set_title(title, pad=20)
 
 
 def init():
