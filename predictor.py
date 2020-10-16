@@ -40,14 +40,13 @@ def main():
 
     reg_line = regressor(data)
 
-    pred, cuts = predictor(data)
+    pred, cuts = predictor(data) \
+                    if arg == "met" else ([],[])
 
     plot = data \
             .drop(['incid_hosp', 'incid_rad'], axis=1) \
-            .join(reg_line)
-
-    if arg == "met":
-        plot = plot.join(pred, how='outer')
+            .join(reg_line) \
+            .join(pred, how='outer')
 
     with plt.xkcd():
     #if True:
