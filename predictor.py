@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import locale; locale.setlocale(locale.LC_ALL, "fr_FR.UTF8")
 import numpy as np
 
-from matplotlib.ticker import ScalarFormatter
 from matplotlib.dates import DateFormatter
 from sklearn.linear_model import LinearRegression
 
