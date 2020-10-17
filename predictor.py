@@ -177,7 +177,7 @@ def set_opts(plot):
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
     plot.axes.set_xticks(plot.axes.get_xticks()[1:-1])
 
-    plot.legend(["réa", "dc"], fontsize="small")
+    plot.legend(["admis. réa / j", "nouv. dc / j"], fontsize="small")
     plot.figure.set(figwidth=6, figheight=6)
     plot.figure.subplots_adjust(bottom=0.16)
 
@@ -257,7 +257,7 @@ def set_title(plot, arg, data, chunks):
     region = region.replace("|", " ")
 
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 en {double_time_prev:.0f} -> {double_time_curr:.0f} j"
+    title += f"\nréa x2 : {double_time_prev:.0f} j -> {double_time_curr:.0f} j"
 
     plot.set_title(title, pad=20, fontsize="small")
 
