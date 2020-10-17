@@ -38,6 +38,8 @@ def main():
 
     data = sums.rolling(7).mean()
 
+    avg_dc = avg_dc_line(region if arg != "met" else arg)
+
     reg_line, chunks = regressor(data)
 
     pred, cuts = predictor(data) \
@@ -52,6 +54,7 @@ def main():
     #if True:
         plot = plot.plot(logy=True)
         annotate(plot, pred, cuts)
+        avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
 
         set_opts(plot)
         set_view(plot, arg)
@@ -105,6 +108,20 @@ def predictor(data):
         .rename('pred')
 
     return shifted, shifts
+
+
+def avg_dc_line(region):
+    dc_j = pd.read_csv("dc_j.csv")
+
+    sel = dc_j.depdom.str.match(region) if region != "met" else \
+         ~dc_j.depdom.str.match("9[7-9]|na")
+
+    dc_j = dc_j[sel].groupby("MDEC").dc_j.sum()
+
+    dates = pd.date_range("2020-03-01", "2021-04-01")
+    avg_dc = [ dc_j[month]/10 for month in dates.month ]
+
+    return pd.Series(index=dates, data=avg_dc).rename('dc_j')
 
 
 def double_time(data):
