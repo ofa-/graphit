@@ -98,7 +98,7 @@ def predictor(data):
                 [ [153,159], 23 ],
                 [ [165,172], 17 ],
                 [ [172,179], 19 ],
-                [ [176,len(scaled)], 24 ],
+                [ [178,len(scaled)], 26 ],
             ]
 
     shifted = pd.concat([
