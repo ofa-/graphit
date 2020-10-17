@@ -55,7 +55,7 @@ def main():
 
         set_opts(plot)
         set_view(plot, arg)
-        set_title(plot, arg, data)
+        set_title(plot, arg, data, chunks)
 
     plt.show()
 
@@ -222,9 +222,9 @@ def pop_info_string(arg):
             "({:.0f}% de la population)".format(pop_region/metropole*100.)
 
 
-def set_title(plot, arg, data):
-    double_time_prev = double_time(data['incid_rea'][200-28:200-8])
-    double_time_curr = double_time(data['incid_rea'][200-7:])
+def set_title(plot, arg, data, chunks):
+    double_time_prev = double_time(data['incid_rea'][range(*chunks[-2])])
+    double_time_curr = double_time(data['incid_rea'][range(*chunks[-1])])
 
     pop_info = pop_info_string(arg)
 
@@ -238,7 +238,7 @@ def set_title(plot, arg, data):
     region = region.replace("|", " ")
 
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 en {double_time_curr:.0f} j"
+    title += f"\nréa x2 en {double_time_prev:.0f} -> {double_time_curr:.0f} j"
 
     plot.set_title(title, pad=20)
 
