@@ -38,7 +38,7 @@ def main():
 
     data = sums.rolling(7).mean()
 
-    reg_line = regressor(data)
+    reg_line, chunks = regressor(data)
 
     pred, cuts = predictor(data) \
                     if arg == "met" else ([],[])
@@ -63,13 +63,22 @@ def main():
 def regressor(data):
     reg_data = data['incid_rea']
 
-    return exp_lin_reg(reg_data[200-7:]) \
-            .append(exp_lin_reg(reg_data[200-28:200-8])) \
-            .append(exp_lin_reg(reg_data[200-50:200-40])) \
-            .append(exp_lin_reg(reg_data[200-80:200-60])) \
-            .append(exp_lin_reg(reg_data[9:14])) \
-            .append(exp_lin_reg(reg_data[19:28])) \
-            .append(exp_lin_reg(reg_data[30:100])) \
+    chunks = [
+                [9,14],
+                [19,28],
+                [30,100],
+                [120,140],
+                [150,160],
+                [172,192],
+                [193,206],
+                [207,len(data)],
+            ]
+
+    reg_line = pd.concat([
+        exp_lin_reg(reg_data[range(*chunk)])
+            for chunk in chunks ])
+
+    return reg_line, chunks
 
 
 def predictor(data):
