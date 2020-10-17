@@ -53,6 +53,7 @@ def main():
     with plt.xkcd():
     #if True:
         plot = plot.plot(logy=True)
+        show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
         #(data.incid_rea * 5/8).rename('Fouché-fix réa') \
@@ -161,6 +162,22 @@ def _annotate(plot, point, nb_days, side):
             point[1] * (1.2 if side else 1/1.2) # logscale => offset via * or /
         )
     )
+
+
+def show_dbl(plot, reg_line, chunks):
+    size = [ len(range(*chunk)) for chunk in chunks ]
+    spots = [ int(size[i]/2) + sum(size[:i]) for i in range(len(size)) ]
+    for spot in spots:
+        nb_days = round(double_time(reg_line[spot-1:spot+1]))
+        point = (reg_line.index[spot], reg_line[spot])
+        plot.annotate(
+            f'{abs(nb_days)}',
+            fontsize="x-small",
+            color="green",
+            xy=point,
+            bbox=dict(boxstyle="circle", color="green", alpha=0.2), # fc="white"),
+            xytext=( point[0], point[1] * (1.2 if nb_days > 0 else 1/1.2) )
+        )
 
 
 def set_opts(plot):
