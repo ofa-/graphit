@@ -55,6 +55,8 @@ def main():
         plot = plot.plot(logy=True)
         annotate(plot, pred, cuts)
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
+        #(data.incid_rea * 5/8).rename('Fouché-fix réa') \
+        #        .plot(linestyle="--", linewidth=.7, color="#00D")
 
         set_opts(plot)
         set_view(plot, arg)
