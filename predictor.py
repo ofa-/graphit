@@ -164,7 +164,7 @@ def _annotate(plot, point, nb_days, side):
 
 
 def set_opts(plot):
-    log_scalator = [0,5,10,20,40,80,100,160,200,400,800]
+    log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,700]
     int_formatter = lambda x, pos: f'{x:.0f}'
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
@@ -203,7 +203,7 @@ def set_view(plot, arg):
 
     if arg == "met":
         plot.set( xlim=(now-td(days=25), now+td(days=10)), # 10 days predictor
-                    ylim=(21, 220))
+                    ylim=(8, 240))
 
 
 def exp_lin_reg(reg_data):
