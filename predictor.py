@@ -168,16 +168,26 @@ def show_dbl(plot, reg_line, chunks):
     size = [ len(range(*chunk)) for chunk in chunks ]
     spots = [ int(size[i]/2) + sum(size[:i]) for i in range(len(size)) ]
     for spot in spots:
-        nb_days = round(double_time(reg_line[spot-1:spot+1]))
+        nb_days = double_time(reg_line[spot-1:spot+1])
         point = (reg_line.index[spot], reg_line[spot])
         plot.annotate(
-            f'{abs(nb_days)}',
+            f'{abs(round(nb_days))}',
             fontsize="x-small",
             color="green",
-            xy=point,
             bbox=dict(boxstyle="circle", color="green", alpha=0.2), # fc="white"),
-            xytext=( point[0], point[1] * (1.2 if nb_days > 0 else 1/1.2) )
+            xy=text_xy(point, nb_days),
         )
+
+
+def text_xy(point, nb_days):
+    a = np.log(2)/nb_days
+    d = 1.1
+    dy = d/np.sqrt(1 + a**2)
+    dx = d/np.sqrt(1 + 1/a**2)
+    return (
+        point[0] - pd.Timedelta(hours=dx),
+        point[1] * (dy if nb_days > 0 else 1/dy)
+    )
 
 
 def set_opts(plot):
