@@ -63,7 +63,7 @@ def main():
         set_view(plot, arg)
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
-    plt.show()
+        plot.figure.savefig(arg)
 
 
 def regressor(data):
@@ -306,8 +306,13 @@ def init():
         system("fetch.sh")
 
 
-init()
+def show():
+    from os import getenv
+    if getenv("DISPLAY"): plt.show()
+
 
 dep = pd.read_csv("dep.csv", sep="\t")
 
+init()
 main()
+show()
