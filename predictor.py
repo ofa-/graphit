@@ -170,6 +170,8 @@ def show_dbl(plot, reg_line, chunks):
     for spot in spots:
         nb_days = double_time(reg_line[spot-1:spot+1])
         point = (reg_line.index[spot], reg_line[spot])
+        if abs(nb_days) > 90:
+            continue
         plot.annotate(
             f'{abs(round(nb_days))}',
             fontsize="x-small",
@@ -283,10 +285,17 @@ def set_title(plot, arg, data, chunks):
 
     region = region.replace("|", " ")
 
+    dbl_t_prev = pretty_time(double_time_prev)
+    dbl_t_curr = pretty_time(double_time_curr)
+
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 : {double_time_prev:.0f} j -> {double_time_curr:.0f} j"
+    title += f"\nréa x2 : {dbl_t_prev} -> {dbl_t_curr}"
 
     plot.set_title(title, pad=20, fontsize="small")
+
+
+def pretty_time(val):
+    return f"_" if abs(val) > 90 else f"{val:.0f} j"
 
 
 def init():
