@@ -305,13 +305,14 @@ def init():
     if not path.exists("data.csv"):
         system("fetch.sh")
 
+    global dep
+    dep = pd.read_csv("dep.csv", sep="\t")
+
 
 def show():
     from os import getenv
     if getenv("DISPLAY"): plt.show()
 
-
-dep = pd.read_csv("dep.csv", sep="\t")
 
 init()
 main()
