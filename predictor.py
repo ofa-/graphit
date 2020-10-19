@@ -61,7 +61,7 @@ def main():
 
         set_opts(plot)
         set_view(plot, arg)
-        set_title(plot, arg, data, chunks)
+        set_title(plot, arg, double_times(data, chunks[-2:]))
 
     plt.show()
 
@@ -125,6 +125,11 @@ def avg_dc_line(region):
     avg_dc = [ dc_j[month]/10 for month in dates.month ]
 
     return pd.Series(index=dates, data=avg_dc).rename('dc_j')
+
+
+def double_times(data, chunks):
+    data = data['incid_rea']
+    return [ double_time(data[range(*chunk)]) for chunk in chunks ]
 
 
 def double_time(data):
@@ -270,12 +275,7 @@ def pop_info_string(arg):
             "({:.0f}% de la population)".format(pop_region/metropole*100.)
 
 
-def set_title(plot, arg, data, chunks):
-    double_time_prev = double_time(data['incid_rea'][range(*chunks[-2])])
-    double_time_curr = double_time(data['incid_rea'][range(*chunks[-1])])
-
-    pop_info = pop_info_string(arg)
-
+def set_title(plot, arg, dbl_time):
     if arg in regions:
         region = regions[arg][0]
     elif "|" in arg:
@@ -285,11 +285,13 @@ def set_title(plot, arg, data, chunks):
 
     region = region.replace("|", " ")
 
-    dbl_t_prev = pretty_time(double_time_prev)
-    dbl_t_curr = pretty_time(double_time_curr)
+    pop_info = pop_info_string(arg)
+
+    dbl_t_prev = pretty_time(dbl_time[0])
+    dbl_t_curr = pretty_time(dbl_time[1])
 
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 : {dbl_t_prev} -> {dbl_t_curr}"
+    title += f"\nréa x2 : {dbl_t_prev} –> {dbl_t_curr}"
 
     plot.set_title(title, pad=20, fontsize="small")
 
