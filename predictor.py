@@ -215,42 +215,62 @@ def set_opts(plot):
     plot.figure.subplots_adjust(bottom=0.16)
 
 
-
-
 def set_view(plot, arg):
     td = pd.Timedelta
     now = pd.to_datetime("now")
     date = pd.to_datetime
 
-    #plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))   # full story
-    #plot.set(xlim=("2020-09-07", "2020-10-20"), ylim=(16, 190))  # 1 month + predictor / 2w
-    #plot.set(xlim=("2020-09-14", "2020-10-12"), ylim=(16, 190))  # 1 month = 4 weeks
-    #plot.set(xlim=("2020-09-08", "2020-10-08"), ylim=(0.6, 12))  # 3 weeks, low volumes (dept.)
-    #plot.set(xlim=("2020-07-14", "2020-10-12"), ylim=(8, 180))   # 3 months
-    #plot.set(xlim=("2020-07-27", "2020-10-30"), ylim=(6.5, 190))   # 3 months
-    #plot.set(xlim=(now-td(days=25), now+td(days=4)), ylim=(9, 190))   # 3 weeks, to date
+    plot.set(xlim=(now-td(days=33), now+td(days=2)))
+    zoom_1_50_adaptive(plot, arg)
 
-    plot.set(xlim=(now-td(days=33), now+td(days=2)), ylim=(0.8, 64))
+    if arg == "met": # 10 days predictor, keep xscale 35d
+        plot.set( xlim=(now-td(days=25), now+td(days=10)))
 
-    if arg == "idf":
-        plot.set(ylim=(8, 640)) # keep scale (x10 vs other dept.)
 
-    if arg == "met":
-        plot.set( xlim=(now-td(days=25), now+td(days=10)), # 10 days predictor
-                    ylim=(8, 640))
 
-    # full story
     if opt.full:
         fig_xsize = 16 * ( (now - date("2020-03-20")).days /
             (date("2020-10-20") - date("2020-03-20")).days )
         plot.figure.set(figwidth=fig_xsize, figheight=6)
         plot.set(xlim=("2020-03-20", now+td(days=15)))
-        if arg == "met":
-            plot.set(ylim=(4.2, 900))
-        elif arg == "idf":
-            plot.set(ylim=(1.6, 350))
-        else:
-            plot.set(ylim=(0.64, 140))
+        zoom_full_adaptive(plot, arg)
+
+
+def zoom_full_adaptive(plot, arg):
+    if arg == "met":
+        plot.set(ylim=(4.2, 900))
+    elif arg == "idf":
+        plot.set(ylim=(1.6, 350))
+    else:
+        plot.set(ylim=(0.64, 140))
+
+
+def zoom_1_10_adaptive(plot, arg):
+    if arg in [ "gc", "pc" ]:
+        plot.set(ylim=(1.6, 64)) # x4
+    elif arg == "idf":
+        plot.set(ylim=(3.2, 128)) # x8
+    elif arg == "met":
+        plot.set(ylim=(8.4, 336)) # x21
+    else:
+        plot.set(ylim=(0.4, 16))
+
+
+def zoom_1_50_adaptive(plot, arg):
+    plot.set(ylim=(0.8, 64)) # or 0.7 ?
+
+    if arg == "idf":
+        plot.set(ylim=(3.2, 256)) # keep scale (x10 vs other dept.)
+    if arg == "met":
+        plot.set(ylim=(8, 640))
+
+
+def zoom_1_100(plot, arg):
+    yscale = [0.8, 128]
+    if arg == "met":
+        plot.set(ylim=(pd.Series(yscale)*7.15).values)
+    else:
+        plot.set(ylim=yscale)
 
 
 def exp_lin_reg(reg_data):
