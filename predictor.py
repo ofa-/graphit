@@ -9,7 +9,6 @@ import numpy as np
 from matplotlib.dates import DateFormatter
 from sklearn.linear_model import LinearRegression
 
-from sys import argv
 
 regions = {
         "pc":  [ "Petite Couronne", "92|93|94" ],
@@ -27,7 +26,7 @@ def main():
 
     metropole = data[~data.dep.str.match("^97")]
 
-    arg = "met" if len(argv) <= 1 else "|".join(argv[1:])
+    arg = "|".join(opt.arg)
 
     region = regions[arg][-1] if arg in regions else arg
 
@@ -63,7 +62,7 @@ def main():
         set_view(plot, arg)
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
-        plot.figure.savefig(arg)
+        plot.figure.savefig(arg + ("-full" if opt.full else ""))
 
 
 def regressor(data):
@@ -239,6 +238,11 @@ def set_view(plot, arg):
         plot.set( xlim=(now-td(days=25), now+td(days=10)), # 10 days predictor
                     ylim=(8, 240))
 
+    # full story
+    if opt.full:
+        plot.figure.set(figwidth=16, figheight=6)
+        plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))
+
 
 def exp_lin_reg(reg_data):
     line, slope = _exp_lin_reg(reg_data)
@@ -308,10 +312,26 @@ def init():
     global dep
     dep = pd.read_csv("dep.csv", sep="\t")
 
+    global opt
+    opt = parse_args()
+
 
 def show():
     from os import getenv
-    if getenv("DISPLAY"): plt.show()
+    if getenv("DISPLAY") and not opt.noshow: plt.show()
+
+
+def parse_args():
+    from argparse import ArgumentParser
+    parser = ArgumentParser()
+    parser.add_argument("--full", action="store_true",
+            help="graph full history from day one")
+    parser.add_argument("--noshow", action="store_true",
+            help="don't display graph on screen")
+    parser.add_argument('arg', nargs='+',
+            help="dept [dept ...] or region (%s)" % "|".join(regions.keys()))
+
+    return parser.parse_args()
 
 
 init()
