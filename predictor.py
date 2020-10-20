@@ -220,6 +220,7 @@ def set_opts(plot):
 def set_view(plot, arg):
     td = pd.Timedelta
     now = pd.to_datetime("now")
+    date = pd.to_datetime
 
     #plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))   # full story
     #plot.set(xlim=("2020-09-07", "2020-10-20"), ylim=(16, 190))  # 1 month + predictor / 2w
@@ -240,8 +241,16 @@ def set_view(plot, arg):
 
     # full story
     if opt.full:
-        plot.figure.set(figwidth=16, figheight=6)
-        plot.set(xlim=("2020-03-20", now+td(days=15)), ylim=(4.2, 900))
+        fig_xsize = 16 * ( (now - date("2020-03-20")).days /
+            (date("2020-10-20") - date("2020-03-20")).days )
+        plot.figure.set(figwidth=fig_xsize, figheight=6)
+        plot.set(xlim=("2020-03-20", now+td(days=15)))
+        if arg == "met":
+            plot.set(ylim=(4.2, 900))
+        elif arg == "idf":
+            plot.set(ylim=(1.6, 350))
+        else:
+            plot.set(ylim=(0.64, 140))
 
 
 def exp_lin_reg(reg_data):
