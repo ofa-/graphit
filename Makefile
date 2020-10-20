@@ -22,3 +22,13 @@ fontname.py:
 clean:
 	pip uninstall -y fonttools
 	rm -f xkcd.ttf fontname.py
+
+
+curfew: depts = 31 34 13 42 69 38 76 75 59  idf pc gc met
+curfew:
+	unset DISPLAY; \
+	for dept in $(depts); do \
+		./predictor.py $$dept & \
+	done; \
+	./predictor.py met --full & \
+	wait
