@@ -229,14 +229,14 @@ def set_view(plot, arg):
     #plot.set(xlim=("2020-07-27", "2020-10-30"), ylim=(6.5, 190))   # 3 months
     #plot.set(xlim=(now-td(days=25), now+td(days=4)), ylim=(9, 190))   # 3 weeks, to date
 
-    plot.set(xlim=(now-td(days=28), now+td(days=1)), ylim=(0.8, 24))
+    plot.set(xlim=(now-td(days=33), now+td(days=2)), ylim=(0.8, 64))
 
     if arg == "idf":
-        plot.set(ylim=(8, 240)) # keep scale (x10 vs other dept.)
+        plot.set(ylim=(8, 640)) # keep scale (x10 vs other dept.)
 
     if arg == "met":
         plot.set( xlim=(now-td(days=25), now+td(days=10)), # 10 days predictor
-                    ylim=(8, 240))
+                    ylim=(8, 640))
 
     # full story
     if opt.full:
