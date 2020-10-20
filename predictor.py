@@ -226,7 +226,13 @@ def set_view(plot, arg):
     if arg == "met": # 10 days predictor, keep xscale 35d
         plot.set( xlim=(now-td(days=25), now+td(days=10)))
 
+    if opt.two_months:
+        last_2_months = (now-td(days=62), now+td(days=2))
+        plot.figure.set(figwidth=8, figheight=6)
+        plot.set(xlim=last_2_months)
 
+    if opt.zoom_1_100:
+        zoom_1_100(plot, arg)
 
     if opt.full:
         fig_xsize = 16 * ( (now - date("2020-03-20")).days /
@@ -353,6 +359,10 @@ def show():
 def parse_args():
     from argparse import ArgumentParser
     parser = ArgumentParser()
+    parser.add_argument("--zoom-1-100", action="store_true",
+            help="graph using 1-100 y scale [default is 1-10]")
+    parser.add_argument("--two-months", action="store_true",
+            help="graph last two months")
     parser.add_argument("--full", action="store_true",
             help="graph full history from day one")
     parser.add_argument("--noshow", action="store_true",
