@@ -42,7 +42,7 @@ def main():
     reg_line, chunks = regressor(data)
 
     pred, cuts = predictor(data) \
-                    if arg == "met" else ([],[])
+                    if arg == "met" or opt.pred else ([],[])
 
     plot = data \
             .drop(['incid_hosp', 'incid_rad'], axis=1) \
@@ -55,8 +55,9 @@ def main():
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
-        #(data.incid_rea * 5/8).rename('Fouché-fix réa') \
-        #        .plot(linestyle="--", linewidth=.7, color="#00D")
+        if opt.fouché:
+            (data.incid_rea * 5/8).rename('Fouché-fix réa') \
+                    .plot(linestyle="--", linewidth=.7, color="#00D")
 
         set_opts(plot)
         set_view(plot, arg)
@@ -366,6 +367,10 @@ def parse_args():
             help="graph last two months")
     parser.add_argument("--full", action="store_true",
             help="graph full history from day one")
+    parser.add_argument("--fouché", action="store_true",
+            help="graph Fouché-fixed réa (5/8)")
+    parser.add_argument("--pred", action="store_true",
+            help="graph predictor anyway [normaly only for met]")
     parser.add_argument("--noshow", action="store_true",
             help="don't display graph on screen")
     parser.add_argument('arg', nargs='+',
