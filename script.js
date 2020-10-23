@@ -8,7 +8,7 @@ function onload() {
 	for (var i=0; i < images.length; i++) {
 		var img = images[i]
 		img.style.display = "none"
-		img.onclick = onclick_img
+		img.onload = create_areas
 		img.next = images[(i+1) % images.length]
 		img.prev = images[(i-1+images.length) % images.length]
 	}
@@ -17,6 +17,31 @@ function onload() {
 	show(images.curr)
 
 	document.onkeydown = onkeypress
+}
+
+function create_areas() {
+	var img = this
+	var width = img.width
+	var height = img.height
+	var map = document.createElement("map")
+	map.name = img.src.replace(/.*\//, "")
+	map.innerHTML = (
+	"<area shape='rect' coords='" +
+		"0,0," + (width/2) + "," + height + "'>" +
+	"<area shape='rect' coords='" +
+		(width/2 +1) + ",0," + width + "," + height + "'>"
+	)
+	map.firstChild.onclick = show_prev
+	map.lastChild.onclick = show_next
+	img.setAttribute("usemap", "#" + map.name)
+	document.head.appendChild(map)
+}
+
+function show_prev() {
+	show(document.images.curr.prev)
+}
+function show_next() {
+	show(document.images.curr.next)
 }
 
 function create_map() {
@@ -32,10 +57,6 @@ function onclick_map() {
 	this.style.opacity = this.style.opacity ? "" : "0"
 }
 
-function onclick_img(ev) {
-	show(ev.shiftKey ? this.prev : this.next)
-}
-
 function show(image) {
 	var images = document.images
 
@@ -48,9 +69,8 @@ function show(image) {
 }
 
 function onkeypress(ev) {
-	var image = document.images.curr
 	switch (ev.keyCode) {
-		case 37: show(image.prev); break;
-		case 39: show(image.next); break;
+		case 37: show_prev(); break;
+		case 39: show_next(); break;
 	}
 }
