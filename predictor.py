@@ -203,6 +203,7 @@ def set_opts(plot):
     int_formatter = lambda x, pos: f'{x:.0f}' if x < 1000 \
                                     else f'{x/1000.:.0f} k'
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
+    plot.axes.yaxis.set_major_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
     plot.axes.yaxis.set_major_formatter(int_formatter)
     plot.axes.xaxis.set_major_formatter(DateFormatter('\xAF\n%b'))
