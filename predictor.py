@@ -267,12 +267,14 @@ def zoom_1_10_adaptive(plot, arg):
 
 
 def zoom_1_50_adaptive(plot, arg):
-    plot.set(ylim=(0.8, 64)) # or 0.7 ?
+    yscale = pd.Series([0.8, 64])
 
-    if arg == "idf":
-        plot.set(ylim=(3.2, 256)) # keep scale (x10 vs other dept.)
-    if arg == "met":
-        plot.set(ylim=(8, 640))
+    factor = 20 if arg == "met" else \
+              4 if arg == "idf" else \
+              2 if arg in [ "pc", "gc" ] else \
+              1
+
+    plot.set(ylim=(yscale * factor).values)
 
 
 def zoom_1_100(plot, arg):
