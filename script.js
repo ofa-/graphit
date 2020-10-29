@@ -31,21 +31,29 @@ function create_areas() {
 	map.name = img.src.replace(/.*\//, "")
 	map.innerHTML = (
 	"<area shape='rect' coords='" +
-		"0,0," + (width/2) + "," + height + "'>" +
+		"0,0," + width + ",69'>" +
 	"<area shape='rect' coords='" +
-		(width/2 +1) + ",0," + width + "," + height + "'>"
+		"0,70," + (width/2) + "," + height + "'>" +
+	"<area shape='rect' coords='" +
+		(width/2 +1) + ",70," + width + "," + height + "'>"
 	)
-	map.firstChild.onclick = show_prev
-	map.lastChild.onclick = show_next
+	map.children[0].onclick = show_home
+	map.children[1].onclick = show_prev
+	map.children[2].onclick = show_next
 	img.setAttribute("usemap", "#" + map.name)
-	document.head.appendChild(map)
+	document.body.appendChild(map)
 }
 
 function show_prev() {
 	show(document.images.curr.prev)
 }
+
 function show_next() {
 	show(document.images.curr.next)
+}
+
+function show_home() {
+	show(document.images.home)
 }
 
 function create_map() {
@@ -76,5 +84,6 @@ function onkeypress(ev) {
 	switch (ev.keyCode) {
 		case 37: show_prev(); break;
 		case 39: show_next(); break;
+		case 27: show_home(); break;
 	}
 }
