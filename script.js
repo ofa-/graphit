@@ -13,6 +13,10 @@ function onload() {
 		img.prev = images[(i-1+images.length) % images.length]
 	}
 	images.curr = images[images.length-1]
+	images.curr.next = images.curr.prev
+	images.curr.prev.next = images[0]
+	images[0].prev = images.curr.next
+	images.home = images.curr
 	images.map = create_map()
 	show(images.curr)
 
