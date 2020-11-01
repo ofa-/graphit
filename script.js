@@ -18,9 +18,37 @@ function onload() {
 	images[0].prev = images.curr.next
 	images.home = images.curr
 	images.map = create_map()
+
+	add_help()
 	show(images.curr)
 
 	document.onkeydown = onkeypress
+}
+
+function add_help() {
+	var help = document.createElement("div")
+	help.innerHTML = (
+	'<span style="position:relative; display:inline-block">' +
+	'<iframe src="help.fr.md.html" style="display:none" class="help text"/>' +
+	'</span>'
+	)
+	var blinder = document.createElement("span")
+	blinder.style = "position:absolute;top:0;left:0;bottom:0;right:30px"
+	blinder.onclick = toggle_help
+	help.firstChild.appendChild(blinder)
+
+	var icon = document.createElement("img")
+	icon.setAttribute("class", "help icon")
+	icon.src = "img/help_icon.png"
+	icon.onclick = toggle_help
+
+	document.body.appendChild(help)
+	document.body.appendChild(icon)
+}
+
+function toggle_help() {
+	var style = document.querySelector(".help.text").style
+	style.display = (style.display ? "" : "none")
 }
 
 function create_areas() {
@@ -85,5 +113,6 @@ function onkeypress(ev) {
 		case 37: show_prev(); break;
 		case 39: show_next(); break;
 		case 27: show_home(); break;
+		case 72: return toggle_help()
 	}
 }

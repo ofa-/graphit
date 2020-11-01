@@ -7,10 +7,25 @@ body {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
+	position: relative;
 }
 .map {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 10em;
+}
+.help.icon {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 3em;
+	margin: 1em;
+}
+.help.text {
+	width: 46em;
+	height: 18em;
+	border: 1px solid grey;
+	border-radius: 2em;
+	padding: 1em;
 }
