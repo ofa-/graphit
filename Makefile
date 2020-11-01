@@ -40,3 +40,9 @@ help.fr:
 	| sed '1 i <link href="help.style.css" rel="stylesheet">' \
 	| sed 's:<svg.*</svg>::g' \
 	> help.fr.md.html
+
+fetch:
+	./fetch.sh
+
+upload:
+	lftp -c "open $(TARGET); mput *.png"
