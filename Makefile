@@ -32,3 +32,11 @@ curfew:
 	done; \
 	./predictor.py met --full & \
 	wait
+
+help.fr:
+	curl -sL https://github.com/ofa-/predictor/blob/master/help.fr.md \
+	| sed '/<article/ s:>:\n:' \
+	| sed '1,/<article/ d; /<\/article/,$$ d' \
+	| sed '1 i <link href="help.style.css" rel="stylesheet">' \
+	| sed 's:<svg.*</svg>::g' \
+	> help.fr.md.html
