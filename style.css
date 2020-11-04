@@ -9,11 +9,15 @@ body {
 	text-align: center;
 	position: relative;
 }
+img {
+	margin-bottom: 2em;
+}
 .map {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 10em;
+	margin: .5em;
 }
 .help.icon {
 	position: absolute;
