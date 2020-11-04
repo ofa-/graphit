@@ -23,9 +23,15 @@ body {
 	margin: 1em;
 }
 .help.text {
-	width: 46em;
-	height: 18em;
 	border: 1px solid grey;
 	border-radius: 2em;
-	padding: 1em;
+	padding: .5em 1.5em;
+	display: inline-block;
+}
+.help.text body {
+	text-align: left;
+}
+.help.text code {
+	background-color: lightblue;
+	padding: .1em .3em;
 }

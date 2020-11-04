@@ -28,27 +28,25 @@ function onload() {
 function add_help() {
 	var help = document.createElement("div")
 	help.innerHTML = (
-	'<span style="position:relative; display:inline-block">' +
-	'<iframe src="help.fr.md.html" style="display:none" class="help text"/>' +
-	'</span>'
+	'<img class="help icon" src="img/help_icon.png">' +
+	'<p class="help text" style="display:none">' +
+	'<iframe src="help.fr.md.html" onload="move_to_parent(this)"/>' +
+	'</p>'
 	)
-	var blinder = document.createElement("span")
-	blinder.style = "position:absolute;top:0;left:0;bottom:0;right:30px"
-	blinder.onclick = toggle_help
-	help.firstChild.appendChild(blinder)
-
-	var icon = document.createElement("img")
-	icon.setAttribute("class", "help icon")
-	icon.src = "img/help_icon.png"
-	icon.onclick = toggle_help
+	help.firstChild.onclick = toggle_help
+	help.lastChild.onclick = toggle_help
 
 	document.body.appendChild(help)
-	document.body.appendChild(icon)
 }
 
 function toggle_help() {
 	var style = document.querySelector(".help.text").style
 	style.display = (style.display ? "" : "none")
+}
+
+function move_to_parent(e) {
+	e.parentNode.appendChild(e.contentDocument.body)
+	e.parentNode.removeChild(e)
 }
 
 function create_areas() {
