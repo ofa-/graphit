@@ -58,6 +58,11 @@ def main():
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
                     .plot(linestyle="--", linewidth=.7, color="#00D")
 
+        # light => alpha area: .05, markers: .25
+        sums.incid_dc.plot.area(alpha=.1, color="orange", zorder=-1)
+        sums.incid_dc.plot     (alpha=.3, color="orange", zorder=-1,
+                                marker="+", linestyle="")
+
         set_opts(plot)
         set_view(plot, arg)
         set_title(plot, arg, double_times(data, chunks[-2:]))
