@@ -162,7 +162,7 @@ def annotate(plot, shifted, shifts):
             shifted.index[middle+curr],
             shifted[middle+curr]
         )
-        _annotate(plot, point, nb_days, side)
+        _annotate(plot, point, nb_days, side) if size > 1 else None
         curr += size
 
 
