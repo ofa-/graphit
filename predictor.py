@@ -50,7 +50,6 @@ def main():
             .join(pred, how='outer')
 
     with plt.xkcd():
-    #if True:
         plot = plot.plot(logy=True)
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
@@ -210,8 +209,6 @@ def set_opts(plot):
     plot.axes.yaxis.set_major_formatter(int_formatter)
     plot.axes.xaxis.set_major_formatter(DateFormatter('\xAF\n%b'))
     plot.axes.set_xlabel(None)
-    plot.grid(axis='y', which='both')
-    plot.grid(axis='x', which='major')
     plot.axes.tick_params(which='both', right=True, labelright=True)
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
     plot.axes.set_xticks(plot.axes.get_xticks()[1:-1])
