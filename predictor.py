@@ -318,14 +318,18 @@ def _exp_lin_reg(reg_data):
             , slope
 
 
-def pop_info_string(arg):
+def pop_info(arg):
     region = regions[arg][-1] if arg in regions else arg
 
     metropole = dep[~dep.NUMÉRO.str.match("97")].POPULATION.sum()
     pop_region = dep[dep.NUMÉRO.str.match(region)].POPULATION.sum()
 
+    return pop_region / metropole
+
+
+def pop_info_string(arg):
     return "" if arg == "met" else \
-            "({:.0f}% de la population)".format(pop_region/metropole*100.)
+            "({:.0f}% de la population)".format(pop_info(arg)*100)
 
 
 def set_title(plot, arg, dbl_time):
