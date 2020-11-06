@@ -41,8 +41,11 @@ def main():
 
     reg_line, chunks = regressor(data)
 
-    pred, cuts = predictor(data) \
-                    if arg == "met" or opt.pred else ([],[])
+    pred, cuts = ([],[]) if opt.nopred \
+                    else \
+                 predictor(data) if arg == "met" or opt.pred \
+                    else \
+                 ([],[])
 
     plot = data \
             .drop(['incid_hosp', 'incid_rad'], axis=1) \
@@ -380,6 +383,8 @@ def parse_args():
             help="graph Fouché-fixed réa (5/8)")
     parser.add_argument("--pred", action="store_true",
             help="graph predictor anyway [normaly only for met]")
+    parser.add_argument("--nopred", action="store_true",
+            help="don't show predictor graph")
     parser.add_argument("--noshow", action="store_true",
             help="don't display graph on screen")
     parser.add_argument('arg', nargs='+',
