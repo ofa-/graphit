@@ -67,7 +67,7 @@ def main():
                                 marker="+", linestyle="")
 
         set_opts(plot)
-        set_view(plot, arg)
+        set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
@@ -226,16 +226,18 @@ def set_opts(plot):
     plot.figure.subplots_adjust(bottom=.12, left=.11, right=.89, top=.85)
 
 
-def set_view(plot, arg):
+def set_view(plot, arg, gap):
     td = pd.Timedelta
     now = pd.to_datetime("now")
     date = pd.to_datetime
+    gap = 2 if gap < 2 else gap
 
     plot.set(xlim=(now-td(days=33), now+td(days=2)))
     zoom_1_50_adaptive(plot, arg)
 
-    if arg == "met": # 10 days predictor, keep xscale 35d
-        plot.set( xlim=(now-td(days=25), now+td(days=10)))
+
+    if arg == "met": # add room for predictor, keep xscale 35d
+        plot.set( xlim=(now-td(days=35-gap), now+td(days=gap)))
 
     if opt.two_months:
         last_2_months = (now-td(days=62), now+td(days=2))
@@ -249,7 +251,7 @@ def set_view(plot, arg):
         fig_xsize = 16 * ( (now - date("2020-03-20")).days /
             (date("2020-10-20") - date("2020-03-20")).days )
         plot.figure.set(figwidth=fig_xsize, figheight=6)
-        plot.set(xlim=("2020-03-20", now+td(days=15)))
+        plot.set(xlim=("2020-03-20", now+td(days=gap)))
         zoom_full_adaptive(plot, arg)
 
 
