@@ -211,7 +211,7 @@ def set_opts(plot):
     plot.axes.set_xlabel(None)
     plot.axes.tick_params(which='both', right=True, labelright=True)
     plot.axes.tick_params(which='both', axis="y", length=6, width=1)
-    plot.axes.set_xticks(plot.axes.get_xticks()[1:-1])
+    plot.axes.set_xticks(plot.axes.get_xticks()[:-1])
 
     plot.legend(["admis. réa / j", "nouv. dc / j"], fontsize="small")
     plot.figure.set(figwidth=6, figheight=6)
