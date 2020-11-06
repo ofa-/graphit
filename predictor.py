@@ -260,14 +260,14 @@ def zoom_full_adaptive(plot, arg):
 
 
 def zoom_1_10_adaptive(plot, arg):
-    if arg in [ "gc", "pc" ]:
-        plot.set(ylim=(1.6, 64)) # x4
-    elif arg == "idf":
-        plot.set(ylim=(3.2, 128)) # x8
-    elif arg == "met":
-        plot.set(ylim=(8.4, 336)) # x21
-    else:
-        plot.set(ylim=(0.4, 16))
+    yscale = pd.Series([0.4, 16])
+
+    factor = 21 if arg == "met" else \
+              8 if arg == "idf" else \
+              4 if arg in [ "gc", "pc" ] else \
+              1
+
+    plot.set(ylim=(yscale * factor).values)
 
 
 def zoom_1_50_adaptive(plot, arg):
@@ -282,11 +282,12 @@ def zoom_1_50_adaptive(plot, arg):
 
 
 def zoom_1_100(plot, arg):
-    yscale = [0.8, 128]
-    if arg == "met":
-        plot.set(ylim=(pd.Series(yscale)*7.15).values)
-    else:
-        plot.set(ylim=yscale)
+    yscale = pd.Series([0.8, 128])
+
+    factor = 7.15 if arg == "met" else \
+             1
+
+    plot.set(ylim=(yscale * factor).values)
 
 
 def exp_lin_reg(reg_data):
