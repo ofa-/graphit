@@ -374,7 +374,7 @@ def parse_args():
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument("--zoom-1-100", action="store_true",
-            help="graph using 1-100 y scale [default is 1-10]")
+            help="graph using 1-100 y scale [default is 1-50]")
     parser.add_argument("--two-months", action="store_true",
             help="graph last two months")
     parser.add_argument("--full", action="store_true",
