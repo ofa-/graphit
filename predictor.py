@@ -218,7 +218,7 @@ def set_opts(plot):
 
     plot.legend(["admis. réa / j", "nouv. dc / j"], fontsize="small")
     plot.figure.set(figwidth=6, figheight=6)
-    plot.figure.subplots_adjust(bottom=0.16)
+    plot.figure.subplots_adjust(bottom=.12, left=.11, right=.89, top=.85)
 
 
 def set_view(plot, arg):
