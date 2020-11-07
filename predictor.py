@@ -247,6 +247,9 @@ def set_view(plot, arg, gap):
     date = pd.to_datetime
     gap = 2 if gap < 2 else gap
 
+    if opt.episode_1:
+        now = date("2020-03-22") + td(days=64 if opt.two_months else 35)
+
     plot.set(xlim=(now-td(days=33), now+td(days=2)))
     zoom_1_50_adaptive(plot, arg)
 
@@ -365,7 +368,8 @@ def set_title(plot, arg, dbl_time):
     dbl_t_curr = pretty_time(dbl_time[1])
 
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 : {dbl_t_prev} –> {dbl_t_curr}"
+    title += f"\nréa x2 : {dbl_t_prev} –> {dbl_t_curr}" \
+                if not opt.episode_1 else "\n(Épisode 1)"
 
     plot.set_title(title, pad=20, fontsize="small")
 
@@ -400,6 +404,8 @@ def parse_args():
             help="graph last two months")
     parser.add_argument("--full", action="store_true",
             help="graph full history from day one")
+    parser.add_argument("--episode-1", action="store_true",
+            help="graph Episode I time window")
     parser.add_argument("--fouché", action="store_true",
             help="graph Fouché-fixed réa (5/8)")
     parser.add_argument("--pred", action="store_true",
