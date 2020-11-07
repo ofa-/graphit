@@ -28,7 +28,7 @@ curfew: depts = 31 34 13 42 69 38 76 75 59  idf pc gc met 33 67
 curfew:
 	unset DISPLAY; \
 	for dept in $(depts); do \
-		./predictor.py $$dept & \
+		./predictor.py $$dept --two-months & \
 	done; \
 	./predictor.py met --full & \
 	wait
