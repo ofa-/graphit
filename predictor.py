@@ -75,7 +75,15 @@ def main():
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
+        x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
+        add_note(plot, x, avg_dc, f"{avg_dc_factor*10}%")
+
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
+
+
+def add_note(plot, x, data, text, side=True):
+    plot.text(s=text, color="grey", size="x-small", alpha=0.3,
+                x=x+pd.Timedelta(days=1), y=data[x])
 
 
 def regressor(data):
