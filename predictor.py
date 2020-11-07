@@ -271,7 +271,7 @@ def set_view(plot, arg, gap):
 
 def zoom_full_adaptive(plot, arg):
     if arg == "met":
-        plot.set(ylim=(4.2, 900))
+        plot.set(ylim=(4.2, 2700))
     elif arg == "idf":
         plot.set(ylim=(1.6, 350))
     else:
