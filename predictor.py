@@ -292,7 +292,7 @@ def zoom_1_10_adaptive(plot, arg):
 def zoom_1_50_adaptive(plot, arg):
     yscale = pd.Series([0.8, 64])
 
-    factor = 14 if arg == "met" else \
+    factor = 30 if arg == "met" else \
               4 if arg == "idf" else \
               2 if arg in [ "pc", "gc" ] else \
               1
