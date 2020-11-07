@@ -186,7 +186,8 @@ def _annotate(plot, point, nb_days, side):
         f'+{nb_days} j ',
         xy=point,
         bbox=dict(boxstyle="round4", fc="w"),
-        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=-0.2", fc="w"),
+        arrowprops=dict(arrowstyle="-|>",
+            connectionstyle="arc3,rad="+("" if side else "-")+"0.2", fc="w"),
         xytext=(
             point[0] + pd.Timedelta(days=3),
             point[1] * (1.2 if side else 1/1.2) # logscale => offset via * or /
