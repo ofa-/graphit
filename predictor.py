@@ -57,7 +57,11 @@ def main():
         plot = plot.plot(logy=True)
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
+
+        avg_dc_factor = 5
+        avg_dc = avg_dc * avg_dc_factor
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
+
         if opt.fouché:
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
                     .plot(linestyle="--", linewidth=.7, color="#00D")
