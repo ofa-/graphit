@@ -21,8 +21,23 @@ function onload() {
 
 	add_help()
 	show(images.curr)
+	var query = document.location.search.substring(1)
+	if (query) show_query(query)
 
 	document.onkeydown = onkeypress
+}
+
+function show_query(query) {
+	query = query + ".png"
+
+	var images = document.images
+	for (var i=0; i < images.length; i++) {
+		var img = images[i]
+		if (img.src.replace(/.*\//, "") != query)
+			continue
+		show(img)
+		break
+	}
 }
 
 function add_help() {
