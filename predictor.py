@@ -223,9 +223,8 @@ def text_xy(point, nb_days):
 
 
 def set_opts(plot):
-    log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,700]
-    int_formatter = lambda x, pos: f'{x:.0f}' if x < 1000 \
-                                    else f'{x/1000.:.0f} k'
+    log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,900,1800]
+    int_formatter = lambda x, pos: f'{x:.0f}'
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_major_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
