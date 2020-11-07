@@ -6,7 +6,7 @@ nombre quotidien de nouveaux décès et de nouvelles admissions en réanimation.
 
 - `réa` et `dc` : moyennes 7 jours glissants (jours précedents)
 
-- `ligne grise` : 10% de la mortalité quotidienne toutes causes, \
+- `ligne grise` : 50% de la mortalité quotidienne toutes causes, \
    pour le département ou la zone (insee données 2018+2019, moyenne par mois)
 
 - `lignes vertes` : regressions «linéaires» sur les tronçons de réa, \

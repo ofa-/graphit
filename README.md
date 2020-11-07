@@ -6,7 +6,7 @@ This is a tool for graphing French public health autorities hospital data.
 - `réa` and `dc` graphs: moving averages (last 7 days), \
    ICU admissions and daily deaths respectively
 
-- `grey line` subliminal dots: 10% of usual daily all causes mortality, \
+- `grey line` subliminal dots: 50% of usual daily all causes mortality, \
    for département or zone (insee detailled data 2018+2019, monthly averages)
 
 - `red chunks` on métropole graphs: « prédictor » = `réa` shifted by x days, \
