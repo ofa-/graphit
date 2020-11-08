@@ -364,15 +364,29 @@ def set_title(plot, arg, dbl_time):
     region = region.replace("|", " ")
 
     pop_info = pop_info_string(arg)
-
-    dbl_t_prev = pretty_time(dbl_time[0])
-    dbl_t_curr = pretty_time(dbl_time[1])
+    rea_x2_time = rea_time_change_string(dbl_time)
 
     title = f"{region} {pop_info}"
-    title += f"\nréa x2 : {dbl_t_prev} –> {dbl_t_curr}" \
+    title += f"\n{rea_x2_time}" \
                 if not opt.episode_1 else "\n(Épisode 1)"
 
     plot.set_title(title, pad=20, fontsize="small")
+
+
+def rea_time_change_string(dbl_time):
+    prev = pretty_time(dbl_time[0])
+    curr = pretty_time(dbl_time[1])
+
+    if prev[0] == "-":
+        head = f"/2 : {prev[1:]}"
+        tail = f"{curr[1:]}"   if curr[0] == "-" else \
+               f"x2 en {curr}" if curr != "_" else curr
+    else:
+        head = f"x2 : {prev}"
+        tail = f"/2 en {curr[1:]}" if curr[0] == "-" else \
+               f"{curr}"
+
+    return f"réa {head} –> {tail}"
 
 
 def pretty_time(val):
