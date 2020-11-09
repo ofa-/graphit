@@ -38,7 +38,7 @@ def main():
 
     data = sums.rolling(7).mean()
 
-    avg_dc = avg_dc_line(region if arg != "met" else arg)
+    dc_ref = avg_dc_line(region if arg != "met" else arg)
 
     reg_line, chunks = regressor(data)
 
@@ -58,9 +58,8 @@ def main():
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
 
-        avg_dc_factor = 5
-        avg_dc = avg_dc * avg_dc_factor
-        avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
+        avg_dc_percent = 50
+        avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
 
         if opt.fouché:
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
@@ -76,7 +75,7 @@ def main():
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
         x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
-        add_note(plot, x, avg_dc, f"{avg_dc_factor*10}%")
+        add_note(plot, x, avg_dc, f"{avg_dc_percent}%")
 
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
 
@@ -84,6 +83,12 @@ def main():
 def add_note(plot, x, data, text, side=True):
     plot.text(s=text, color="grey", size="x-small", alpha=0.3,
                 x=x+pd.Timedelta(days=1), y=data[x])
+
+
+def plot_avg_dc(plot, dc_ref, dc_percent):
+        avg_dc = dc_ref * dc_percent
+        avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
+        return avg_dc
 
 
 def regressor(data):
@@ -148,7 +153,7 @@ def avg_dc_line(region):
     dc_j = dc_j[sel].groupby("MDEC").dc_j.sum()
 
     dates = pd.date_range("2020-03-01", "2021-04-01")
-    avg_dc = [ dc_j[month]/10 for month in dates.month ]
+    avg_dc = [ dc_j[month]/100 for month in dates.month ]
 
     return pd.Series(index=dates, data=avg_dc).rename('dc_j')
 
