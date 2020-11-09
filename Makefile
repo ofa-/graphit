@@ -30,7 +30,7 @@ curfew:
 	for dept in $(depts); do \
 		./predictor.py $$dept --two-months & \
 	done; \
-	./predictor.py met --full & \
+	./predictor.py met --full --show-noise & \
 	wait
 
 help.fr:
