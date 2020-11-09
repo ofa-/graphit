@@ -81,13 +81,13 @@ def main():
 
 
 def add_note(plot, x, data, text, side=True):
-    plot.text(s=text, color="grey", size="x-small", alpha=0.3,
-                x=x+pd.Timedelta(days=1), y=data[x])
+    plot.annotate(text, color="grey", size="x-small", alpha=0.3,
+                    xy=(x+pd.Timedelta(days=1), data[x]))
 
 
 def plot_avg_dc(plot, dc_ref, dc_percent):
         avg_dc = dc_ref * dc_percent
-        avg_dc.plot(linestyle=":", linewidth=.5, color="grey")
+        avg_dc.plot(linestyle=":", linewidth=.5, color="grey", zorder=0)
         return avg_dc
 
 
