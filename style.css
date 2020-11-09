@@ -34,6 +34,7 @@ img {
 	padding: .5em 1.5em;
 	display: inline-block;
 	margin: 0;
+	margin-top: -3em;
 	font-family: comfortaa;
 }
 .help.text body {
