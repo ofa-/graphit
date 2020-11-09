@@ -60,6 +60,9 @@ def main():
 
         avg_dc_percent = 50
         avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
+        dc_low_percent = 3
+        dc_low = plot_avg_dc(plot, dc_ref, dc_low_percent) \
+                    if opt.show_noise else None
 
         if opt.fouché:
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
@@ -76,6 +79,8 @@ def main():
 
         x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
         add_note(plot, x, avg_dc, f"{avg_dc_percent}%")
+        add_note(plot, x, dc_low, f"{dc_low_percent}%") \
+                if opt.show_noise else None
 
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
 
@@ -432,6 +437,8 @@ def parse_args():
             help="graph predictor anyway [normaly only for met]")
     parser.add_argument("--nopred", action="store_true",
             help="don't show predictor graph")
+    parser.add_argument("--show-noise", action="store_true",
+            help="show mortality noise level [3% of avg mortality]")
     parser.add_argument("--noshow", action="store_true",
             help="don't display graph on screen")
     parser.add_argument('arg', nargs='+',
