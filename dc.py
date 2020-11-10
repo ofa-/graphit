@@ -16,14 +16,10 @@ def compute_dc_j():
     dc['depdom'] = dc.COMDOM.astype(str).apply(
                     lambda x: x[0:2 if x[0:2] != "97" else 3])
 
-    dc_m = dc.groupby(['depdom', 'MDEC']).ADEC.count() / len([2018, 2019])
+    dc_j = dc.groupby(['depdom', 'MDEC', 'JDEC']).ADEC.count() / 2 # 2 years
+    mean = dc_j.groupby(['depdom', 'MDEC']).mean()
 
-    days_in_month = ['', 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-    dc_j = dc_m / dc_m.index.map(lambda idx: days_in_month[idx[1]])
-    dc_j = round(dc_j).astype(int).rename("dc_j")
-
-    return dc_j
+    return mean.round().astype(int).rename("dc_j")
 
 
 def graph(dc_j, selection):
