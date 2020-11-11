@@ -16,7 +16,7 @@ def compute_dc_j():
     dc['depdom'] = dc.COMDOM.astype(str).apply(
                     lambda x: x[0:2 if x[0:2] != "97" else 3])
 
-    dc_j = dc.groupby(['depdom', 'MDEC', 'JDEC']).ADEC.count() / 2 # 2 years
+    dc_j = dc.groupby(['depdom', 'MDEC', 'JDEC', 'ADEC']).ANAIS.count()
     mean = dc_j.groupby(['depdom', 'MDEC']).mean()
 
     return mean.round().astype(int).rename("dc_j")
