@@ -38,7 +38,7 @@ def main():
 
     data = sums.rolling(7).mean()
 
-    dc_ref = avg_dc_line(region if arg != "met" else arg)
+    dc_ref, dc_noise = avg_dc_line(region if arg != "met" else arg)
 
     reg_line, chunks = regressor(data)
 
@@ -60,8 +60,7 @@ def main():
 
         avg_dc_percent = 50
         avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
-        dc_low_percent = 3
-        dc_low = plot_avg_dc(plot, dc_ref, dc_low_percent) \
+        dc_noise.plot(linestyle=":", linewidth=.5, color="grey", zorder=0) \
                     if opt.show_noise else None
 
         if opt.fouché:
@@ -160,12 +159,15 @@ def avg_dc_line(region):
     sel = dc_j.depdom.str.match(region) if region != "met" else \
          ~dc_j.depdom.str.match("9[7-9]|na")
 
+    noise = dc_j[sel].groupby("MDEC").err.sum()
     dc_j = dc_j[sel].groupby("MDEC").dc_j.sum()
 
     dates = pd.date_range("2020-03-01", "2021-04-01")
     avg_dc = [ dc_j[month]/100 for month in dates.month ]
+    noise =  [ noise[month] for month in dates.month ]
 
-    return pd.Series(index=dates, data=avg_dc).rename('dc_j')
+    return pd.Series(index=dates, data=avg_dc).rename('dc_j'), \
+           pd.Series(index=dates, data=noise).rename('dc_noise')
 
 
 def double_times(data, chunks):

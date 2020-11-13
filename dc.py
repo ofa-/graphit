@@ -18,14 +18,18 @@ def compute_dc_j():
 
     dc_j = dc.groupby(['depdom', 'MDEC', 'JDEC', 'ADEC']).ANAIS.count()
     mean = dc_j.groupby(['depdom', 'MDEC']).mean()
+    std  = dc_j.groupby(['depdom', 'MDEC']).std()
 
-    return mean.round().astype(int).rename("dc_j")
+    return pd.DataFrame({
+                "dc_j": mean.round(1),
+                "err": std.round(1),
+            })
 
 
 def graph(dc_j, selection):
     depts = [f"{dep:02}" for dep in selection]
 
-    p = pd.DataFrame({dep: dc_j[dep] for dep in depts}, index=range(1,13))
+    p = pd.DataFrame({dep: dc_j.dc_j[dep] for dep in depts}, index=range(1,13))
 
     with plt.xkcd():
         plot(p).set_xlim(-0.5, 5.7)
