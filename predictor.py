@@ -69,7 +69,7 @@ def main():
                     .plot(linestyle="--", linewidth=.7, color="#00D")
 
         # light => alpha area: .05, markers: .25
-        sums.incid_dc.plot.area(alpha=.1, color="orange", zorder=-1)
+        fill(sums.incid_dc,     alpha=.1, color="orange", zorder=-1)
         sums.incid_dc.plot     (alpha=.3, color="orange", zorder=-1,
                                 marker="+", linestyle="")
 
@@ -79,10 +79,15 @@ def main():
 
         x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
         add_note(plot, x, avg_dc, f"{avg_dc_percent}%")
-        add_note(plot, x, dc_low, f"{dc_low_percent}%") \
+        add_note(plot, x, dc_noise, f"bruit") \
                 if opt.show_noise else None
 
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
+
+
+def fill(line, **kwargs):
+        line.plot(linestyle="-", **kwargs) \
+        .axes.fill_between(line.index, line, 0.1, **kwargs)
 
 
 def add_note(plot, x, data, text, side=True):
