@@ -240,7 +240,7 @@ def text_xy(point, nb_days):
 
 
 def set_opts(plot):
-    log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,900,1800]
+    log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,900,1500]
     int_formatter = lambda x, pos: f'{x:.0f}'
     plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
     plot.axes.yaxis.set_major_locator(plt.FixedLocator(log_scalator))
@@ -290,12 +290,14 @@ def set_view(plot, arg, gap):
 
 
 def zoom_full_adaptive(plot, arg):
-    if arg == "met":
-        plot.set(ylim=(4.2, 2700))
-    elif arg == "idf":
-        plot.set(ylim=(1.6, 350))
-    else:
-        plot.set(ylim=(0.64, 140))
+    yscale = pd.Series([0.8, 64])
+
+    factor = 30 if arg == "met" else \
+              7 if arg == "idf" else \
+              4 if arg in [ "pc", "gc" ] else \
+              1
+
+    plot.set(ylim=(yscale * factor).values)
 
 
 def zoom_1_10_adaptive(plot, arg):
