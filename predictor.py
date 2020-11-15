@@ -53,7 +53,7 @@ def main():
             .join(reg_line) \
             .join(pred, how='outer')
 
-    with plt.xkcd():
+    with plt.style.context(opt.style) if opt.style else plt.xkcd():
         plot = plot.plot(logy=True)
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
@@ -448,6 +448,9 @@ def parse_args():
             help="don't show predictor graph")
     parser.add_argument("--noise", action="store_true",
             help="show mortality noise level")
+    parser.add_argument("--style", action="store",
+            choices=plt.style.available, metavar='<style>',
+            help="use <style> instead of xkcd [try: fast]")
     parser.add_argument("--noshow", action="store_true",
             help="don't display graph on screen")
     parser.add_argument('arg', nargs='+',
