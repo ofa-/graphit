@@ -13,6 +13,7 @@ body {
 }
 img {
 	margin-bottom: 12em;
+	margin-top: -1.5em;
 }
 .map {
 	position: absolute;
