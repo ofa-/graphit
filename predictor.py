@@ -7,6 +7,8 @@ import locale; locale.setlocale(locale.LC_ALL, "fr_FR.UTF8")
 import numpy as np
 
 from matplotlib.dates import DateFormatter
+from matplotlib import patheffects
+
 from sklearn.linear_model import LinearRegression
 
 
@@ -225,8 +227,11 @@ def show_dbl(plot, reg_line, chunks):
             f'{abs(round(nb_days))}',
             fontsize="x-small",
             color="green",
-            bbox=dict(boxstyle="circle", color="green", alpha=0.2), # fc="white"),
+            bbox=dict(boxstyle="circle", color="green", alpha=.2),
             xy=text_xy(point, nb_days),
+            path_effects=[
+                patheffects.withStroke(linewidth=4, foreground="w"),
+            ]
         )
 
 
