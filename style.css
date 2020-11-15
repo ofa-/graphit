@@ -30,10 +30,10 @@ img {
 }
 .help.text {
 	border: 1px solid grey;
-	border-radius: 2em;
+	border-radius: 1.5em;
 	padding: .5em 1.5em;
 	display: inline-block;
-	margin: -10em 1em 1em;
+	margin: -10em 1em .75em;
 	font-family: comfortaa;
 }
 .help.text body {
