@@ -41,22 +41,22 @@ def main():
     data = sums.rolling(7).mean()
 
     dc_ref, dc_noise = avg_dc_line(region if arg != "met" else arg)
-
     reg_line, chunks = regressor(data)
+    pred, cuts = predictor(data)
 
-    pred, cuts = ([],[]) if opt.nopred \
-                    else \
-                 predictor(data) if arg == "met" or opt.pred \
-                    else \
-                 ([],[])
+    incid = data[["incid_rea", "incid_dc"]]
 
-    plot = data \
-            .drop(['incid_hosp', 'incid_rad'], axis=1) \
+    incid = incid \
             .join(reg_line) \
             .join(pred, how='outer')
 
+    if opt.pred: pass
+    elif opt.nopred or arg != "met":
+        incid['pred'] = None
+        pred = cuts = []
+
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
-        plot = plot.plot(logy=True)
+        plot = incid.plot(logy=True)
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
 
