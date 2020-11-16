@@ -30,15 +30,18 @@ depts = \
 nonoise = \
 		idf pc gc met \
 		05
+
+graphit = ./predictor.py --round
+
 curfew:
 	unset DISPLAY; \
 	for dept in $(nonoise); do \
-		./predictor.py $$dept --two-months & \
+		$(graphit) $$dept --two-months & \
 	done; \
 	for dept in $(depts); do \
-		./predictor.py $$dept --two-months --noise & \
+		$(graphit) $$dept --two-months --noise & \
 	done; \
-	./predictor.py met --full & \
+	$(graphit) met --full & \
 	wait
 
 help.fr:
