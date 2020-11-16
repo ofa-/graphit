@@ -24,11 +24,19 @@ clean:
 	rm -f xkcd.ttf fontname.py
 
 
-curfew: depts = 31 34 13 42 69 38 76 75 59  idf pc gc met 33 67 30 05 73
+depts = \
+		31 34 13 42 69 38 76 75 59 \
+		33 67 30 73
+nonoise = \
+		idf pc gc met \
+		05
 curfew:
 	unset DISPLAY; \
-	for dept in $(depts); do \
+	for dept in $(nonoise); do \
 		./predictor.py $$dept --two-months & \
+	done; \
+	for dept in $(depts); do \
+		./predictor.py $$dept --two-months --noise & \
 	done; \
 	./predictor.py met --full & \
 	wait
