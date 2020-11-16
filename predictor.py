@@ -45,6 +45,8 @@ def main():
     pred, cuts = predictor(data)
 
     incid = data[["incid_rea", "incid_dc"]]
+    if opt.round:
+        incid = incid.round()
 
     incid = incid \
             .join(reg_line) \
@@ -62,6 +64,8 @@ def main():
 
         avg_dc_percent = 50
         avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
+        if opt.round:
+            dc_noise = dc_noise.round()
         dc_noise.plot(linestyle=":", linewidth=.5, color="grey", zorder=0) \
                     if opt.noise else None
 
@@ -98,6 +102,8 @@ def add_note(plot, x, data, text, side=True):
 
 def plot_avg_dc(plot, dc_ref, dc_percent):
         avg_dc = dc_ref * dc_percent
+        if opt.round:
+            avg_dc = avg_dc.round()
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey", zorder=0)
         return avg_dc
 
@@ -453,6 +459,8 @@ def parse_args():
             help="don't show predictor graph")
     parser.add_argument("--noise", action="store_true",
             help="show mortality noise level")
+    parser.add_argument("--round", action="store_true",
+            help="show rounded values graphs")
     parser.add_argument("--style", action="store",
             choices=plt.style.available, metavar='<style>',
             help="use <style> instead of xkcd [try: fast]")
