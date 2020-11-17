@@ -168,12 +168,13 @@ def avg_dc_line(region):
     sel = dc_j.depdom.str.match(region) if region != "met" else \
          ~dc_j.depdom.str.match("9[7-9]|na")
 
-    noise = dc_j[sel].groupby("MDEC").err.sum()
-    dc_j = dc_j[sel].groupby("MDEC").dc_j.sum()
+    dc = dc_j[sel].groupby(['ADEC', 'MDEC', 'JDEC']).dc_j.sum()
+    avg = dc.groupby('MDEC').mean()
+    std = dc.groupby('MDEC').std()
 
     dates = pd.date_range("2020-03-01", "2021-04-01")
-    avg_dc = [ dc_j[month]/100 for month in dates.month ]
-    noise =  [ noise[month] for month in dates.month ]
+    avg_dc = [ avg[month]/100 for month in dates.month ]
+    noise =  [ std[month] for month in dates.month ]
 
     return pd.Series(index=dates, data=avg_dc).rename('dc_j'), \
            pd.Series(index=dates, data=noise).rename('dc_noise')
