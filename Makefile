@@ -26,9 +26,9 @@ clean:
 
 depts = \
 		31 34 13 42 69 38 76 75 59 \
-		33 67 30 73
+		33 67 30 73 \
+		idf pc gc met
 nonoise = \
-		idf pc gc met \
 		05
 
 graphit = ./predictor.py --round
