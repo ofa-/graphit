@@ -20,7 +20,7 @@ regions = {
         "ra":  [ "69|38|01|26" ],
         "brg": [ "Bourgogne Franche-Comté", "21|25|39|58|70|71|89|90" ],
         "fc":  [ "Franche-Comté", "25|39|70|90" ],
-        "met": [ "Métropole" ],
+        "met": [ "Métropole", "met" ],
 }
 
 def main():
@@ -40,7 +40,7 @@ def main():
 
     data = sums.rolling(7).mean()
 
-    dc_ref, dc_noise = avg_dc_line(region if arg != "met" else arg)
+    dc_ref, dc_noise = avg_dc_line(region)
     reg_line, chunks = regressor(data)
     pred, cuts = predictor(data)
 
