@@ -16,20 +16,15 @@ def compute_dc_j():
     dc['depdom'] = dc.COMDOM.astype(str).apply(
                     lambda x: x[0:2 if x[0:2] != "97" else 3])
 
-    dc_j = dc.groupby(['depdom', 'MDEC', 'JDEC', 'ADEC']).ANAIS.count()
-    mean = dc_j.groupby(['depdom', 'MDEC']).mean()
-    std  = dc_j.groupby(['depdom', 'MDEC']).std()
+    dc_j = dc.groupby(['depdom', 'ADEC', 'MDEC', 'JDEC']).ANAIS.count()
 
-    return pd.DataFrame({
-                "dc_j": mean.round(1),
-                "err": std.round(1),
-            })
+    return dc_j.rename("dc_j")
 
 
 def graph(dc_j, selection):
     depts = [f"{dep:02}" for dep in selection]
 
-    p = pd.DataFrame({dep: dc_j.dc_j[dep] for dep in depts}, index=range(1,13))
+    p = pd.DataFrame({dep: dc_j[dep] for dep in depts}, index=range(1,13))
 
     with plt.xkcd():
         plot(p).set_xlim(-0.5, 5.7)
@@ -64,6 +59,8 @@ def main():
 
     with open("dc_j.csv", "w") as f:
         f.write(dc_j.to_csv())
+
+    dc_j = dc_j.groupby(['depdom', 'MDEC']).mean()
 
     graph(dc_j, [13, 33, 69, 83, 31, 38, 1, 26, 73])
 
