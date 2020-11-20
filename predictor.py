@@ -96,7 +96,7 @@ def fill(line, **kwargs):
 
 
 def add_note(plot, x, data, text, side=True):
-    plot.annotate(text, color="grey", size="x-small", alpha=0.3,
+    plot.annotate(text, color="#AAA", size="x-small",
                     xy=(x+pd.Timedelta(days=1), data[x]))
 
 
