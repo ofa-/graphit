@@ -122,7 +122,7 @@ def regressor(data):
                 [207,215],
                 [216,229],
                 [230,237],
-                [238,len(data)],
+                [240,len(data)],
             ]
 
     reg_line = pd.concat([
