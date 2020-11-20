@@ -245,7 +245,7 @@ def show_dbl(plot, reg_line, chunks):
 
 def text_xy(point, nb_days):
     a = np.log(2)/nb_days
-    d = 1.1
+    d = 1.1 if nb_days > 0 else 1.2
     dy = d/np.sqrt(1 + a**2)
     dx = d/np.sqrt(1 + 1/a**2)
     return (
