@@ -67,5 +67,11 @@ help.fr:
 fetch:
 	./fetch.sh
 
+wait-for-data.csv:
+	while [ `tail -1 data.csv | cut -d ';' -f2` != `date +%F` ]; do \
+		sleep 1m	;\
+		./fetch.sh	;\
+	done
+
 upload:
 	lftp -c "open $(TARGET); mput *.png"
