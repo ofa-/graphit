@@ -12,6 +12,7 @@ def compute_dc_j():
     dc = pd.DataFrame()
     dc = dc.append(pd.read_csv(f"insee_dc/DC_2018_det.csv", sep=";"))
     dc = dc.append(pd.read_csv(f"insee_dc/DC_2019_det.csv", sep=";"))
+    dc = dc.append(pd.read_csv(f"insee_dc/DC_2020_det.csv", sep=";"))
 
     dc['depdom'] = dc.COMDOM.astype(str).apply(
                     lambda x: x[0:2 if x[0:2] != "97" else 3])
@@ -59,6 +60,8 @@ def main():
 
     with open("dc_j.csv", "w") as f:
         f.write(dc_j.to_csv())
+
+    return
 
     dc_j = dc_j.groupby(['depdom', 'MDEC']).mean()
 
