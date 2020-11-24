@@ -134,6 +134,7 @@ def regressor(data):
 
 def predictor(data):
     scaled = 10**0.2 * data['incid_rea'].pow(0.885)
+    scale2 = 10**0.31 * data['incid_rea'].pow(0.885)
 
     shifts = [
                 [ [0,20], 5 ],
@@ -150,16 +151,23 @@ def predictor(data):
                 [ [207,213], 8 ],
                 [ [219,225], 4 ],
                 [ [230,231], 0 ],
-                #[ [228,len(scaled)], 1 ],
+                [ [237,len(scaled)], 5 ],
             ]
 
-    shifted = pd.concat([
-        scaled[range(*chunk[0])] .shift(periods=chunk[1], freq='D')
-            for chunk in shifts
-        ]) \
+    shifted = pd.concat(
+        shift(scaled, shifts[0:14]) +
+        shift(scale2, shifts[14:])
+        ) \
         .rename('pred')
 
     return shifted, shifts
+
+
+def shift(scaled, shifts):
+    return [
+        scaled[range(*chunk[0])] .shift(periods=chunk[1], freq='D')
+        for chunk in shifts
+    ]
 
 
 def avg_dc_line(region):
