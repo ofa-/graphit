@@ -176,7 +176,8 @@ def avg_dc_line(region):
     sel = dc_j.depdom.str.match(region) if region != "met" else \
          ~dc_j.depdom.str.match("9[7-9]|na")
 
-    dc = dc_j[sel].groupby(['ADEC', 'MDEC', 'JDEC']).dc_j.sum()
+    dc_ = dc_j[sel].groupby(['ADEC', 'MDEC', 'JDEC']).dc_j.sum()
+    dc  = dc_[2018].append(dc_[2019])
     avg = dc.groupby('MDEC').mean()
     std = dc.groupby('MDEC').std()
 
