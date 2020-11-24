@@ -57,6 +57,18 @@ def main():
         incid['pred'] = None
         pred = cuts = []
 
+#    # xkcd style ignores alpha spec on lines ? draw them outside
+#    with plt.style.context(opt.style) if opt.style else plt.xkcd():
+#        plot = incid.plot(logy=True, y=["incid_rea", "incid_dc"])
+#
+#    def plot_alpha(data, color):
+#        data.plot(alpha=0.5, linewidth=2, color=color)
+#    plot_alpha(incid.reg, "darkgreen")
+#    plot_alpha(incid.pred, "darkred") if len(pred) else None
+#
+#    with plt.style.context(opt.style) if opt.style else plt.xkcd():
+#
+
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
         plot = incid.plot(logy=True)
         show_dbl(plot, reg_line, chunks)
