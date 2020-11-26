@@ -4,6 +4,7 @@ function onload() {
 		.querySelector("noscript").textContent
 
 	var images = document.images
+	var base = "https://coviiid.github.io/fig/"
 
 	for (var i=0; i < images.length; i++) {
 		var img = images[i]
@@ -11,6 +12,7 @@ function onload() {
 		img.onload = create_areas
 		img.next = images[(i+1) % images.length]
 		img.prev = images[(i-1+images.length) % images.length]
+		img.src = base + img.src.replace(/.*\//, "")
 	}
 	images.curr = images[images.length-1]
 	images.curr.next = images.curr.prev
@@ -18,6 +20,7 @@ function onload() {
 	images[0].prev = images.curr.next
 	images.home = images.curr
 	images.map = create_map()
+	images.curr.src = images.curr.src.replace("/fig/", "/full/")
 
 	add_help()
 	show(images.curr)
