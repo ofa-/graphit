@@ -52,8 +52,7 @@ def main():
             .join(reg_line) \
             .join(pred, how='outer')
 
-    if opt.pred: pass
-    elif opt.nopred or arg != "met":
+    if not opt.pred:
         incid['pred'] = None
         pred = cuts = []
 
@@ -485,9 +484,7 @@ def parse_args():
     parser.add_argument("--fouché", action="store_true",
             help="graph Fouché-fixed réa (5/8)")
     parser.add_argument("--pred", action="store_true",
-            help="graph predictor anyway [normaly only for met]")
-    parser.add_argument("--nopred", action="store_true",
-            help="don't show predictor graph")
+            help="graph predictor")
     parser.add_argument("--noise", action="store_true",
             help="show mortality noise level")
     parser.add_argument("--round", action="store_true",
