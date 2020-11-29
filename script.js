@@ -21,6 +21,7 @@ function onload() {
 	images.home = images.curr
 	images.map = create_map()
 	images.curr.src = images.curr.src.replace("/fig/", "/full/")
+	images.curr.setAttribute("class", "full")
 
 	add_help()
 	show(images.curr)

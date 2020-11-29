@@ -15,6 +15,9 @@ img {
 	margin-bottom: 12em;
 	margin-top: -1.5em;
 }
+.full {
+	width: 100%;
+}
 .map {
 	position: absolute;
 	bottom: 0;
