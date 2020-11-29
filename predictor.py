@@ -320,10 +320,12 @@ def set_view(plot, arg, gap):
         zoom_1_100(plot, arg)
 
     if opt.full:
-        fig_xsize = 16 * ( (now - date("2020-03-20")).days /
+        fig_xsize = 12 * ( (now - date("2020-03-20")).days /
             (date("2020-10-20") - date("2020-03-20")).days )
+        margin_left = .05
         plot.figure.set(figwidth=fig_xsize, figheight=6)
         plot.set(xlim=("2020-03-20", now+td(days=gap)))
+        plot.figure.subplots_adjust(left=margin_left, right=1-margin_left)
         zoom_full_adaptive(plot, arg)
 
 
