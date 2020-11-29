@@ -70,7 +70,7 @@ def main():
 #
 
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
-        plot = incid.plot(logy=True)
+        plot = incid.plot(logy=opt.log_scale)
         show_dbl(plot, reg_line, chunks)
         annotate(plot, pred, cuts)
 
@@ -330,7 +330,9 @@ def set_view(plot, arg, gap):
 
 
 def zoom_full_adaptive(plot, arg):
-    yscale = pd.Series([0.8, 64])
+    yscale = pd.Series(
+            [0.8, 64] if opt.log_scale else
+            [0.2, 32])
 
     factor = 30 if arg == "met" else \
               7 if arg == "idf" else \
@@ -352,7 +354,9 @@ def zoom_1_10_adaptive(plot, arg):
 
 
 def zoom_1_50_adaptive(plot, arg):
-    yscale = pd.Series([0.8, 64])
+    yscale = pd.Series(
+            [0.8, 64] if opt.log_scale else
+            [0.2, 32])
 
     factor = 30 if arg == "met" else \
               4 if arg == "idf" else \
@@ -488,6 +492,8 @@ def parse_args():
             help="show mortality noise level")
     parser.add_argument("--round", action="store_true",
             help="show rounded values graphs")
+    parser.add_argument("--log-scale", action="store_true",
+            help="use logarithmic y-scale for graphs")
     parser.add_argument("--style", action="store",
             choices=plt.style.available, metavar='<style>',
             help="use <style> instead of xkcd [try: fast]")
