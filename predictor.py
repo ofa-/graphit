@@ -38,7 +38,8 @@ def main():
 
     sums = selection.groupby('jour').sum()
 
-    data = sums.rolling(7).mean()
+    data = sums.rolling(7).mean() \
+    #            .rolling(3, win_type="hamming").mean()
 
     dc_ref, dc_noise = avg_dc_line(region)
     reg_line, chunks = regressor(data)
