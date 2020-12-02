@@ -49,8 +49,19 @@ def main():
     if opt.round:
         incid = incid.round()
 
+    reg_dc_chunks = [
+            [25,25+7],
+            [33,33+15],
+            [245,len(incid)],
+        ]
+    reg_dc_line = pd.concat([
+        exp_lin_reg(data.incid_dc[range(*chunk)])
+            for chunk in reg_dc_chunks
+    ]).rename("reg.dc")
+
     incid = incid \
             .join(reg_line) \
+            .join(reg_dc_line) \
             .join(pred, how='outer')
 
     if not opt.pred:
@@ -72,6 +83,7 @@ def main():
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
         plot = incid.plot(logy=opt.log_scale)
         show_dbl(plot, reg_line, chunks)
+        show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red", above=True)
         annotate(plot, pred, cuts)
 
         avg_dc_percent = 50
@@ -246,7 +258,7 @@ def _annotate(plot, point, nb_days, side):
     )
 
 
-def show_dbl(plot, reg_line, chunks):
+def show_dbl(plot, reg_line, chunks, color="green", above=False):
     size = [ len(range(*chunk)) for chunk in chunks ]
     spots = [ int(size[i]/2) + sum(size[:i]) for i in range(len(size)) ]
     for spot in spots:
@@ -257,18 +269,18 @@ def show_dbl(plot, reg_line, chunks):
         plot.annotate(
             f'{abs(round(nb_days))}',
             fontsize="x-small",
-            color="green",
-            bbox=dict(boxstyle="circle", color="green", alpha=.2),
-            xy=text_xy(point, nb_days),
+            color=color,
+            bbox=dict(boxstyle="circle", color=color, alpha=.2),
+            xy=text_xy(point, nb_days, above),
             path_effects=[
                 patheffects.withStroke(linewidth=4, foreground="w"),
             ]
         )
 
 
-def text_xy(point, nb_days):
+def text_xy(point, nb_days, above):
     a = np.log(2)/nb_days
-    d = 1.1 if nb_days > 0 else 1.2
+    d = 1.1 if nb_days > 0 or above else 1.2
     dy = d/np.sqrt(1 + a**2)
     dx = d/np.sqrt(1 + 1/a**2)
     return (
