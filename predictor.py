@@ -90,7 +90,7 @@ def main():
         sums.incid_dc.plot     (alpha=.3, color="orange", zorder=-1,
                                 marker="+", linestyle="")
 
-        set_opts(plot)
+        set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
         set_title(plot, arg, double_times(data, chunks[-2:]))
 
@@ -277,11 +277,14 @@ def text_xy(point, nb_days):
     )
 
 
-def set_opts(plot):
+def set_opts(plot, arg):
     log_scalator = [1,2,3,4,5,7,10,20,30,50,70,100,200,300,500,900,1500]
+    lin_scalator = [1,5,10,20,30,50,100,200,300,500,900,1500]
+    if arg == "met": lin_scalator = lin_scalator[5:]
+    scalator = log_scalator if opt.log_scale else lin_scalator
     int_formatter = lambda x, pos: f'{x:.0f}'
-    plot.axes.yaxis.set_minor_locator(plt.FixedLocator(log_scalator))
-    plot.axes.yaxis.set_major_locator(plt.FixedLocator(log_scalator))
+    plot.axes.yaxis.set_minor_locator(plt.FixedLocator(scalator))
+    plot.axes.yaxis.set_major_locator(plt.FixedLocator(scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
     plot.axes.yaxis.set_major_formatter(int_formatter)
     plot.axes.xaxis.set_major_formatter(DateFormatter('\xAF\n%b'))
