@@ -4,7 +4,7 @@ function onload() {
 		.querySelector("noscript").textContent
 
 	var images = document.images
-	var base = "https://coviiid.github.io/fig/"
+	var base = "fig/"
 
 	for (var i=0; i < images.length; i++) {
 		var img = images[i]
@@ -19,7 +19,6 @@ function onload() {
 	images.curr.prev.next = images[0]
 	images[0].prev = images.curr.next
 	images.home = images.curr
-	images.map = create_map()
 	images.curr.src = images.curr.src.replace("/fig/", "/full/")
 	images.curr.setAttribute("class", "full")
 
@@ -101,28 +100,12 @@ function show_home() {
 	show(document.images.home)
 }
 
-function create_map() {
-	var map = document.createElement("img")
-	map.src = "img/curfew-plain.png"
-	map.setAttribute("class", "map")
-	map.onclick = onclick_map
-	document.body.appendChild(map)
-	return map
-}
-
-function onclick_map() {
-	this.style.opacity = this.style.opacity ? "" : "0"
-}
-
 function show(image) {
 	var images = document.images
 
 	images.curr.style.display = "none"
 	image.style.display = ""
 	images.curr = image
-	images.map.src = "img/curfew-" + image.src
-		.replace(/.*\//, "")
-		.replace(/met-full/, "plain")
 }
 
 function onkeypress(ev) {
