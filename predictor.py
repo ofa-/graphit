@@ -20,6 +20,7 @@ regions = {
         "ra":  [ "69|38|01|26" ],
         "brg": [ "Bourgogne Franche-Comté", "21|25|39|58|70|71|89|90" ],
         "fc":  [ "Franche-Comté", "25|39|70|90" ],
+        "ge":  [ "Grand Est", "08|10|51|52|54|55|57|67|68|88" ],
         "met": [ "Métropole", "met" ],
 }
 
@@ -352,7 +353,7 @@ def zoom_full_adaptive(plot, arg):
 
     factor = 30 if arg == "met" else \
               7 if arg == "idf" else \
-              4 if arg in [ "pc", "gc" ] else \
+              4 if arg in [ "pc", "gc", "ge" ] else \
               1
 
     plot.set(ylim=(yscale * factor).values)
@@ -363,7 +364,7 @@ def zoom_1_10_adaptive(plot, arg):
 
     factor = 21 if arg == "met" else \
               8 if arg == "idf" else \
-              4 if arg in [ "gc", "pc" ] else \
+              4 if arg in [ "pc", "gc", "ge" ] else \
               1
 
     plot.set(ylim=(yscale * factor).values)
@@ -376,7 +377,7 @@ def zoom_1_50_adaptive(plot, arg):
 
     factor = 30 if arg == "met" else \
               4 if arg == "idf" else \
-              2 if arg in [ "pc", "gc" ] else \
+              2 if arg in [ "pc", "gc", "ge" ] else \
               1
 
     plot.set(ylim=(yscale * factor).values)
