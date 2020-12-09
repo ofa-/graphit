@@ -349,7 +349,7 @@ def set_view(plot, arg, gap):
 def zoom_full_adaptive(plot, arg):
     yscale = pd.Series(
             [0.8, 64] if opt.log_scale else
-            [0.2, 32])
+            [0, 32])
 
     factor = 30 if arg == "met" else \
               7 if arg == "idf" else \
@@ -360,7 +360,9 @@ def zoom_full_adaptive(plot, arg):
 
 
 def zoom_1_10_adaptive(plot, arg):
-    yscale = pd.Series([0.4, 16])
+    yscale = pd.Series(
+            [0.4, 16] if opt.log_scale else
+            [0, 8])
 
     factor = 21 if arg == "met" else \
               8 if arg == "idf" else \
@@ -373,7 +375,7 @@ def zoom_1_10_adaptive(plot, arg):
 def zoom_1_50_adaptive(plot, arg):
     yscale = pd.Series(
             [0.8, 64] if opt.log_scale else
-            [0.2, 32])
+            [0, 32])
 
     factor = 30 if arg == "met" else \
               4 if arg == "idf" else \
@@ -384,7 +386,9 @@ def zoom_1_50_adaptive(plot, arg):
 
 
 def zoom_1_100(plot, arg):
-    yscale = pd.Series([0.8, 128])
+    yscale = pd.Series(
+            [0.8, 128] if opt.log_scale else
+            [0, 64])
 
     factor = 7.15 if arg == "met" else \
              1
