@@ -355,7 +355,7 @@ def zoom_full_adaptive(plot, arg):
 
     factor = 30 if arg == "met" else \
               7 if arg == "idf" else \
-              4 if arg in [ "pc", "gc", "ge" ] else \
+              4 if arg in regions else \
               1
 
     plot.set(ylim=(yscale * factor).values)
@@ -368,7 +368,7 @@ def zoom_1_10_adaptive(plot, arg):
 
     factor = 21 if arg == "met" else \
               8 if arg == "idf" else \
-              4 if arg in [ "pc", "gc", "ge" ] else \
+              4 if arg in regions else \
               1
 
     plot.set(ylim=(yscale * factor).values)
@@ -381,7 +381,7 @@ def zoom_1_50_adaptive(plot, arg):
 
     factor = 30 if arg == "met" else \
               4 if arg == "idf" else \
-              2 if arg in [ "pc", "gc", "ge" ] else \
+              2 if arg in regions else \
               1
 
     plot.set(ylim=(yscale * factor).values)
