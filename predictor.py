@@ -55,7 +55,8 @@ def main():
     reg_dc_chunks = [
             [25,25+7],
             [33,33+15],
-            [245,len(incid)],
+            [245,245+14],
+            [260,len(incid)],
         ]
     reg_dc_line = pd.concat([
         exp_lin_reg(data.incid_dc[range(*chunk)])
