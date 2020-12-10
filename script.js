@@ -22,7 +22,8 @@ var base = "https://coviiid.github.io/fig/"
 
 function onload() {
 
-	var region = _region["survey"].split(",")
+	var query = document.location.search.substring(1)
+	var region = get_region(query).split(",")
 
 	for (var i=0; i < region.length; i++) {
 		var img = document.createElement("img")
@@ -38,7 +39,6 @@ function onload() {
 
 	document.onkeydown = onkeypress
 
-	var query = document.location.search.substring(1)
 	if (query)
 		show_query(query)
 	else
@@ -46,7 +46,7 @@ function onload() {
 }
 
 function show_query(query) {
-	query = query + ".png"
+	query = query.split(",")[0] + ".png"
 
 	var images = document.images
 	for (var i=0; i < images.length; i++) {
@@ -56,6 +56,18 @@ function show_query(query) {
 		show(img)
 		break
 	}
+}
+
+function get_region(query) {
+	var region = _region[query || "survey"]
+	return region ? region : region_of_dep(query)
+}
+
+function region_of_dep(query) {
+	for (var r in _region)
+		if (_region[r].includes(query))
+			return _region[r]
+	return query
 }
 
 function set_loop(images) {
