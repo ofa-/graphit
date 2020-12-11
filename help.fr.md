@@ -9,11 +9,10 @@ nombre quotidien de nouveaux décès et de nouvelles admissions en réanimation.
 - `ligne grise` : 50% de la mortalité quotidienne toutes causes, \
    pour le département ou la zone (insee données 2018+2019, moyenne par mois)
 
-- `lignes vertes` : regressions «linéaires» sur les tronçons de réa, \
+- `lignes vertes` : regressions exponentielles sur les tronçons de réa, \
    les billes vertes donnent le temps de doublement
 
-- `tronçons rouges` : « prédictor » = courbe réa décalée de x jours, \
-   légèrement écrasée (facteur [0.885][ref.scaled.rea])
+- `tronçons rouges` : regressions exponentielles sur dc
 
 
 données : Santé Publique France >
