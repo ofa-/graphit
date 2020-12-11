@@ -18,7 +18,7 @@ var _region = {
 	"bourgogne": "21,58,71,89",
 	"franche-comte": "25,39,70,90",
 	"hauts-france": "02,59,60,62,80",
-	"ile-de-france": "75,77,78,91,92,93,94,95",
+	"ile-de-france": "75,77,78,91,92,93,94,95,pc,gc,idf",
 	"sud": "34,30,13,83,06,2A,2B",
 }
 
