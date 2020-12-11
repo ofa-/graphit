@@ -40,6 +40,7 @@ function onload() {
 	set_loop(document.images)
 	add_img_areas()
 	add_home_img()
+	add_regions()
 	add_help()
 
 	document.onkeydown = onkeypress
@@ -99,6 +100,44 @@ function add_home_img() {
 	document.body.append(home)
 	document.images.home = home
 	document.images.curr = home
+}
+
+function add_regions() {
+	var regions = document.createElement("div")
+	regions.setAttribute("class", "buttons")
+	regions.style.display = "none"
+
+	for (var r in _region) {
+		var butt = document.createElement("div")
+		butt.innerHTML = r
+		butt.onclick = region_button_onclick
+		butt.id = r
+		regions.appendChild(butt)
+	}
+
+	var icon = document.createElement("div")
+	icon.setAttribute("class", "icon")
+	icon.innerHTML = "R"
+
+	var container = document.createElement("div")
+	container.setAttribute("class", "regions")
+	container.appendChild(regions)
+	container.appendChild(icon)
+	regions.onclick = icon.onclick = toggle_regions
+
+	document.body.appendChild(container)
+}
+
+function region_button_onclick(ev) {
+	ev.stopPropagation()
+	document.location.replace(
+		document.location.pathname + "?" + this.id
+	)
+}
+
+function toggle_regions() {
+	var style = document.querySelector(".regions .buttons").style
+	style.display = (style.display ? "" : "none")
 }
 
 function add_help() {
@@ -173,5 +212,6 @@ function onkeypress(ev) {
 		case 27: show_home(); break;
 		case 188:
 		case 72: return toggle_help()
+		case 82: return toggle_regions()
 	}
 }

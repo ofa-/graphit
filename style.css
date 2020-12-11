@@ -32,12 +32,27 @@ img {
 	position: absolute;
 	bottom: 0;
 }
-.help {
+.regions, .help {
 	position: absolute;
 	user-select: none;
 	width: 100%;
 	bottom: 0;
 	font-family: comfortaa;
+}
+.regions .icon {
+	left: 0;
+}
+.regions .buttons {
+	margin: 2em auto;
+	width: 80%;
+}
+.regions .buttons div {
+	border-radius: 1em;
+	background-color: #DED;
+	border: 2px solid #ACA;
+	display: inline-block;
+	padding: .6em 1em;
+	margin: .5em;
 }
 .help .icon {
 	right: 0;
