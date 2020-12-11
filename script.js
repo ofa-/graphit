@@ -171,6 +171,7 @@ function onkeypress(ev) {
 		case 37: show_prev(); break;
 		case 39: show_next(); break;
 		case 27: show_home(); break;
+		case 188:
 		case 72: return toggle_help()
 	}
 }
