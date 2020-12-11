@@ -13,7 +13,7 @@ var _region = {
 	"languedoc-roussillon": "11,30,34,48,66",
 	"occitanie": "09,11,12,30,31,32,34,46,48,65,66,81,82",
 	"grand-est": "08,10,51,52,54,55,57,67,68,88",
-	"centre-loire": "18,28,36,37,41,45",
+	"centre-val-de-loire": "18,28,36,37,41,45",
 	"pays-de-la-loire": "44,49,53,72,85",
 	"bourgogne": "21,58,71,89",
 	"franche-comte": "25,39,70,90",
