@@ -103,9 +103,10 @@ function add_home_img() {
 
 function add_help() {
 	var help = document.createElement("div")
+	help.setAttribute("class", "help")
 	help.innerHTML = (
-	'<img class="help icon" src="img/help_icon.png">' +
-	'<p class="help text" style="display:none">' +
+	'<div class="icon">?</div>' +
+	'<p class="text" style="display:none">' +
 	'<iframe src="help.fr.md.html" onload="move_to_parent(this)"/>' +
 	'</p>'
 	)
@@ -116,7 +117,7 @@ function add_help() {
 }
 
 function toggle_help() {
-	var style = document.querySelector(".help.text").style
+	var style = document.querySelector(".help .text").style
 	style.display = (style.display ? "" : "none")
 }
 

@@ -12,7 +12,7 @@ body {
 	position: relative;
 }
 img {
-	margin-bottom: 12em;
+	margin-bottom: 22em;
 	margin-top: -1.5em;
 }
 .full {
@@ -20,32 +20,39 @@ img {
 	margin-top: 2em;
 	margin-bottom: 20em;
 }
-.map {
+.icon {
+	border-radius: 1.5em;
+	border: .12em solid black;
+	padding: .1em;
+	width: 1em;
+	height: 1em;
+	margin: .3em;
+	font-size: 2.5em;
+	font-weight: bold;
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	height: 11em;
-	margin: .5em;
 }
-.help.icon {
+.help {
 	position: absolute;
+	user-select: none;
+	width: 100%;
 	bottom: 0;
+	font-family: comfortaa;
+}
+.help .icon {
 	right: 0;
-	width: 3em;
-	margin: 1em;
 }
-.help.text {
+.help .text {
 	border: 1px solid grey;
 	border-radius: 1.5em;
 	padding: .5em 1.5em;
 	display: inline-block;
-	margin: -10em 1em .75em;
-	font-family: comfortaa;
+	background-color: white;
 }
-.help.text body {
+.help .text body {
 	text-align: left;
 }
-.help.text code {
+.help .text code {
 	background-color: lightblue;
 	padding: .1em .3em;
 }
