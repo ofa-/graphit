@@ -52,6 +52,11 @@ function onload() {
 }
 
 function show_query(query) {
+	if (query in _region) {
+		show(document.images[0])
+		toggle_regions()
+		return
+	}
 	query = query.split(",")[0] + ".png"
 
 	var images = document.images
