@@ -1,5 +1,5 @@
 var _region = {
-	"survey": "13,34,30,31,33,69,42,38,73,74,05,67,76,59,75,pc,gc,idf,met",
+	"radar": "13,34,30,31,33,69,42,38,73,74,05,67,76,59,75,pc,gc,idf,met",
 	"paca": "04,05,06,13,83,84",
 	"rhone-alpes": "69,38,01,26,73,74",
 	"auvergne": "03,07,15,42,43,63",
@@ -59,7 +59,7 @@ function show_query(query) {
 }
 
 function get_region(query) {
-	var region = _region[query || "survey"]
+	var region = _region[query || "radar"]
 	return region ? region : region_of_dep(query)
 }
 
