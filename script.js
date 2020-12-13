@@ -1,5 +1,5 @@
 var _region = {
-	"radar": "13,34,30,31,33,69,42,38,73,74,05,67,76,59,75,pc,gc,idf,met",
+	"radar": "met,13,34,30,31,33,69,42,38,73,74,05,67,76,59,75,pc,gc,idf",
 	"paca": "04,05,06,13,83,84",
 	"rhone-alpes": "69,42,07,01,26,38,73,74",
 	"auvergne": "03,15,43,63",
@@ -103,8 +103,7 @@ function add_home_img() {
 	home.src = base + "../full/met-full.png"
 	home.setAttribute("class", "full")
 	home.onclick = show_next
-	home.next = document.img.first
-	home.prev = home.next.prev
+	home.next = home.prev = document.img.first
 
 	document.images.home = home
 	document.images.curr = home
