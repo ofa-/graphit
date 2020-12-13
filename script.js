@@ -30,14 +30,8 @@ function onload() {
 	var query = document.location.search.substring(1)
 	var region = get_region(query).split(",")
 
-	for (var i=0; i < region.length; i++) {
-		var img = document.createElement("img")
-		img.style.display = "none"
-		img.setAttribute("usemap", "#fig")
-		img.src = base + region[i] + ".png"
-		document.body.appendChild(img)
-	}
-	set_loop(document.images)
+	load_images(region)
+	set_loop()
 	add_img_areas()
 	add_home_img()
 	add_regions()
@@ -51,21 +45,29 @@ function onload() {
 		show_home()
 }
 
-function show_query(query) {
-	if (query in _region) {
-		show(document.images[0])
-		toggle_regions()
-		return
+function load_images(region) {
+	var images = []
+	for (var i=0; i < region.length; i++) {
+		var img = document.createElement("img")
+		img.setAttribute("usemap", "#fig")
+		img.src = base + region[i] + ".png"
+		images[region[i]] = img
 	}
-	query = query.split(",")[0] + ".png"
+	images.first = images[region[0]]
+	images.index = region
 
-	var images = document.images
-	for (var i=0; i < images.length; i++) {
-		var img = images[i]
-		if (img.src.replace(/.*\//, "") != query)
-			continue
-		show(img)
-		break
+	document.img = images
+}
+
+function show_query(query) {
+	var img = document.img
+	if (query in _region) {
+		show(img.first)
+		toggle_regions()
+	}
+	else {
+		query = query.split(",")[0]
+		show(img[query] || img.first)
 	}
 }
 
@@ -81,17 +83,19 @@ function region_of_dep(query) {
 	return query
 }
 
-function set_loop(images) {
-	var img, len = images.length
-	for (var i=0; i < len; i++) {
-		img = images[i]
-		img.next = images[(i+1) % len]
-		img.prev = images[(i-1+len) % len]
+function set_loop() {
+	var images = document.img,
+		idx = images.index,
+		len = images.index.length
+	for (var img, i=0; i < len; i++) {
+		img = images[idx[i]]
+		img.next = images[idx[(i+1) % len]]
+		img.prev = images[idx[(i-1+len) % len]]
 	}
 }
 
 function add_img_areas() {
-	document.images[0].onload = create_areas
+	document.img.first.onload = create_areas
 }
 
 function add_home_img() {
@@ -99,12 +103,12 @@ function add_home_img() {
 	home.src = base + "../full/met-full.png"
 	home.setAttribute("class", "full")
 	home.onclick = show_next
-	home.next = document.images[0]
+	home.next = document.img.first
 	home.prev = home.next.prev
 
-	document.body.append(home)
 	document.images.home = home
 	document.images.curr = home
+	document.body.appendChild(home)
 }
 
 function add_regions() {
@@ -172,8 +176,10 @@ function move_to_parent(e) {
 
 function create_areas() {
 	var img = this
+	img.onload = null
 	var width = img.width
 	var height = img.height
+
 	var map = document.createElement("map")
 	map.name = "fig"
 	map.innerHTML = (
@@ -205,8 +211,7 @@ function show_home() {
 function show(image) {
 	var images = document.images
 
-	images.curr.style.display = "none"
-	image.style.display = ""
+	document.body.replaceChild(image, images.curr)
 	images.curr = image
 }
 
