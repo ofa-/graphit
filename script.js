@@ -105,8 +105,8 @@ function add_home_img() {
 	home.onclick = show_next
 	home.next = home.prev = document.img.first
 
-	document.images.home = home
-	document.images.curr = home
+	document.img.home = home
+	document.img.curr = home
 	document.body.appendChild(home)
 }
 
@@ -210,24 +210,24 @@ function time_reset() {
 }
 
 function time_set_images(offset) {
-	var img = document.images.curr
+	var img = document.img.curr
 	img.src = img.src.replace(/~[0-9]+/, "~"+offset)
 }
 
 function show_prev() {
-	show(document.images.curr.prev)
+	show(document.img.curr.prev)
 }
 
 function show_next() {
-	show(document.images.curr.next)
+	show(document.img.curr.next)
 }
 
 function show_home() {
-	show(document.images.home)
+	show(document.img.home)
 }
 
 function show(image) {
-	var images = document.images
+	var images = document.img
 
 	images.curr.parentNode.replaceChild(image, images.curr)
 	images.curr = image
