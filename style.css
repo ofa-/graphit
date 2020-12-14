@@ -11,10 +11,12 @@ body {
 	text-align: center;
 	position: relative;
 	user-select: none;
+	background-color: #123;
 }
 img {
 	margin-bottom: 24em;
 	margin-top: -1.5em;
+	border-radius: 1em;
 }
 .full {
 	width: 100%;
@@ -23,7 +25,8 @@ img {
 }
 .icon {
 	border-radius: 1.5em;
-	border: .12em solid black;
+	border: .12em solid #ABA;
+	color: #ACC;
 	padding: .1em;
 	width: 1em;
 	height: 1em;
@@ -62,10 +65,11 @@ img {
 	border-radius: 1.5em;
 	padding: .5em 1.5em;
 	display: inline-block;
-	background-color: white;
+	background-color: #ABC;
 }
 .help .text body {
 	text-align: left;
+	background-color: #ABC;
 }
 .help .text code {
 	background-color: lightblue;
