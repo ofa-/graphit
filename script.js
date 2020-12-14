@@ -22,7 +22,7 @@ var _region = {
 	"sud": "34,30,13,83,06,2A,2B",
 }
 
-var base = "https://coviiid.github.io/fig/"
+var base = "https://github.com/coviiid/coviiid.github.io/raw/master~0/fig/"
 
 
 function onload() {
@@ -195,6 +195,25 @@ function create_areas() {
 	document.body.appendChild(map)
 }
 
+var time_offset = 0
+
+function time_fwd() {
+	time_set_images(++time_offset)
+}
+
+function time_back() {
+	time_set_images(time_offset ? --time_offset : 0)
+}
+
+function time_reset() {
+	time_set_images(time_offset=0)
+}
+
+function time_set_images(offset) {
+	var img = document.images.curr
+	img.src = img.src.replace(/~[0-9]+/, "~"+offset)
+}
+
 function show_prev() {
 	show(document.images.curr.prev)
 }
@@ -219,6 +238,9 @@ function onkeypress(ev) {
 		case 37: show_prev(); break;
 		case 39: show_next(); break;
 		case 27: show_home(); break;
+		case 38: time_fwd(); break;
+		case 40: time_back(); break
+		case 48: time_reset(); break
 		case 188:
 		case 72: return toggle_help()
 		case 82: return toggle_regions()
