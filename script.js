@@ -229,7 +229,7 @@ function show_home() {
 function show(image) {
 	var images = document.images
 
-	document.body.replaceChild(image, images.curr)
+	images.curr.parentNode.replaceChild(image, images.curr)
 	images.curr = image
 }
 
