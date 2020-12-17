@@ -56,8 +56,9 @@ def main():
     reg_dc_chunks = [
             [25,25+7],
             [33,33+15],
-            [245,245+14],
-            [260,len(incid)],
+            [250,250+8],
+            [263,263+6],
+            [270,len(incid)],
         ]
     reg_dc_line = pd.concat([
         exp_lin_reg(data.incid_dc[range(*chunk)])
@@ -152,7 +153,8 @@ def regressor(data):
                 [216,229],
                 [230,237],
                 [245,256],
-                [258,len(data)],
+                [262,269],
+                [270,len(data)],
             ]
 
     reg_line = pd.concat([
