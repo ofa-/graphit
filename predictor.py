@@ -42,7 +42,7 @@ def main():
 
     sums = selection.groupby('jour').sum()
 
-    data = sums.rolling(7).mean() \
+    data = sums.rolling(7, center=True).mean() \
     #            .rolling(3, win_type="hamming").mean()
 
     dc_ref, dc_noise = avg_dc_line(region)
@@ -60,6 +60,9 @@ def main():
             [263,263+6],
             [270,len(incid)],
         ]
+    # adjust indexes for centered window (-3 days)
+    reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
+
     reg_dc_line = pd.concat([
         exp_lin_reg(data.incid_dc[range(*chunk)])
             for chunk in reg_dc_chunks
@@ -157,6 +160,8 @@ def regressor(data):
                 [270,len(data)],
             ]
 
+    chunks = [ [x[0]-3, x[1]-3] for x in chunks ]
+
     reg_line = pd.concat([
         exp_lin_reg(reg_data[range(*chunk)])
             for chunk in chunks ])
@@ -169,7 +174,7 @@ def predictor(data):
     scale2 = 10**0.31 * data['incid_rea'].pow(0.885)
 
     shifts = [
-                [ [0,20], 5 ],
+                [ [3,20], 5 ],
                 [ [19,26], 13 ],
                 [ [25,40], 15 ],
                 [ [40,66], 17 ],
@@ -187,6 +192,8 @@ def predictor(data):
                 [ [252,253], 0 ],
                 #[ [246,len(scaled)], 10 ],
             ]
+
+    shifts = [ [ [x[0][0]-3, x[0][1]-3], x[1] ] for x in shifts ]
 
     shifted = pd.concat(
         shift(scaled, shifts[0:14]) +
