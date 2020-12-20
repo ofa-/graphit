@@ -88,3 +88,6 @@ insee.fetch:
 	cd insee_dc.$(release); unzip ../$(release)_detail.zip
 	rm -f $(release)_detail.zip
 	ln -sfT insee_dc.$(release) insee_dc
+
+insee.stat:
+	./insee_dc.py
