@@ -3,6 +3,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+import locale; locale.setlocale(locale.LC_ALL, "fr_FR.UTF8")
+
 
 def by_death_location():
     dc = load_data()
