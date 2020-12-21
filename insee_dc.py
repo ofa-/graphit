@@ -90,7 +90,8 @@ def plot_age_split(_met):
 
 
 def baseline(sel):
-    index = pd.date_range(freq='D', start="2020-01-01", periods=len(sel))
+    index = pd.date_range(freq='D', start="2020-01-01", periods=59).append(
+            pd.date_range(freq='D', start="2020-03-01", periods=len(sel)-59))
     return pd.DataFrame(
                 sel.reset_index().ANAIS.rolling(7, center=True).mean()
     ).set_index(index)
