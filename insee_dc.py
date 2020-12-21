@@ -60,7 +60,35 @@ def plot_age_split(_met):
         },
     )
     index = pd.date_range(freq='D', start="2020-01-01", periods=len(y))
-    y.set_index(index).plot(); plt.show()
+    y = y.set_index(index)
+    p = y.plot(alpha=0.5, linewidth=.7)
+
+    avg = y.rolling(7, center=True).mean()
+    std = y.rolling(7, center=True).std()
+
+    for i, c in enumerate(y.columns):
+        _avg, _std = avg[c], std[c]
+        color = p.lines[i].get_color()
+        p.plot(_avg, color=color, alpha=0.8)
+        p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
+
+    for _sel in sel[1:]: # all slices but metropole
+      for year in [2018, 2019]:
+        ref = baseline(_sel[year])
+        p.plot(ref, color='grey', linestyle=':', linewidth=.7)
+
+    for handle in p.legend_.legendHandles:
+        handle.set_linewidth(3)
+    p.figure.set(figheight=7, figwidth=16)
+
+    plt.show()
+
+
+def baseline(sel):
+    index = pd.date_range(freq='D', start="2020-01-01", periods=len(sel))
+    return pd.DataFrame(
+                sel.reset_index().ANAIS.rolling(7, center=True).mean()
+    ).set_index(index)
 
 
 def main():
@@ -69,8 +97,8 @@ def main():
     met, eld, _met = overview_year_compare()
 
     #plot_years(met)
-    #plot_age_split(_met)
-    plot_age_split(_met[_met.depdom.str.match("59")])
+    plot_age_split(_met)
+    #plot_age_split(_met[_met.depdom.str.match("59")])
 
 
 main()
