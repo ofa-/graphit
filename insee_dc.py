@@ -82,6 +82,9 @@ def plot_age_split(_met):
     for handle in p.legend_.legendHandles:
         handle.set_linewidth(3)
     p.figure.set(figheight=7, figwidth=16)
+    p.set_title("Décès quotidiens par tranche d'age - données INSEE 2020\n" +
+                "en gris : données 2018 et 2019",
+                {'fontsize': 'medium'}, pad=20)
 
     plt.show()
 
