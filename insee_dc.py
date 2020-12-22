@@ -65,6 +65,13 @@ def plot_age_split(_met):
     y = y.set_index(index)
     p = y.plot(alpha=0.5, linewidth=.7)
 
+    for _sel in sel:
+      for year in [2018, 2019]:
+        ref = baseline(_sel[year])
+        color = 'grey'
+        p.plot(ref._avg, color=color, linestyle=':', linewidth=.7)
+        p.axes.fill_between(ref.index, ref._avg-ref._std, ref._avg+ref._std, alpha=0.07, color=color)
+
     avg = y.rolling(7, center=True).mean()
     std = y.rolling(7, center=True).std()
 
@@ -73,11 +80,6 @@ def plot_age_split(_met):
         color = p.lines[i].get_color()
         p.plot(_avg, color=color, alpha=0.8)
         p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
-
-    for _sel in sel[1:]: # all slices but metropole
-      for year in [2018, 2019]:
-        ref = baseline(_sel[year])
-        p.plot(ref, color='grey', linestyle=':', linewidth=.7)
 
     for handle in p.legend_.legendHandles:
         handle.set_linewidth(3)
@@ -92,8 +94,9 @@ def plot_age_split(_met):
 def baseline(sel):
     index = pd.date_range(freq='D', start="2020-01-01", periods=59).append(
             pd.date_range(freq='D', start="2020-03-01", periods=len(sel)-59))
+    data = sel.reset_index().ANAIS.rolling(7, center=True)
     return pd.DataFrame(
-                sel.reset_index().ANAIS.rolling(7, center=True).mean()
+            { "_avg": data.mean(), "_std": data.std() }
     ).set_index(index)
 
 
