@@ -86,10 +86,10 @@ def plot_age_split(_met):
 
     p.figure.set(figheight=7, figwidth=16)
     p.set_title("Décès quotidiens toutes causes par tranche d'age\n" +
-                "Données INSEE : 2020 (couleur), 2018 et 2019 (gris)",
+                "Données INSEE 2020 (couleur), 2018 et 2019 (gris)",
                 fontsize='medium', horizontalalignment='left',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
-                x=.695, y=.92, transform=p.transAxes)
+                x=.703, y=.92, transform=p.transAxes)
 
     plt.show()
 
