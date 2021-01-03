@@ -48,26 +48,11 @@ def main():
     dc_ref, dc_noise = avg_dc_line(region)
     reg_line, chunks = regressor(data)
     pred, cuts = predictor(data)
+    reg_dc_line, reg_dc_chunks = reg_dc(data)
 
     incid = data[["incid_rea", "incid_dc"]]
     if opt.round:
         incid = incid.round()
-
-    reg_dc_chunks = [
-            [25,25+7],
-            [33,33+15],
-            [250,250+8],
-            [263,263+6],
-            [270,270+9],
-            [281,len(incid)],
-        ]
-    # adjust indexes for centered window (-3 days)
-    reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
-
-    reg_dc_line = pd.concat([
-        exp_lin_reg(data.incid_dc[range(*chunk)])
-            for chunk in reg_dc_chunks
-    ]).rename("reg.dc")
 
     incid = incid \
             .join(reg_line) \
@@ -169,6 +154,26 @@ def regressor(data):
             for chunk in chunks ])
 
     return reg_line, chunks
+
+
+def reg_dc(data):
+    reg_dc_chunks = [
+            [25,25+7],
+            [33,33+15],
+            [250,250+8],
+            [263,263+6],
+            [270,270+9],
+            [281,len(data)],
+        ]
+    # adjust indexes for centered window (-3 days)
+    reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
+
+    reg_dc_line = pd.concat([
+        exp_lin_reg(data.incid_dc[range(*chunk)])
+            for chunk in reg_dc_chunks
+    ]).rename("reg.dc")
+
+    return reg_dc_line, reg_dc_chunks
 
 
 def predictor(data):
