@@ -162,7 +162,7 @@ def reg_dc(data):
             [33,33+15],
             [250,250+8],
             [263,263+6],
-            [270,270+9],
+            [270,270+8],
             [281,len(data)],
         ]
     # adjust indexes for centered window (-3 days)
