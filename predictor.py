@@ -78,7 +78,7 @@ def main():
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
         plot = incid.plot(logy=opt.log_scale)
         show_dbl(plot, reg_line, chunks)
-        show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red", above=True)
+        show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red")
         annotate(plot, pred, cuts)
 
         avg_dc_percent = 50
