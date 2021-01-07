@@ -24,6 +24,8 @@ var _region = {
 
 var base = "https://github.com/coviiid/coviiid.github.io/raw/master~0/fig/"
 
+document.location.protocol == "file:" && (base = "")
+
 
 function onload() {
 
