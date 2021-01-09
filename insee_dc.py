@@ -81,6 +81,7 @@ def plot_age_split(_met):
         p.plot(_avg, color=color, alpha=0.8)
         p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
 
+    p.legend(loc='upper left')
     for handle in p.legend_.legendHandles:
         handle.set_linewidth(3)
 
