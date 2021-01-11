@@ -46,7 +46,7 @@ nonoise = \
 
 graphit = ./predictor.py --round
 
-curfew:
+radar:
 	unset DISPLAY; \
 	for dept in $(nonoise); do \
 		$(graphit) $$dept --two-months & \
