@@ -15,12 +15,14 @@ def by_death_location():
     )
 
 
-def overview_year_compare():
+def overview_year_compare(sel=""):
     dc = load_data()
 
     dc['depdom'] = dc.COMDOM.astype(str).apply(lambda x: x[0:2])
 
     _met = dc[dc.depdom < "97"]
+
+    if sel: _met = dc[dc.depdom.str.match(sel)]
 
     elder = _met[_met.ANAIS < (2020-80)]
 
