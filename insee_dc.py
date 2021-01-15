@@ -50,29 +50,31 @@ def plot_years(met):
     y.plot() ; plt.show()
 
 
-def plot_age_split(_met):
+def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
     split = [200, 60, 70, 80, 90]
     sel = [ _met[_met.ANAIS > (2020-x)] \
             .groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
         for x in split
     ]
+    if not label_all: label_all = "métropole"
     y = pd.DataFrame({ k: v[2020].reset_index().ANAIS
         for k,v in (
-            { f"<{age}" if age < 200 else "métropole" : sel[i]
+            { f"<{age}" if age < 200 else label_all : sel[i]
                     for i, age in enumerate(split)
             }).items()
         },
     )
     index = pd.date_range(freq='D', start="2020-01-01", periods=len(y))
     y = y.set_index(index)
-    p = y.plot(alpha=0.5, linewidth=.7)
+    p = y.plot(alpha=0.5, linewidth=raw_data)
 
     for _sel in sel:
       for year in [2018, 2019]:
         ref = baseline(_sel[year])
         color = 'grey'
         p.plot(ref._avg, color=color, linestyle=':', linewidth=.7)
-        p.axes.fill_between(ref.index, ref._avg-ref._std, ref._avg+ref._std, alpha=0.07, color=color)
+        if noise:
+            p.axes.fill_between(ref.index, ref._avg-ref._std, ref._avg+ref._std, alpha=0.07, color=color)
 
     avg = y.rolling(7, center=True).mean()
     std = y.rolling(7, center=True).std()
@@ -81,7 +83,8 @@ def plot_age_split(_met):
         _avg, _std = avg[c], std[c]
         color = p.lines[i].get_color()
         p.plot(_avg, color=color, alpha=0.8)
-        p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
+        if noise:
+            p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
 
     p.legend(loc='upper left')
     for handle in p.legend_.legendHandles:
