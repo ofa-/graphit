@@ -109,13 +109,32 @@ def baseline(sel):
     ).set_index(index)
 
 
+def parse_args():
+    from argparse import ArgumentParser
+    parser = ArgumentParser()
+    parser.add_argument("--noise", action="store_true",
+            help="graph noise")
+    parser.add_argument("--raw", action="store_true",
+            help="graph noise")
+    parser.add_argument('arg', nargs='*',
+            help="dept [dept ...]")
+
+    return parser.parse_args()
+
+
 def main():
     #by_death_location()
 
-    met, eld, _met = overview_year_compare()
+    global opt
+    opt = parse_args()
+
+    sel = "|".join(opt.arg)
+
+    met, eld, _met = overview_year_compare(sel)
 
     #plot_years(met)
-    plot_age_split(_met)
+    plot_age_split(_met, raw_data=0.7 if opt.raw else 0,
+                    label_all=sel, noise=opt.noise)
     #plot_age_split(_met[_met.depdom.str.match("59")])
 
 
