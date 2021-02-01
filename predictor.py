@@ -146,7 +146,8 @@ def regressor(data):
                 [270,279],
                 [281,293],
                 [295,300],
-                [301,len(data)],
+                [301,314],
+                [315,len(data)],
             ]
 
     chunks = [ [x[0]-3, x[1]-3] for x in chunks ]
@@ -168,7 +169,8 @@ def reg_dc(data):
             [282,282+5],
             [288,288+5],
             [295,295+5],
-            [301,len(data)],
+            [302,302+10],
+            [313,len(data)],
         ]
     # adjust indexes for centered window (-3 days)
     reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
