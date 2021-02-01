@@ -3,17 +3,18 @@ Overview
 
 This is a tool for graphing French public health autorities hospital data.
 
-- `réa` and `dc` graphs: moving averages (last 7 days), \
+- `réa` and `dc` graphs: moving averages (7 days, centered), \
    ICU admissions and daily deaths respectively
 
 - `grey line` subliminal dots: 50% of usual daily all causes mortality, \
    for département or zone (insee detailled data 2018+2019, monthly averages)
 
-- `red chunks` on métropole graphs: « prédictor » = `réa` shifted by x days, \
-   slightly squashed+offset (factor 0.885, offset 0.2)
+- `red lines`: «exponential» regressions on chunks of `dc`,
+   red balls indicate doubling time (or divide-by-two time),
+   above line when increasing, below line when decreasing
 
-- `green lines`: «linear» regressions (log scale) on chunks of `réa`, \
-   green balls indicate doubling time
+- `green lines`: «exponential» regressions on chunks of `réa`, \
+   green balls indicate doubling or divide-by-two time
 
 data: Santé Publique France >
 [data.gouv.fr][data.gouv.hospi] >
