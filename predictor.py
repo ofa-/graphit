@@ -148,8 +148,7 @@ def regressor(data):
                 [295,302],
                 [303,310],
                 [311,317],
-                [318,322],
-                [323,len(data)],
+                [321,len(data)],
             ]
 
     chunks = [ [x[0]-3, x[1]-3] for x in chunks ]
