@@ -172,7 +172,8 @@ def reg_dc(data):
             [295,295+5],
             [302,302+10],
             [313,313+8],
-            [322,len(data)],
+            [323,323+8],
+            [332,len(data)],
         ]
     # adjust indexes for centered window (-3 days)
     reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
