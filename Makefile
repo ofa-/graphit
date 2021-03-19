@@ -77,11 +77,11 @@ upload:
 	lftp -c "open $(TARGET); mput *.png"
 
 insee.diff:
-	diff -ru insee_dc.2021-01-29 insee_dc.2021-03-12 |\
+	diff -ru insee_dc.2021-03-12 insee_dc.2021-03-19 |\
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
-insee.fetch: release = 2021-03-12
+insee.fetch: release = 2021-03-19
 insee.fetch:
 	wget https://www.insee.fr/fr/statistiques/fichier/4487988/$(release)_detail.zip
 	mkdir insee_dc.$(release)
