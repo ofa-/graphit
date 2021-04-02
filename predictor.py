@@ -244,7 +244,7 @@ def avg_dc_line(region):
     avg = dc.groupby('MDEC').mean()
     std = dc.groupby('MDEC').std()
 
-    dates = pd.date_range("2020-03-01", "2021-04-01")
+    dates = pd.date_range("2020-03-01", "2022-04-01")
     avg_dc = [ avg[month]/100 for month in dates.month ]
     noise =  [ std[month] for month in dates.month ]
 
