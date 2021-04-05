@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import locale; locale.setlocale(locale.LC_ALL, "fr_FR.UTF8")
 import numpy as np
 
-from matplotlib.dates import DateFormatter
+from matplotlib.dates import DateFormatter, MonthLocator
 from matplotlib import patheffects
 
 from sklearn.linear_model import LinearRegression
@@ -336,6 +336,7 @@ def set_opts(plot, arg):
     plot.axes.yaxis.set_major_locator(plt.FixedLocator(scalator))
     plot.axes.yaxis.set_minor_formatter(int_formatter)
     plot.axes.yaxis.set_major_formatter(int_formatter)
+    plot.axes.xaxis.set_major_locator(MonthLocator())
     plot.axes.xaxis.set_major_formatter(DateFormatter('\xAF\n%b'))
     plot.axes.set_xlabel(None)
     plot.axes.tick_params(which='both', right=True, labelright=True)
