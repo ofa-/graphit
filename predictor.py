@@ -165,7 +165,7 @@ def regressor(data):
                 [357,len(data)],
             ]
 
-    chunks = [ [x[0]-3, x[1]-3] for x in chunks ]
+    chunks = fix_indexes_for_centered_window(chunks)
 
     reg_line = pd.concat([
         exp_lin_reg(reg_data[range(*chunk)])
@@ -194,8 +194,8 @@ def reg_dc(data):
             [351,351+24],
             [376,len(data)],
         ]
-    # adjust indexes for centered window (-3 days)
-    reg_dc_chunks = [ [x[0]-3,x[1]-3] for x in reg_dc_chunks ]
+
+    reg_dc_chunks = fix_indexes_for_centered_window(reg_dc_chunks)
 
     reg_dc_line = pd.concat([
         exp_lin_reg(data.incid_dc[range(*chunk)])
@@ -245,6 +245,11 @@ def shift(scaled, shifts):
         scaled[range(*chunk[0])] .shift(periods=chunk[1], freq='D')
         for chunk in shifts
     ]
+
+
+def fix_indexes_for_centered_window(chunks):
+    # centered 7-day window => shift index -3 days
+    return [ [x[0]-3, x[1]-3] for x in chunks ]
 
 
 def avg_dc_line(region):
