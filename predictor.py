@@ -81,7 +81,7 @@ def main():
         show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red")
         annotate(plot, pred, cuts)
 
-        avg_dc_percent = 50
+        avg_dc_percent = 25
         avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
         if opt.round:
             dc_noise = dc_noise.round()
