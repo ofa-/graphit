@@ -76,12 +76,13 @@ wait-for-data.csv:
 upload:
 	lftp -c "open $(TARGET); mput *.png"
 
+insee.%: release = 2021-04-09
+
 insee.diff:
-	diff -ru insee_dc.2021-03-19 insee_dc.2021-04-02 |\
+	diff -ru insee_dc.2021-04-02 insee_dc.$(release) |\
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
-insee.fetch: release = 2021-04-02
 insee.fetch:
 	wget https://www.insee.fr/fr/statistiques/fichier/4487988/$(release)_detail.zip
 	mkdir insee_dc.$(release)
