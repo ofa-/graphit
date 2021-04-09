@@ -92,8 +92,10 @@ def main():
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
                     .plot(linestyle="--", linewidth=.7, color="#00D")
 
-        #plot_hills(plot, sums.incid_dc, color="orange", zorder=-1)
-        plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
+        if opt.hills:
+            plot_hills(plot, sums.incid_dc, color="orange", zorder=-1)
+        else:
+            plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
         set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
@@ -559,6 +561,8 @@ def parse_args():
             help="show mortality noise level")
     parser.add_argument("--round", action="store_true",
             help="show rounded values graphs")
+    parser.add_argument("--hills", action="store_true",
+            help="show dc as hills instead of bars")
     parser.add_argument("--log-scale", action="store_true",
             help="use logarithmic y-scale for graphs")
     parser.add_argument("--style", action="store",
