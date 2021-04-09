@@ -92,10 +92,8 @@ def main():
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
                     .plot(linestyle="--", linewidth=.7, color="#00D")
 
-        # light => alpha area: .05, markers: .25
-        fill(sums.incid_dc,     alpha=.1, color="orange", zorder=-1)
-        sums.incid_dc.plot     (alpha=.3, color="orange", zorder=-1,
-                                marker="+", linestyle="")
+        #plot_hills(plot, sums.incid_dc, color="orange", zorder=-1)
+        plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
         set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
@@ -117,6 +115,17 @@ def fill(line, **kwargs):
 def add_note(plot, x, data, text, side=True):
     plot.annotate(text, color="#AAA", size="x-small",
                     xy=(x+pd.Timedelta(days=1), data[x]))
+
+
+def plot_bars(plot, data, **kwargs):
+    for width in [1, .3]:
+        plot.bar(data.index, data, sketch_params=0, width=width, **kwargs)
+
+
+def plot_hills(plot, data, **kwargs):
+        # light => alpha area: .05, markers: .25
+        fill(data,  alpha=.1, **kwargs)
+        data.plot  (alpha=.3, **kwargs, marker="+", linestyle="")
 
 
 def plot_avg_dc(plot, dc_ref, dc_percent):
