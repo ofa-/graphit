@@ -24,7 +24,7 @@ def overview_year_compare(sel=""):
 
     if sel: _met = dc[dc.depdom.str.match(sel)]
 
-    elder = _met[_met.ANAIS < (2020-80)]
+    elder = _met[_met.ANAIS < (2021-80)]
 
     met = _met.groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
     eld = elder.groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
@@ -51,26 +51,26 @@ def plot_years(met):
 
 
 def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
-    split = [200, 60, 70, 80, 90]
-    sel = [ _met[_met.ANAIS > (2020-x)] \
-            .groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
-        for x in split
-    ]
+    split = [200, 90, 80, 70, 60]
     if not label_all: label_all = "métropole"
-    y = pd.DataFrame({ k: v[2020].reset_index().ANAIS
-        for k,v in (
-            { f"<{age}" if age < 200 else label_all : sel[i]
-                    for i, age in enumerate(split)
-            }).items()
-        },
-    )
-    index = pd.date_range(freq='D', start="2020-01-01", periods=len(y))
-    y = y.set_index(index)
+
+    index = pd.date_range(freq='D', start="2021-01-01", periods=365)
+
+    y = get_age_split(_met, 2020, split, label_all)
+    y = y.drop(59).set_index(index)
     p = y.plot(alpha=0.5, linewidth=raw_data)
 
-    for _sel in sel:
-      for year in [2018, 2019]:
-        ref = baseline(_sel[year])
+    Y = get_age_split(_met, 2021, split, label_all).rolling(7, center=True).mean()
+    Y = Y.set_index(index[:len(Y)])
+    for i, c in enumerate(y.columns):
+        _y = Y[c]
+        color = p.lines[i].get_color()
+        p.plot(_y, color=color, alpha=0.8)
+
+    for year in [2018, 2019]:
+      dta = get_age_split(_met, year, split, label_all)
+      for spl in range(len(split)):
+        ref = baseline(dta.iloc[:,spl], index)
         color = 'grey'
         p.plot(ref._avg, color=color, linestyle=':', linewidth=.7)
         if noise:
@@ -82,7 +82,7 @@ def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
     for i, c in enumerate(y.columns):
         _avg, _std = avg[c], std[c]
         color = p.lines[i].get_color()
-        p.plot(_avg, color=color, alpha=0.8)
+        p.plot(_avg, color=color, alpha=0.4)
         if noise:
             p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
 
@@ -92,18 +92,28 @@ def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
 
     p.figure.set(figheight=7, figwidth=16)
     p.set_title("Décès quotidiens toutes causes par tranche d'age\n" +
-                "Données INSEE 2020 (couleur), 2018 et 2019 (gris)",
+                "Données INSEE 2020+21 (couleur), 2018+19 (gris)",
                 fontsize='medium', horizontalalignment='left',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
                 x=.703, y=.92, transform=p.transAxes)
 
     plt.show()
 
+def get_age_split(data, year, split, label_all):
+    sel = { x: data[data.ANAIS > (year-x)] \
+            .groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
+        for x in split
+    }
+    return pd.DataFrame({
+        k: v[year].reset_index().ANAIS
+        for k,v in (
+            { f"<{age}" if age < 200 else label_all : sel[age]
+                    for age in split
+            }).items()
+    })
 
-def baseline(sel):
-    index = pd.date_range(freq='D', start="2020-01-01", periods=59).append(
-            pd.date_range(freq='D', start="2020-03-01", periods=len(sel)-59))
-    data = sel.reset_index().ANAIS.rolling(7, center=True)
+def baseline(sel, index):
+    data = sel.rolling(7, center=True)
     return pd.DataFrame(
             { "_avg": data.mean(), "_std": data.std() }
     ).set_index(index)
