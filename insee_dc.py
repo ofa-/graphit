@@ -116,6 +116,8 @@ def parse_args():
             help="graph noise")
     parser.add_argument("--raw", action="store_true",
             help="graph noise")
+    parser.add_argument("--years", action="store_true",
+            help="graph years")
     parser.add_argument('arg', nargs='*',
             help="dept [dept ...]")
 
@@ -132,7 +134,10 @@ def main():
 
     met, eld, _met = overview_year_compare(sel)
 
-    #plot_years(met)
+    if opt.years:
+        plot_years(met)
+        return
+
     plot_age_split(_met, raw_data=0.7 if opt.raw else 0,
                     label_all=sel, noise=opt.noise)
     #plot_age_split(_met[_met.depdom.str.match("59")])
