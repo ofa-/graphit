@@ -76,10 +76,10 @@ wait-for-data.csv:
 upload:
 	lftp -c "open $(TARGET); mput *.png"
 
-insee.%: release = 2021-04-16
+insee.%: release = 2021-04-23
 
 insee.diff:
-	diff -ru insee_dc.2021-04-09 insee_dc.$(release) |\
+	diff -ru insee_dc.2021-04-16 insee_dc.$(release) |\
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
