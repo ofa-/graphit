@@ -41,9 +41,9 @@ Usage
 ```
 $ ./graphit.py -h
 usage: graphit.py [-h] [--zoom-1-100] [--two-months] [--full] [--episode-1]
-                    [--fouché] [--pred] [--noise] [--round] [--hills]
-                    [--log-scale] [--style <style>] [--noshow]
-                    arg [arg ...]
+                  [--fouché] [--pred] [--noise] [--round] [--week] [--hills]
+                  [--log-scale] [--style <style>] [--noshow]
+                  arg [arg ...]
 
 positional arguments:
   arg              dept [dept ...] or region
@@ -59,6 +59,7 @@ optional arguments:
   --pred           graph predictor
   --noise          show mortality noise level
   --round          show rounded values graphs
+  --week           show weekly average graph
   --hills          show dc as hills instead of bars
   --log-scale      use logarithmic y-scale for graphs
   --style <style>  use <style> instead of xkcd [try: fast]
