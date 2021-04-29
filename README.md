@@ -39,8 +39,8 @@ Usage
 =====
 
 ```
-$ ./predictor.py -h
-usage: predictor.py [-h] [--zoom-1-100] [--two-months] [--full] [--episode-1]
+$ ./graphit.py -h
+usage: graphit.py [-h] [--zoom-1-100] [--two-months] [--full] [--episode-1]
                     [--fouché] [--pred] [--noise] [--round] [--hills]
                     [--log-scale] [--style <style>] [--noshow]
                     arg [arg ...]
@@ -83,20 +83,20 @@ Running
 
 ```
 ./fetch.sh
-./predictor.py
+./graphit.py
 ```
 
 ```
-./predictor.py idf
-./predictor.py 13
-./predictor.py 69 38
+./graphit.py idf
+./graphit.py 13
+./graphit.py 69 38
 ```
 
 ```
-./predictor.py met --full
-./predictor.py met --two-months --noise
-./predictor.py met --episode-1
-./predictor.py met --style seaborn
+./graphit.py met --full
+./graphit.py met --two-months --noise
+./graphit.py met --episode-1
+./graphit.py met --style seaborn
 ```
 
 

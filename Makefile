@@ -5,11 +5,11 @@ setup:
 	pip3 install -r requirements.txt
 
 check:
-	./predictor.py --help
+	./graphit.py --help
 	:
 	tail -1 data.csv
 	:
-	./predictor.py --noshow 38
+	./graphit.py --noshow 38
 	ls -lh 38.png
 
 
@@ -44,7 +44,7 @@ depts = \
 nonoise = \
 		05 04
 
-graphit = ./predictor.py --round
+graphit = ./graphit.py --round
 
 radar:
 	unset DISPLAY; \
@@ -58,7 +58,7 @@ radar:
 	wait
 
 help.fr:
-	curl -sL https://github.com/ofa-/predictor/blob/master/help.fr.md \
+	curl -sL https://github.com/ofa-/graphit/blob/master/help.fr.md \
 	| sed '/<article/ s:>:\n:' \
 	| sed '1,/<article/ d; /<\/article/,$$ d' \
 	| sed 's:<svg.*</svg>::g' \
