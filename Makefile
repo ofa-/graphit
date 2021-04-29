@@ -44,7 +44,7 @@ depts = \
 nonoise = \
 		05 04
 
-graphit = ./graphit.py --round
+graphit = ./graphit.py --round --week
 
 radar:
 	unset DISPLAY; \
