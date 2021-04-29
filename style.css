@@ -14,14 +14,14 @@ body {
 	background-color: #123;
 }
 img {
-	margin-bottom: 24em;
+	margin-bottom: 6em;
 	margin-top: -1.5em;
 	border-radius: 1em;
 }
 .full {
 	width: 100%;
 	margin-top: 2em;
-	margin-bottom: 20em;
+	margin-bottom: 2em;
 }
 .icon {
 	border-radius: 1.5em;
@@ -37,9 +37,7 @@ img {
 	bottom: 0;
 }
 .regions, .help {
-	position: absolute;
 	width: 100%;
-	bottom: 0;
 	font-family: comfortaa;
 }
 .regions .icon {
