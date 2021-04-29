@@ -84,13 +84,15 @@ insee.diff:
 	cut -c 1-8 | uniq -c
 
 insee.fetch:
-	wget https://www.insee.fr/fr/statistiques/fichier/4487988/$(release)_detail.zip
+	wget $(insee.url)/$(release)_detail.zip
 	mkdir insee_dc.$(release)
 	cd insee_dc.$(release); unzip ../$(release)_detail.zip
 	rm -f $(release)_detail.zip
 	ln -sfT insee_dc.$(release) insee_dc
 	[ -f insee_dc/DC_20202021_det.csv ] && \
 		mv insee_dc/DC_20202021_det.csv insee_dc/DC_2020_det.csv
+
+insee.url = https://www.insee.fr/fr/statistiques/fichier/4487988
 
 insee.stat:
 	./insee_dc.py
