@@ -97,6 +97,12 @@ def main():
         else:
             plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
+        if opt.week:
+            weekly_avg_dc = data.incid_dc.groupby(pd.Grouper(freq='W')).mean()
+            weekly_avg_dc.plot(drawstyle='steps-post',
+                                color="#D0D", linewidth=.5,
+                                alpha=.5, zorder=-1)
+
         set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
         set_title(plot, arg, double_times(data, chunks[-2:]))
@@ -569,6 +575,8 @@ def parse_args():
             help="show mortality noise level")
     parser.add_argument("--round", action="store_true",
             help="show rounded values graphs")
+    parser.add_argument("--week", action="store_true",
+            help="show weekly average graph")
     parser.add_argument("--hills", action="store_true",
             help="show dc as hills instead of bars")
     parser.add_argument("--log-scale", action="store_true",
