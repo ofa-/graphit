@@ -50,7 +50,7 @@ def plot_years(met):
     y.plot() ; plt.show()
 
 
-def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
+def plot_age_split(_met, opt, raw_data=0, label_all=""):
     split = [200, 90, 80, 70, 60]
     if not label_all: label_all = "métropole"
 
@@ -73,7 +73,7 @@ def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
         ref = baseline(dta.iloc[:,spl], index)
         color = 'grey'
         p.plot(ref._avg, color=color, linestyle=':', linewidth=.7)
-        if noise:
+        if opt.baseline_noise or opt.noise:
             p.axes.fill_between(ref.index, ref._avg-ref._std, ref._avg+ref._std, alpha=0.07, color=color)
 
     avg = y.rolling(7, center=True).mean()
@@ -83,7 +83,7 @@ def plot_age_split(_met, raw_data=0, noise=False, label_all=""):
         _avg, _std = avg[c], std[c]
         color = p.lines[i].get_color()
         p.plot(_avg, color=color, alpha=0.4)
-        if noise:
+        if opt.noise:
             p.axes.fill_between(y.index, _avg-_std, _avg+_std, alpha=0.3, color=color)
 
     p.legend(loc='upper left')
@@ -124,6 +124,8 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument("--noise", action="store_true",
             help="graph noise")
+    parser.add_argument("--baseline-noise", action="store_true",
+            help="graph noise for baseline")
     parser.add_argument("--raw", action="store_true",
             help="graph raw data")
     parser.add_argument("--years", action="store_true",
@@ -149,7 +151,7 @@ def main():
         return
 
     plot_age_split(_met, raw_data=0.7 if opt.raw else 0,
-                    label_all=sel, noise=opt.noise)
+                    label_all=sel, opt=opt)
     #plot_age_split(_met[_met.depdom.str.match("59")])
 
 
