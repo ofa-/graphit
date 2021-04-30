@@ -125,7 +125,7 @@ def parse_args():
     parser.add_argument("--noise", action="store_true",
             help="graph noise")
     parser.add_argument("--raw", action="store_true",
-            help="graph noise")
+            help="graph raw data")
     parser.add_argument("--years", action="store_true",
             help="graph years")
     parser.add_argument('arg', nargs='*',
