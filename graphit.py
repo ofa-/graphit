@@ -98,7 +98,7 @@ def main():
             plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
         if opt.week:
-            weekly_avg_dc = data.incid_dc.groupby(pd.Grouper(freq='W')).mean()
+            weekly_avg_dc = sums.incid_dc.groupby(pd.Grouper(freq='W')).mean()
             weekly_avg_dc.plot(drawstyle='steps-post',
                                 color="#D0D", linewidth=.5,
                                 alpha=.5, zorder=-1)
