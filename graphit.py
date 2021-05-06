@@ -469,7 +469,7 @@ def exp_lin_reg(reg_data):
 
 def slope(reg_data):
     line, slope = _exp_lin_reg(reg_data)
-    return slope
+    return slope if slope != 0 else 10**-9
 
 
 def _exp_lin_reg(reg_data):
