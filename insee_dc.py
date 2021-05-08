@@ -90,12 +90,13 @@ def plot_age_split(_met, opt, raw_data=0, label_all=""):
     for handle in p.legend_.legendHandles:
         handle.set_linewidth(3)
 
-    p.figure.set(figheight=7, figwidth=16)
+    p.figure.set(figheight=7, figwidth=10)
+    p.figure.subplots_adjust(left=.08, right=.96, top=.94)
     p.set_title("Décès quotidiens toutes causes par tranche d'age\n" +
                 "Données INSEE 2020+21 (couleur), 2018+19 (gris)",
-                fontsize='medium', horizontalalignment='left',
+                fontsize='medium',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
-                x=.703, y=.92, transform=p.transAxes)
+                x=.98, y=.9, loc="right")
 
     plt.show()
 
