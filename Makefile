@@ -46,13 +46,14 @@ nonoise = \
 
 graphit = ./graphit.py --round --week
 
+radar: opts = --two-months
 radar:
 	unset DISPLAY; \
 	for dept in $(nonoise); do \
-		$(graphit) $$dept --two-months & \
+		$(graphit) $$dept $(opts) & \
 	done; \
 	for dept in $(depts); do \
-		$(graphit) $$dept --two-months --noise & \
+		$(graphit) $$dept $(opts) --noise & \
 	done; \
 	$(graphit) met --full & \
 	wait
