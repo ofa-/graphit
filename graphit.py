@@ -98,10 +98,7 @@ def main():
             plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
         if opt.week:
-            weekly_avg_dc = sums.incid_dc.groupby(pd.Grouper(freq='W')).mean()
-            weekly_avg_dc.plot(drawstyle='steps-post',
-                                color="#D0D", linewidth=.5,
-                                alpha=.5, zorder=-1)
+            plot_weekly_avg(sums.incid_dc, alpha=.5, color="#D0D", zorder=-1)
 
         set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
@@ -142,6 +139,13 @@ def plot_avg_dc(plot, dc_ref, dc_percent):
             avg_dc = avg_dc.round()
         avg_dc.plot(linestyle=":", linewidth=.5, color="grey", zorder=0)
         return avg_dc
+
+
+def plot_weekly_avg(data, **kwargs):
+    w_avg = data.groupby(pd.Grouper(freq='W')).mean() \
+            .shift(freq='W', periods=1) \
+            [:-1 if data.index[-1].weekday() < 3 else None]
+    w_avg.plot(drawstyle='steps', linewidth=.5, **kwargs)
 
 
 def regressor(data):
