@@ -175,7 +175,8 @@ def regressor(data):
                 [357,365],
                 [366,382],
                 [385,403],
-                [404,len(data)],
+                [404,413],
+                [415,len(data)],
             ]
 
     chunks = fix_indexes_for_centered_window(chunks)
@@ -208,7 +209,8 @@ def reg_dc(data):
             [378,378+10],
             [389,389+7],
             [398,398+7],
-            [409,len(data)],
+            [409,409+6],
+            [419,len(data)],
         ]
 
     reg_dc_chunks = fix_indexes_for_centered_window(reg_dc_chunks)
