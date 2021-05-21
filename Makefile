@@ -96,4 +96,4 @@ insee.fetch:
 insee.url = https://www.insee.fr/fr/statistiques/fichier/4487988
 
 insee.stat:
-	./insee_dc.py
+	./insee_dc.py --baseline-noise
