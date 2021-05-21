@@ -176,7 +176,8 @@ def regressor(data):
                 [366,382],
                 [385,403],
                 [404,413],
-                [415,len(data)],
+                [414,421],
+                [422,len(data)],
             ]
 
     chunks = fix_indexes_for_centered_window(chunks)
