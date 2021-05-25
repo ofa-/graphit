@@ -46,7 +46,7 @@ def main():
     #            .rolling(3, win_type="hamming").mean()
 
     dc_ref, dc_noise = avg_dc_line(region)
-    reg_line, chunks = regressor(data)
+    reg_line, chunks = reg_rea(data)
     pred, cuts = predictor(data)
     reg_dc_line, reg_dc_chunks = reg_dc(data)
 
@@ -148,7 +148,7 @@ def plot_weekly_avg(data, **kwargs):
     w_avg.plot(drawstyle='steps', linewidth=.5, **kwargs)
 
 
-def regressor(data):
+def reg_rea(data):
     reg_data = data['incid_rea']
 
     chunks = [
