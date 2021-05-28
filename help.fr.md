@@ -1,15 +1,15 @@
 graphes :
 ---------
 
-données hospitalières quotidiennes, par département de l'hôpital :\
-nombre quotidien de nouveaux décès et de nouvelles admissions en réanimation.
+données hospitalières quotidiennes, cumuls des hôpitaux du département :
+nombre quotidien de nouveaux décès et nouvelles admissions en réanimation.
 
 - `réa` et `dc` : moyennes 7 jours glissants (moyenne centrée)
 
-- `ligne grise` : 50% de la mortalité quotidienne toutes causes, \
+- `lignes grises` : 25% et "bruit" de la mortalité quotidienne toutes causes,
    pour le département ou la zone (insee données 2018+2019, moyenne par mois)
 
-- `lignes vertes` : regressions exponentielles sur les tronçons de réa, \
+- `lignes vertes` : regressions exponentielles sur les tronçons de réa,
    les billes vertes donnent le temps de doublement (ou de division par deux)
 
 - `lignes rouges` : regressions exponentielles sur les tronçons de dc
