@@ -413,6 +413,9 @@ def set_view(plot, arg, gap):
     if opt.zoom_1_100:
         zoom_1_100(plot, arg)
 
+    if opt.zoom:
+        plot.set(ylim=(0, opt.zoom))
+
     if opt.full:
         fig_xsize = 12 * ( (now - date("2020-03-20")).days /
             (date("2020-10-20") - date("2020-03-20")).days )
@@ -574,6 +577,9 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument("--zoom-1-100", action="store_true",
             help="graph using 1-100 y scale [default is 1-50]")
+    parser.add_argument("--zoom", action="store",
+            type=int, metavar='<max-y>',
+            help="graph using 1-<max-y> for y-scale")
     parser.add_argument("--two-months", action="store_true",
             help="graph last two months")
     parser.add_argument("--full", action="store_true",
