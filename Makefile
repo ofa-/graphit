@@ -40,7 +40,7 @@ clean:
 depts = \
 		31 34 13 42 69 38 76 75 59 \
 		33 67 30 73 74 50 06 35 \
-		idf pc gc met
+		idf pc gc
 nonoise = \
 		05 04
 
@@ -55,6 +55,7 @@ radar:
 	for dept in $(depts); do \
 		$(graphit) $$dept $(opts) --noise & \
 	done; \
+	$(graphit) met $(opts) --zoom 150 --noise & \
 	$(graphit) met --full & \
 	wait
 
