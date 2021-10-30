@@ -144,7 +144,9 @@ def plot_avg_dc(plot, dc_ref, dc_percent):
 def plot_weekly_avg(data, **kwargs):
     before_thu = data.index[-1].weekday() < 3
     data = complement_week_from_last_one(data)
-    w_avg = data.groupby(pd.Grouper(freq='W')).mean() \
+    w_avg = data.groupby(pd.Grouper(freq='W')) \
+            .mean() \
+            .round() \
             .shift(freq='W', periods=1) \
             [:-1 if before_thu else None]
     w_avg.plot(drawstyle='steps', linewidth=.5, **kwargs)
