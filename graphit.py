@@ -142,10 +142,20 @@ def plot_avg_dc(plot, dc_ref, dc_percent):
 
 
 def plot_weekly_avg(data, **kwargs):
+    before_thu = data.index[-1].weekday() < 3
+    data = complement_week_from_last_one(data)
     w_avg = data.groupby(pd.Grouper(freq='W')).mean() \
             .shift(freq='W', periods=1) \
-            [:-1 if data.index[-1].weekday() < 3 else None]
+            [:-1 if before_thu else None]
     w_avg.plot(drawstyle='steps', linewidth=.5, **kwargs)
+
+
+def complement_week_from_last_one(data):
+    curr = data.index[-1].weekday()
+    size = 6 - curr # weekday: 0 = Mon, 6 = Sun
+    return data.append(
+            data[-(curr+size+1):-(curr+1)] \
+                .shift(freq='W', periods=1))
 
 
 def reg_rea(data):
