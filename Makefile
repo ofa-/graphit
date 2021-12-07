@@ -55,7 +55,7 @@ radar:
 	for dept in $(depts); do \
 		$(graphit) $$dept $(opts) --noise & \
 	done; \
-	$(graphit) met $(opts) --zoom 150 --noise & \
+	$(graphit) met $(opts) --zoom 350 --noise & \
 	$(graphit) met --full & \
 	wait
 
