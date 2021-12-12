@@ -78,7 +78,7 @@ wait-for-data.csv:
 upload:
 	lftp -c "open $(TARGET); mput *.png"
 
-insee.%: release = 2021-05-21
+insee.%: release = 2021-12-10
 
 insee.diff:
 	diff -ru insee_dc.2021-05-07 insee_dc.$(release) |\
