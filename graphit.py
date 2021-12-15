@@ -195,7 +195,8 @@ def reg_rea(data):
                 [542,567],
                 [568,580],
                 [582,604],
-                [605,len(data)],
+                [605,631],
+                [633,len(data)],
             ]
 
     chunks = fix_indexes_for_centered_window(chunks)
@@ -231,7 +232,8 @@ def reg_dc(data):
             [521,539],
             [540,572],
             [573,591],
-            [602,len(data)],
+            [602,633],
+            [634,len(data)],
         ]
 
     reg_dc_chunks = fix_indexes_for_centered_window(reg_dc_chunks)
