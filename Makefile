@@ -75,6 +75,17 @@ wait-for-data.csv:
 		./fetch.sh	;\
 	done
 
+
+day.dc:
+day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
+
+%.dc:
+	grep $(day) data.csv | grep -v '"97' \
+			| cut -f5 -d\; | xargs | tr ' ' + | bc
+
+%.dc: day = $*
+
+
 insee.%: release = 2021-12-10
 
 insee.diff:
