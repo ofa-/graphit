@@ -86,10 +86,10 @@ day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
 %.dc: day = $*
 
 
-insee.%: release = 2021-12-10
+insee.%: release = 2021-12-17
 
 insee.diff:
-	diff -ru insee_dc.2021-05-07 insee_dc.$(release) |\
+	diff -ru insee_dc.2021-12-10 insee_dc.$(release) |\
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
