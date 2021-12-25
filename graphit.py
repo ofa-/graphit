@@ -85,8 +85,8 @@ def main():
         avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
         if opt.round:
             dc_noise = dc_noise.round()
-        dc_noise.plot(linestyle=":", linewidth=.5, color="grey", zorder=0) \
-                    if opt.noise else None
+        if opt.noise:
+            dc_noise.plot(linestyle=":", linewidth=.5, color="grey", zorder=0)
 
         if opt.fouché:
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
