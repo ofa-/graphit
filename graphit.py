@@ -50,6 +50,9 @@ def main():
     pred, cuts = predictor(data)
     reg_dc_line, reg_dc_chunks = reg_dc(data)
 
+    pred_dc = mk_pred(data.incid_dc, reg_dc_chunks[-1])
+    pred_rea = mk_pred(data.incid_rea, reg_rea_chunks[-1])
+
     incid = data[["incid_rea", "incid_dc"]]
     if opt.round:
         incid = incid.round()
@@ -91,6 +94,10 @@ def main():
         if opt.fouché:
             (data.incid_rea * 5/8).rename('Fouché-fix réa') \
                     .plot(linestyle="--", linewidth=.7, color="#00D")
+
+        if True:
+            pred_dc.plot(linestyle=":", linewidth=.9, color="red")
+            pred_rea.plot(linestyle=":", linewidth=.9, color="green")
 
         if opt.hills:
             plot_hills(plot, sums.incid_dc, color="orange", zorder=-1)
