@@ -491,9 +491,14 @@ def zoom_1_100(plot, arg):
     plot.set(ylim=(yscale * factor).values)
 
 
+def mk_pred(data, chunk):
+    line, slope = _exp_lin_reg(data[range(*chunk)])
+    return line[-8:]
+
+
 def exp_lin_reg(reg_data):
     line, slope = _exp_lin_reg(reg_data)
-    return line
+    return line[:-7]
 
 def slope(reg_data):
     line, slope = _exp_lin_reg(reg_data)
@@ -507,10 +512,13 @@ def _exp_lin_reg(reg_data):
     reg = LinearRegression()
     reg.fit(X, Y.fillna(0))
 
-    reg_line = reg.predict(X.astype('float64'))
+    next_week = pd.date_range(reg_data.index.values[-1], freq='D', periods=8)[1:]
+    index = reg_data.index.append(next_week)
+
+    reg_line = reg.predict(index.values.reshape(-1,1).astype('float64'))
     slope = reg_line[1]-reg_line[0]
 
-    return pd.Series(index=Y.index, data=reg_line) \
+    return pd.Series(index=index, data=reg_line) \
                 .rename('reg') \
                 .apply(np.exp) \
             , slope
