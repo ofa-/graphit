@@ -161,8 +161,6 @@ def complement_week_from_last_one(data):
 
 
 def reg_rea(data):
-    reg_data = data['incid_rea']
-
     chunks = [
                 [9,14],
                 [19,28],
@@ -199,11 +197,16 @@ def reg_rea(data):
                 [633,len(data)],
             ]
 
+    return mk_reg(data.incid_rea, chunks)
+
+
+def mk_reg(reg_data, chunks):
     chunks = fix_indexes_for_centered_window(chunks)
 
     reg_line = pd.concat([
         exp_lin_reg(reg_data[range(*chunk)])
-            for chunk in chunks ])
+            for chunk in chunks ]) \
+        .rename(reg_data.name + ".reg")
 
     return reg_line, chunks
 
@@ -236,14 +239,7 @@ def reg_dc(data):
             [634,len(data)],
         ]
 
-    reg_dc_chunks = fix_indexes_for_centered_window(reg_dc_chunks)
-
-    reg_dc_line = pd.concat([
-        exp_lin_reg(data.incid_dc[range(*chunk)])
-            for chunk in reg_dc_chunks
-    ]).rename("reg.dc")
-
-    return reg_dc_line, reg_dc_chunks
+    return mk_reg(data.incid_dc, reg_dc_chunks)
 
 
 def predictor(data):
