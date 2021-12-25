@@ -46,7 +46,7 @@ def main():
     #            .rolling(3, win_type="hamming").mean()
 
     dc_ref, dc_noise = avg_dc_line(region)
-    reg_line, chunks = reg_rea(data)
+    reg_line, reg_rea_chunks = reg_rea(data)
     pred, cuts = predictor(data)
     reg_dc_line, reg_dc_chunks = reg_dc(data)
 
@@ -77,7 +77,7 @@ def main():
 
     with plt.style.context(opt.style) if opt.style else plt.xkcd():
         plot = incid.plot(logy=opt.log_scale)
-        show_dbl(plot, reg_line, chunks)
+        show_dbl(plot, reg_line, reg_rea_chunks, color="green")
         show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red")
         annotate(plot, pred, cuts)
 
@@ -102,7 +102,7 @@ def main():
 
         set_opts(plot, arg)
         set_view(plot, arg, gap = cuts[-1][1] if cuts else 0)
-        set_title(plot, arg, double_times(data, chunks[-2:]))
+        set_title(plot, arg, double_times(data, reg_rea_chunks[-2:]))
 
         x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
         add_note(plot, x, avg_dc, f"{avg_dc_percent}%")
