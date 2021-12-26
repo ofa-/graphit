@@ -164,7 +164,7 @@ def complement_week_from_last_one(data):
     size = 6 - curr # weekday: 0 = Mon, 6 = Sun
     return data.append(
             data[-(curr+size+1):-(curr+1)] \
-                .shift(freq='W', periods=1))
+                .shift(freq='D', periods=7))
 
 
 def reg_rea(data):
