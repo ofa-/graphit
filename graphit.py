@@ -500,12 +500,12 @@ def zoom_1_100(plot, arg):
 
 def mk_pred(data, chunk):
     line, slope = _exp_lin_reg(data[range(*chunk)])
-    return line[-8:]
+    return line[-opt.proj-1:]
 
 
 def exp_lin_reg(reg_data):
     line, slope = _exp_lin_reg(reg_data)
-    return line[:-7]
+    return line[:-opt.proj]
 
 def slope(reg_data):
     line, slope = _exp_lin_reg(reg_data)
@@ -519,8 +519,10 @@ def _exp_lin_reg(reg_data):
     reg = LinearRegression()
     reg.fit(X, Y.fillna(0))
 
-    next_week = pd.date_range(reg_data.index.values[-1], freq='D', periods=8)[1:]
-    index = reg_data.index.append(next_week)
+    pred_chunk = pd.date_range(
+            reg_data.index.values[-1], freq='D', periods=opt.proj+1)[1:]
+
+    index = reg_data.index.append(pred_chunk)
 
     reg_line = reg.predict(index.values.reshape(-1,1).astype('float64'))
     slope = reg_line[1]-reg_line[0]
@@ -618,6 +620,9 @@ def parse_args():
             help="graph Episode I time window")
     parser.add_argument("--fouché", action="store_true",
             help="graph Fouché-fixed réa (5/8)")
+    parser.add_argument("--proj", action="store",
+            type=int, metavar='<nb-days>', default=7,
+            help="show <nb-days> of projection for regressors")
     parser.add_argument("--pred", action="store_true",
             help="graph predictor")
     parser.add_argument("--noise", action="store_true",
