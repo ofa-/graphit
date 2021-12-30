@@ -424,7 +424,7 @@ def set_view(plot, arg, gap):
     zoom_1_50_adaptive(plot, arg)
 
 
-    if arg == "met": # add room for predictor, keep xscale 35d
+    if arg == "met" and opt.pred: # add room for predictor, keep xscale 35d
         plot.set( xlim=(now-td(days=35-gap), now+td(days=gap)))
 
     if opt.two_months:
