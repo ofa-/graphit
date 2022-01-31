@@ -204,7 +204,8 @@ def reg_rea(data):
                 [633,653],
                 [654,662],
                 [663,672],
-                [673,len(data)],
+                [673,679],
+                [680,len(data)],
             ]
 
     return mk_reg(data.incid_rea, chunks)
@@ -248,7 +249,8 @@ def reg_dc(data):
             [602,633],
             [634,659],
             [660,672],
-            [673,len(data)],
+            [673,679],
+            [680,len(data)],
         ]
 
     return mk_reg(data.incid_dc, reg_dc_chunks)
