@@ -44,11 +44,10 @@ depts = \
 nonoise = \
 		05 04
 
-graphit = ./graphit.py --round --week
+graphit = ./graphit.py --noshow --round --week --style fast
 
 radar: opts = --two-months
 radar:
-	unset DISPLAY; \
 	for dept in $(nonoise); do \
 		$(graphit) $$dept $(opts) & \
 	done; \
