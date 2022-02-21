@@ -429,7 +429,8 @@ def set_view(plot, arg, gap):
     if opt.episode_1:
         now = date("2020-03-22") + td(days=64 if opt.two_months else 35)
 
-    plot.set(xlim=(now-td(days=33), now+td(days=opt.proj-5)))
+    proj_gap = opt.proj-5
+    plot.set(xlim=(now-td(days=35-proj_gap), now+td(days=proj_gap)))
     zoom_1_50_adaptive(plot, arg)
 
 
