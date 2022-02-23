@@ -116,7 +116,31 @@ def main():
         add_note(plot, x, dc_noise, f"bruit") \
                 if opt.noise else None
 
+        if opt.proj_val:
+            add_yaxis_note(plot, pred_dc, 'red')
+            add_yaxis_note(plot, pred_rea, 'green')
+
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
+
+
+def add_yaxis_note(plot, data, color, side=False):
+    x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D")
+    y = data[str(x.date())]
+    point = [x, y]
+    text = round(y)
+    offset = 15
+    plot.annotate(
+        text,
+        xy=point,
+        fontsize="x-small",
+        bbox=dict(boxstyle="round4", fc="w", color=color),
+        arrowprops=dict(arrowstyle="-|>", lw=.7,
+            connectionstyle="arc3,rad="+("" if side else "+")+"0.2", fc="w"),
+        xytext=(
+            point[0] - pd.Timedelta(days=3),
+            point[1] + (offset if side else -offset) # logscale => offset via * or /
+        )
+    )
 
 
 def fill(line, **kwargs):
@@ -633,6 +657,8 @@ def parse_args():
     parser.add_argument("--proj", action="store",
             type=int, metavar='<nb-days>', default=7,
             help="show <nb-days> of projection for regressors")
+    parser.add_argument("--proj-val", action="store_true",
+            help="show projections values on right y-axis")
     parser.add_argument("--pred", action="store_true",
             help="graph predictor")
     parser.add_argument("--noise", action="store_true",
