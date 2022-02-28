@@ -181,10 +181,9 @@ def main():
 
     sel = "|".join(opt.arg)
 
-    met, eld, _met = overview_year_compare(sel)
-
     if opt.years:
-        plot_years(met)
+        data, _, _ = overview_year_compare(sel)
+        plot_years(data)
         return
 
     if opt.age_split:
