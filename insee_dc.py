@@ -82,6 +82,9 @@ def plot_age_split(_met, opt, raw_data=0, label_all=""):
     plot_avg(p, y, linestyle=":")
     plot_avg(p, y1)
 
+    add_yaxis_note(p, "2020", y[label_all], 'grey')
+    add_yaxis_note(p, "2021", y1[label_all], 'grey')
+
     set_legend(p)
 
     plt.show()
@@ -111,6 +114,24 @@ def set_legend(p):
                 fontsize='medium',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
                 x=.98, y=.9, loc="right")
+
+
+def add_yaxis_note(plot, text, data, color):
+    x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D") - pd.Timedelta(days=45)
+    y = data[str(x.date())]
+    point = [x, y]
+    plot.annotate(
+        text,
+        xy=point,
+        fontsize="x-small",
+        bbox=dict(boxstyle="round4", fc="w", color=color),
+        arrowprops=dict(arrowstyle="-|>", lw=.7,
+            connectionstyle="arc3,rad=+0.2", fc="w"),
+        xytext=(
+            point[0] + pd.Timedelta(days=10),
+            point[1] + 200
+        )
+    )
 
 
 def get_age_split(data, year, split, label_all):
