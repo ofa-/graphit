@@ -165,6 +165,8 @@ def parse_args():
             help="graph raw data")
     parser.add_argument("--years", action="store_true",
             help="graph years")
+    parser.add_argument("--death-location", action="store_true",
+            help="graph by death location")
     parser.add_argument("--age-split", action="store_true",
             help="graph age-split data")
     parser.add_argument('arg', nargs='*',
@@ -174,8 +176,6 @@ def parse_args():
 
 
 def main():
-    #by_death_location()
-
     global opt
     opt = parse_args()
 
@@ -184,6 +184,10 @@ def main():
     if opt.years:
         data, _, _ = overview_year_compare(sel)
         plot_years(data)
+        return
+
+    if opt.death_location:
+        by_death_location()
         return
 
     if opt.age_split:
