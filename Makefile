@@ -85,7 +85,7 @@ day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
 %.dc: day = $*
 
 
-insee.%: release = 2022-01-28
+insee.%: release = 2022-02-25
 
 insee.diff: prev_rel = $(shell ls | grep insee_dc.20 | sort -r | sed -n 2p)
 insee.diff:
@@ -93,15 +93,16 @@ insee.diff:
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
+insee.fetch: csv_file = $(release)_detail_2022.zip
 insee.fetch:
 	: home: https://www.insee.fr/fr/statistiques/4487988
-	wget $(insee.url)/$(release)_detail.zip
+	wget $(insee.url)/$(csv_file)
 	mkdir insee_dc.$(release)
-	cd insee_dc.$(release); unzip ../$(release)_detail.zip
-	rm -f $(release)_detail.zip
+	cd insee_dc.$(release); unzip ../$(csv_file)
+	rm -f $(csv_file)
 	ln -sfT insee_dc.$(release) insee_dc
-	[ -f insee_dc/DC_20202021_det.csv ] && \
-		mv insee_dc/DC_20202021_det.csv insee_dc/DC_2020_det.csv
+	[ -f insee_dc/DC_20212022_det.csv ] && \
+		mv insee_dc/DC_20212022_det.csv insee_dc/DC_2021_det.csv
 
 insee.url = https://www.insee.fr/fr/statistiques/fichier/4487988
 
