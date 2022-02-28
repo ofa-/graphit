@@ -50,7 +50,7 @@ def plot_years(met):
     y.plot() ; plt.show()
 
 
-def plot_age_split(_met, opt, raw_data=0, label_all=""):
+def plot_age_split(_met, opt, raw_width=0, label_all=""):
     split = [200, 90, 80, 70, 60]
     if not label_all: label_all = "métropole"
 
@@ -58,11 +58,11 @@ def plot_age_split(_met, opt, raw_data=0, label_all=""):
 
     y = get_age_split(_met, 2020, split, label_all)
     y = y.drop(59).set_index(index)
-    p = y.plot(alpha=0.5, linewidth=raw_data)
+    p = y.plot(alpha=0.5, linewidth=raw_width)
 
     y1 = get_age_split(_met, 2021, split, label_all)
     y1 = y1.set_index(index)
-    p.plot(y1, alpha=0.5, linewidth=raw_data)
+    p.plot(y1, alpha=0.5, linewidth=raw_width)
 
     Y = get_age_split(_met, 2022, split, label_all).rolling(7, center=True).mean()
     Y = Y.set_index(index[:len(Y)])
