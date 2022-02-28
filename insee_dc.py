@@ -165,6 +165,8 @@ def parse_args():
             help="graph raw data")
     parser.add_argument("--years", action="store_true",
             help="graph years")
+    parser.add_argument("--age-split", action="store_true",
+            help="graph age-split data")
     parser.add_argument('arg', nargs='*',
             help="dept [dept ...]")
 
@@ -185,9 +187,15 @@ def main():
         plot_years(met)
         return
 
-    plot_age_split(_met, raw_data=0.7 if opt.raw else 0,
-                    label_all=sel, opt=opt)
-    #plot_age_split(_met[_met.depdom.str.match("59")])
+    if opt.age_split:
+        _, _, data = overview_year_compare(sel)
+        raw_width = 0.7 if opt.raw else 0
+        plot_age_split(
+                data,
+                raw_width=raw_width,
+                label_all=sel,
+                opt=opt)
+        return
 
 
 main()
