@@ -279,7 +279,8 @@ def reg_dc(data):
             [673,679],
             [680,690],
             [693,704],
-            [705,len(data)],
+            [706,715],
+            [716,len(data)],
         ]
 
     return mk_reg(data.incid_dc, reg_dc_chunks)
