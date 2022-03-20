@@ -232,7 +232,8 @@ def reg_rea(data):
                 [680,688],
                 [689,702],
                 [703,710],
-                [711,len(data)],
+                [711,719],
+                [722,len(data)],
             ]
 
     return mk_reg(data.incid_rea, chunks)
