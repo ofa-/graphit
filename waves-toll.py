@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import pandas as pd
+import json
 
 def main():
 
@@ -21,12 +22,14 @@ def main():
         dc[(dc.index >= "2021-11-01")],
     ]
 
-    print({
+    print(json.dumps(
+    {
         str(w.index[0].date()): {
             "nb jours": len(w.index),
-            "nb morts": w.sum()
+            "nb morts": int(w.sum()),
         }
         for w in wave
-    })
+    },
+    indent=2))
 
 main()

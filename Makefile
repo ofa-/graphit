@@ -86,7 +86,7 @@ day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
 
 
 toll:
-	./waves-toll.py | tr \' \" | jq .
+	./waves-toll.py
 
 
 insee.%: release = 2022-02-25
