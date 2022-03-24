@@ -85,6 +85,10 @@ day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
 %.dc: day = $*
 
 
+toll:
+	./waves-toll.py | tr \' \" | jq .
+
+
 insee.%: release = 2022-02-25
 
 insee.diff: prev_rel = $(shell ls | grep insee_dc.20 | sort -r | sed -n 2p)
