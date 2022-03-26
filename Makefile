@@ -89,7 +89,7 @@ toll:
 	./waves-toll.py
 
 
-insee.%: release = 2022-02-25
+insee.%: release = 2022-03-25
 
 insee.diff: prev_rel = $(shell ls | grep insee_dc.20 | sort -r | sed -n 2p)
 insee.diff:
@@ -97,7 +97,7 @@ insee.diff:
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
-insee.fetch: csv_file = $(release)_detail_2022.zip
+insee.fetch: csv_file = $(release)_detail.zip
 insee.fetch:
 	: home: https://www.insee.fr/fr/statistiques/4487988
 	wget $(insee.url)/$(csv_file)
