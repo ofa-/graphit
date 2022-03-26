@@ -54,7 +54,7 @@ def plot_age_split(_met, opt, raw_width=0, label_all=""):
     split = [200, 90, 80, 70, 60]
     if not label_all: label_all = "métropole"
 
-    index = pd.date_range(freq='D', start="2021-01-01", periods=365)
+    index = pd.date_range(freq='D', start="2022-01-01", periods=365)
 
     y = get_age_split(_met, 2020, split, label_all)
     y = y.drop(59).set_index(index)
