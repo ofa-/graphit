@@ -20,7 +20,9 @@ sed -i '
 fetch_departements() {
 [ -f dep.csv ] || curl -s \
 https://www.regions-et-departements.fr/fichiers/departements-francais.csv \
-| sed '101,$ d' | sed '2,10 s/^/0/' > dep.csv
+| sed '101,$ d' | sed '2,10 s/^/0/' \
+| sed 's/Vandée/Vendée/' \
+> dep.csv
 }
 
 
