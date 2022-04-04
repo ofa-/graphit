@@ -252,7 +252,7 @@ def mk_reg(reg_data, chunks):
 
 
 def reg_dc(data):
-    reg_dc_chunks = [
+    chunks = [
             [6,6+9],
             [33,33+14],
             [61,61+51],
@@ -287,7 +287,7 @@ def reg_dc(data):
             [734,len(data)],
         ]
 
-    return mk_reg(data.incid_dc, reg_dc_chunks)
+    return mk_reg(data.incid_dc, chunks)
 
 
 def predictor(data):
