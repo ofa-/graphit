@@ -123,19 +123,20 @@ def main():
         plot.figure.savefig(arg + ("-full" if opt.full else ""))
 
 
-def add_yaxis_note(plot, data, color, side=False):
+def add_yaxis_note(plot, data, color):
     x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D")
     y = data[str(x.date())]
     point = [x, y]
     text = round(y)
     offset = 15
+    side = (y - data[x - pd.Timedelta(days=1)]) > 0
     plot.annotate(
         text,
         xy=point,
         fontsize="x-small",
         bbox=dict(boxstyle="round4", fc="w", color=color),
         arrowprops=dict(arrowstyle="-|>", lw=.7,
-            connectionstyle="arc3,rad="+("" if side else "+")+"0.2", fc="w"),
+            connectionstyle="arc3,rad="+("-" if side else "+")+"0.2", fc="w"),
         xytext=(
             point[0] - pd.Timedelta(days=3),
             point[1] + (offset if side else -offset) # logscale => offset via * or /
