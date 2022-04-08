@@ -24,6 +24,7 @@ regions = {
         "bfc": [ "Bourgogne Franche-Comté", "21|25|39|58|70|71|89|90" ],
         "fc":  [ "Franche-Comté", "25|39|70|90" ],
         "ge":  [ "Grand Est", "08|10|51|52|54|55|57|67|68|88" ],
+        "brz": [ "Bretagne", "22|29|35|56" ],
         "met": [ "Métropole", "met" ],
 }
 
