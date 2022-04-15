@@ -47,6 +47,7 @@ nonoise = \
 graphit = ./graphit.py --noshow --round --week --style fast
 
 radar: opts = --two-months
+radar: met.opt = --zoom 350 --proj-val
 radar:
 	for dept in $(nonoise); do \
 		$(graphit) $$dept $(opts) & \
@@ -54,7 +55,7 @@ radar:
 	for dept in $(depts); do \
 		$(graphit) $$dept $(opts) --noise & \
 	done; \
-	$(graphit) met $(opts) --zoom 350 --noise & \
+	$(graphit) met $(met.opt) $(opts) --noise & \
 	$(graphit) met --full & \
 	wait
 
