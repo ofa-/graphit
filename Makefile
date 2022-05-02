@@ -59,6 +59,14 @@ radar:
 	$(graphit) met --full & \
 	wait
 
+met:
+	./graphit.py \
+		--style fast \
+		--week --round --noise \
+		--zoom 350 \
+		--proj-val --proj 7 \
+		met
+
 help.fr:
 	curl -sL https://github.com/ofa-/graphit/blob/master/help.fr.md \
 	| sed '/<article/ s:>:\n:' \
