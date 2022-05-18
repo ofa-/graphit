@@ -63,7 +63,7 @@ met:
 	./graphit.py \
 		--style fast \
 		--week --round --noise \
-		--zoom 350 \
+		--zoom 220 \
 		--proj-val --proj 7 \
 		met
 
