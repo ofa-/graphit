@@ -98,7 +98,7 @@ toll:
 	./waves-toll.py
 
 
-insee.%: release = 2022-04-29
+insee.%: release = 2022-06-03
 
 insee.diff: prev_rel = $(shell ls | grep insee_dc.20 | sort -r | sed -n 2p)
 insee.diff:
