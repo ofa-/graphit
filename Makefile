@@ -94,9 +94,13 @@ day.dc: day = $(shell tail -1 data.csv | cut -d\; -f2)
 %.dc: day = $*
 
 
-toll:
+waves-toll:
 	./waves-toll.py
 
+death-rate:
+	./waves-toll.py  |\
+		jq '.[] | ."nb morts" / ."nb jours"' |\
+	        awk '{printf("%.0f\n", $$1)}'
 
 insee.%: release = 2022-06-24
 
