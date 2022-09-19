@@ -128,7 +128,10 @@ def main():
 
 
 def add_yaxis_note(plot, data, color):
-    x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D")
+    import matplotlib.dates as mdates
+    x = min(plot.axes.get_xlim()[1], mdates.date2num(data.index[-1]))
+
+    x = pd.Timestamp(x, unit="D")
     y = data[str(x.date())]
     point = [x, y]
     text = round(y)
