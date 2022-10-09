@@ -46,7 +46,7 @@ def load_data():
 def plot_years(met):
     y = pd.DataFrame({
             y: met[y].reset_index().ANAIS
-                for y in [2018, 2019, 2020, 2021]
+                for y in [2018, 2019, 2020, 2021, 2022]
             },
             index=range(365)
     )
