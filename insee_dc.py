@@ -24,6 +24,9 @@ def overview_year_compare(sel=""):
 
     if sel: _met = dc[dc.depdom.str.match(sel)]
 
+    if opt.at_home:
+        _met = _met[_met.LIEUDEC2 == "Logem"]
+
     elder = _met[_met.ANAIS < (2021-80)]
 
     met = _met.groupby(["ADEC", "MDEC", "JDEC"]).ANAIS.count()
@@ -110,15 +113,16 @@ def set_legend(p):
     p.figure.set(figheight=7, figwidth=10)
     p.figure.subplots_adjust(left=.08, right=.96, top=.94)
     p.set_title("Décès quotidiens toutes causes par tranche d'age\n" +
-                "Données INSEE 2020-22 (couleur), 2018+19 (gris)",
+                "Données INSEE 2020-22 (couleur), 2018+19 (gris)" +
+                "\nDécès à domicile seulement" if opt.at_home else "",
                 fontsize='medium',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
-                x=.98, y=.9, loc="right")
+                x=.98, y=.9 - .02 if opt.at_home else 0, loc="right")
 
 
 def add_yaxis_note(plot, text, data, color):
     x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D") - pd.Timedelta(days=45)
-    y = data[str(x.date())]
+    y = data[str(x.date())] - 30 if opt.at_home else 0
     point = [x, y]
     plot.annotate(
         text,
@@ -129,7 +133,7 @@ def add_yaxis_note(plot, text, data, color):
             connectionstyle="arc3,rad=+0.2", fc="w"),
         xytext=(
             point[0] + pd.Timedelta(days=10),
-            point[1] + 200
+            point[1] + 200 / 10 if opt.at_home else 1
         )
     )
 
@@ -169,6 +173,8 @@ def parse_args():
             help="graph by death location")
     parser.add_argument("--age-split", action="store_true",
             help="graph age-split data")
+    parser.add_argument("--at-home", action="store_true",
+            help="graph only death at home")
     parser.add_argument('arg', nargs='*',
             help="dept [dept ...]")
 
