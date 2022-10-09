@@ -110,13 +110,13 @@ insee.diff:
 	egrep '^\+' | sed '1d' |\
 	cut -c 1-8 | uniq -c
 
-insee.fetch: csv_file = $(release)_detail.zip
+insee.fetch: zip_file = $(release)_detail.zip
 insee.fetch:
 	: home: https://www.insee.fr/fr/statistiques/4487988
-	wget $(insee.url)/$(csv_file)
-	mkdir insee_dc.$(release)
-	cd insee_dc.$(release); unzip ../$(csv_file)
-	rm -f $(csv_file)
+	curl -k $(insee.url)/$(zip_file) > $(zip_file)
+	mkdir -p insee_dc.$(release)
+	cd insee_dc.$(release); 7z x ../$(zip_file)
+	rm -f $(zip_file)
 	ln -sfT insee_dc.$(release) insee_dc
 	[ -f insee_dc/DC_20212022_det.csv ] && \
 		mv insee_dc/DC_20212022_det.csv insee_dc/DC_2021_det.csv
