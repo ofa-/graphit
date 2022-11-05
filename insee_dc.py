@@ -114,15 +114,15 @@ def set_legend(p):
     p.figure.subplots_adjust(left=.08, right=.96, top=.94)
     p.set_title("Décès quotidiens toutes causes par tranche d'age\n" +
                 "Données INSEE 2020-22 (couleur), 2018+19 (gris)" +
-                "\nDécès à domicile seulement" if opt.at_home else "",
+                ("\nDécès à domicile seulement" if opt.at_home else ""),
                 fontsize='medium',
                 bbox={'facecolor':'white', 'alpha':.2, 'boxstyle':'round,pad=.4'},
-                x=.98, y=.9 - .02 if opt.at_home else 0, loc="right")
+                x=.98, y=.9 - (.02 if opt.at_home else 0), loc="right")
 
 
 def add_yaxis_note(plot, text, data, color):
     x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D") - pd.Timedelta(days=45)
-    y = data[str(x.date())] - 30 if opt.at_home else 0
+    y = data[str(x.date())] - (30 if opt.at_home else 0)
     point = [x, y]
     plot.annotate(
         text,
@@ -133,7 +133,7 @@ def add_yaxis_note(plot, text, data, color):
             connectionstyle="arc3,rad=+0.2", fc="w"),
         xytext=(
             point[0] + pd.Timedelta(days=10),
-            point[1] + 200 / 10 if opt.at_home else 1
+            point[1] + 200 / (10 if opt.at_home else 1)
         )
     )
 
