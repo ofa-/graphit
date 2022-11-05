@@ -63,7 +63,7 @@ met:
 	./graphit.py \
 		--style fast \
 		--week --round --noise \
-		--zoom 220 \
+		--zoom 150 \
 		--proj-val --proj $$((12 - `date +%u`)) \
 		met
 
