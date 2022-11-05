@@ -64,7 +64,7 @@ met:
 		--style fast \
 		--week --round --noise \
 		--zoom 220 \
-		--proj-val --proj 7 \
+		--proj-val --proj $$((12 - `date +%u`)) \
 		met
 
 help.fr:
