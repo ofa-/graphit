@@ -125,3 +125,6 @@ insee.url = https://www.insee.fr/fr/statistiques/fichier/4487988
 
 insee.stat:
 	./insee_dc.py --baseline-noise --age-split
+
+insee.home:
+	./insee_dc.py --baseline-noise --age-split --at-home
