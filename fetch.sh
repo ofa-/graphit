@@ -17,6 +17,14 @@ sed -i '
 ' data.csv
 }
 
+swap_monday_tuesday() {
+sed -i '
+	s/2022-12-26/XXX/
+	s/2022-12-27/2022-12-26/
+	s/XXX/2022-12-27/
+' data.csv
+}
+
 
 fetch_departements() {
 [ -f dep.csv ] || curl -s \
@@ -29,3 +37,4 @@ https://www.regions-et-departements.fr/fichiers/departements-francais.csv \
 
 remove_outliers
 fetch_departements
+swap_monday_tuesday
