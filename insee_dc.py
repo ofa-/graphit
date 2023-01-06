@@ -86,7 +86,7 @@ def plot_age_split(_met, opt, raw_width=0, label_all=""):
     plot_avg(p, y1)
 
     add_yaxis_note(p, "2020", y[label_all], 'grey')
-    add_yaxis_note(p, "2021", y1[label_all], 'grey')
+    add_yaxis_note(p, "2022", Y[label_all], 'blue', days=13)
 
     set_legend(p)
 
@@ -120,8 +120,8 @@ def set_legend(p):
                 x=.98, y=.9 - (.02 if opt.at_home else 0), loc="right")
 
 
-def add_yaxis_note(plot, text, data, color):
-    x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D") - pd.Timedelta(days=45)
+def add_yaxis_note(plot, text, data, color, days=45):
+    x = pd.Timestamp(plot.axes.get_xlim()[1], unit="D") - pd.Timedelta(days=days)
     y = data[str(x.date())] - (30 if opt.at_home else 0)
     point = [x, y]
     plot.annotate(
