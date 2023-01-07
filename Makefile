@@ -78,10 +78,14 @@ fetch:
 	./fetch.sh
 
 wait-for-data.csv:
-	while [ `tail -1 data.csv | cut -d ';' -f2` != `date +%F` ]; do \
-		sleep 1m	;\
+	@(\
+	today=`date +%F`	;\
+	last_data() { tail -1 data.csv | cut -d ';' -f2; } ;\
+	while [ "`last_data`" != $$today ]; do \
 		./fetch.sh	;\
-	done
+		printf "."	;\
+		sleep 1m	;\
+	done ) 2>/dev/null
 
 
 day.dc:
