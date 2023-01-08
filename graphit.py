@@ -85,8 +85,8 @@ def main():
         show_dbl(plot, reg_dc_line, reg_dc_chunks, color="red")
         annotate(plot, pred, cuts)
 
-        avg_dc_percent = 25
-        avg_dc = plot_avg_dc(plot, dc_ref, avg_dc_percent)
+        if opt.ref_dc:
+            avg_dc = plot_avg_dc(plot, dc_ref, opt.ref_dc)
         if opt.round:
             dc_noise = dc_noise.round()
         if opt.noise:
@@ -116,7 +116,8 @@ def main():
         set_title(plot, arg, double_times(data, reg_rea_chunks[-2:]))
 
         x = pd.Timestamp(plot.axes.get_xlim()[0], unit="D")
-        add_note(plot, x, avg_dc, f"{avg_dc_percent}%")
+        add_note(plot, x, avg_dc, f"{opt.ref_dc}%") \
+                if opt.ref_dc else None
         add_note(plot, x, dc_noise, f"bruit") \
                 if opt.noise else None
 
@@ -714,6 +715,9 @@ def parse_args():
             help="graph predictor")
     parser.add_argument("--noise", action="store_true",
             help="show mortality noise level")
+    parser.add_argument("--ref-dc", action="store",
+            type=int, metavar='<% level>', default=0,
+            help="show reference mortality level")
     parser.add_argument("--round", action="store_true",
             help="show rounded values graphs")
     parser.add_argument("--week", action="store_true",
