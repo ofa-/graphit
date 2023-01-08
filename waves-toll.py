@@ -20,7 +20,9 @@ def main():
         dc[(dc.index >= "2020-09-01") & (dc.index <= "2021-06-30")],
         dc[(dc.index >= "2021-07-14") & (dc.index <= "2021-10-10")],
         dc[(dc.index >= "2021-11-01") & (dc.index <= "2022-05-31")],
-        dc[(dc.index >= "2022-06-01")],
+        dc[(dc.index >= "2022-06-01") & (dc.index <= "2022-09-15")],
+        dc[(dc.index >= "2022-09-16") & (dc.index <= "2022-11-13")],
+        dc[(dc.index >= "2022-11-14")],
     ]
 
     print(json.dumps(
