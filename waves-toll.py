@@ -27,7 +27,7 @@ def main():
 
     print(json.dumps(
     {
-        str(w.index[0].date()): {
+        str(w.index[0].date()) + " > " + str(w.index[-1].date()): {
             "nb jours": len(w.index),
             "nb morts": int(w.sum()),
         }
