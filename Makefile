@@ -81,9 +81,10 @@ wait-for-data.csv:
 	@(\
 	today=`date +%F`	;\
 	last_data() { tail -1 data.csv | cut -d ';' -f2; } ;\
-	while [ "`last_data`" != $$today ]; do \
+	while true; do \
 		./fetch.sh	;\
 		printf "."	;\
+		if [ "`last_data`" = $$today ]; then break; fi;\
 		sleep 1m	;\
 	done ) 2>/dev/null
 
