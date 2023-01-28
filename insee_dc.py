@@ -37,7 +37,7 @@ def overview_year_compare(sel=""):
 
 def load_data():
     dc = pd.DataFrame()
-    for year in [ 2018, 2019, 2020, 2021 ]:
+    for year in [ 2018, 2019, 2020, 2021, 20222023 ]:
         dc = dc.append(
                 pd.read_csv(f"insee_dc/DC_{year}_det.csv", sep=";"))
     return dc
