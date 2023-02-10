@@ -106,7 +106,8 @@ def main():
             plot_bars(plot, sums.incid_dc, alpha=.04, color="orange", zorder=-1)
 
         if opt.réa:
-            sums.incid_rea.plot(marker=".", ms=3, ls="", alpha=.1, color="blue")
+            #sums.incid_rea.plot(marker=".", ms=3, ls="", alpha=.1, color="blue")
+            plot_bars(plot, sums.incid_rea, alpha=.04, color="blue", zorder=-1)
 
         if opt.week:
             plot_weekly_avg(sums.incid_dc, alpha=.5, color="#D0D", zorder=-1)
