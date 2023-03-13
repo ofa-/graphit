@@ -107,7 +107,7 @@ death-rate:
 		jq '.[] | ."nb morts" / ."nb jours"' |\
 	        awk '{printf("%.0f\n", $$1)}'
 
-insee.%: release = 2023-01-27
+insee.%: release = 2023-02-24
 
 insee.diff: prev_rel = $(shell ls | grep insee_dc.20 | sort -r | sed -n 2p)
 insee.diff:
